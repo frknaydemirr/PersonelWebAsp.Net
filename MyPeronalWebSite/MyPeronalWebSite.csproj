@@ -1,4 +1,5 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -43,7 +44,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -1224,6 +1233,16 @@
     <Content Include="Content\js\vendor\waypoints.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Areas\Admin\Views\data.html" />
+    <Content Include="Models\VT\PersonelDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PersonelDB.edmx</DependentUpon>
+      <LastGenOutput>PersonelDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\VT\PersonelDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PersonelDB.edmx</DependentUpon>
+      <LastGenOutput>PersonelDB.cs</LastGenOutput>
+    </Content>
     <Content Include="Views\Shared\index-03.html" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -1233,6 +1252,54 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VT\PersonelDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PersonelDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VT\PersonelDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PersonelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VT\PersonelDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PersonelDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VT\sysdiagram.cs">
+      <DependentUpon>PersonelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VT\Tbl_AboutMe.cs">
+      <DependentUpon>PersonelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VT\Tbl_Contact.cs">
+      <DependentUpon>PersonelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VT\Tbl_CurrentProject.cs">
+      <DependentUpon>PersonelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VT\Tbl_Language.cs">
+      <DependentUpon>PersonelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VT\Tbl_Navbar.cs">
+      <DependentUpon>PersonelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VT\Tbl_ProjectDetails.cs">
+      <DependentUpon>PersonelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VT\Tbl_Projects.cs">
+      <DependentUpon>PersonelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VT\Tbl_Resource.cs">
+      <DependentUpon>PersonelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VT\Tbl_Technologies.cs">
+      <DependentUpon>PersonelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VT\Tbl_User.cs">
+      <DependentUpon>PersonelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1291,6 +1358,13 @@
     <Content Include="Content\images\portfolio\06.webp" />
     <Content Include="Content\images\portfolio\07.webp" />
     <Content Include="Content\images\portfolio\08.webp" />
+    <EntityDeploy Include="Models\VT\PersonelDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PersonelDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\VT\PersonelDB.edmx.diagram">
+      <DependentUpon>PersonelDB.edmx</DependentUpon>
+    </Content>
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -1305,7 +1379,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Models\ViewModel\" />
-    <Folder Include="Models\VT\" />
     <Folder Include="Script\" />
   </ItemGroup>
   <ItemGroup>
@@ -1313,6 +1386,7 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1344,7 +1418,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

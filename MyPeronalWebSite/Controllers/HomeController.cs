@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyPeronalWebSite.Models.VT;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,7 +9,7 @@ namespace MyPeronalWebSite.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
+        PersonelWebDbEntities Db = new PersonelWebDbEntities();
         public ActionResult Index()
         {
             return View();

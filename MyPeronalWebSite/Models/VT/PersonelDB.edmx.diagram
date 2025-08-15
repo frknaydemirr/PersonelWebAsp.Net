@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0418d649ca254c51885e4e05fcd7f46a" Name="Diagram1">
+        <EntityTypeShape EntityType="PersonelWebDbModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_AboutMe" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_Contact" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_CurrentProject" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_Language" Width="1.5" PointX="0.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_Navbar" Width="1.5" PointX="3" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_ProjectDetails" Width="1.5" PointX="5.25" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_Projects" Width="1.5" PointX="3" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_Resource" Width="1.5" PointX="3" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_Technologies" Width="1.5" PointX="3" PointY="28.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_User" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_AboutMe_Tbl_Language" ManuallyRouted="false" />
+        <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_Contact_Tbl_Language" ManuallyRouted="false" />
+        <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_CurrentProject_Tbl_Language" ManuallyRouted="false" />
+        <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_Navbar_Tbl_Language" ManuallyRouted="false" />
+        <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_ProjectDetails_Tbl_Language" ManuallyRouted="false" />
+        <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_Projects_Tbl_Language" ManuallyRouted="false" />
+        <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_Projects_Tbl_Language1" ManuallyRouted="false" />
+        <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_Resource_Tbl_Language" ManuallyRouted="false" />
+        <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_Technologies_Tbl_Language" ManuallyRouted="false" />
+        <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_ProjectDetails_Tbl_Projects" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
