@@ -1233,6 +1233,11 @@
     <Content Include="Content\js\vendor\waypoints.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Areas\Admin\Views\data.html" />
+    <Content Include="IMG\canvaa%29-fotor-202501261107-photoaidcom-cropped.png" />
+    <Content Include="IMG\Ekran görüntüsü 2025-08-01 003957.png" />
+    <Content Include="IMG\Ekran görüntüsü 2025-08-16 233258.png" />
+    <Content Include="IMG\Ekran görüntüsü 2025-08-16 233318.png" />
+    <Content Include="IMG\Ekran görüntüsü 2025-08-16 233618.png" />
     <Content Include="Models\VT\PersonelDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>PersonelDB.edmx</DependentUpon>
@@ -1244,6 +1249,7 @@
       <LastGenOutput>PersonelDB.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Shared\index-03.html" />
+    <Content Include="Views\Shared\project-details.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -1253,6 +1259,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModel\IndexViewModel.cs" />
+    <Compile Include="Models\ViewModel\ProjectDetailViewModel.cs" />
     <Compile Include="Models\VT\PersonelDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1365,9 +1373,12 @@
     <Content Include="Models\VT\PersonelDB.edmx.diagram">
       <DependentUpon>PersonelDB.edmx</DependentUpon>
     </Content>
+    <Content Include="CV\Furkan Aydemir ENG.pdf" />
+    <Content Include="CV\Furkan aydemir TR.pdf" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\ProjectDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1378,7 +1389,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Controllers\" />
-    <Folder Include="Models\ViewModel\" />
     <Folder Include="Script\" />
   </ItemGroup>
   <ItemGroup>
