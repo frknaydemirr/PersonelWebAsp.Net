@@ -1,9 +1,12 @@
 ﻿using MyPeronalWebSite.Models.VT;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace MyPeronalWebSite.Models.ViewModel
 {
-    public class IndexViewModel
+    public class NavbarViewModel
     {
         public Tbl_AboutMe Tbl_AboutMe { get; set; }
 
@@ -17,10 +20,6 @@ namespace MyPeronalWebSite.Models.ViewModel
         public List<Tbl_Resource> Tbl_Resource { get; set; }
 
         public List<Tbl_Technologies> Tbl_Technologies { get; set; }
-
-
-        public NavbarViewModel NavbarViewModel { get; internal set; }
-
 
     }
 }
