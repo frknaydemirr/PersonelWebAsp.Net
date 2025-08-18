@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PersonelWebDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PersonelWebDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -110,6 +110,15 @@
           <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Page" Type="nvarchar(max)" Nullable="false" />
           <Property Name="LanguageID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Skills">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WhichSkills" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LanguageID" Type="int" Nullable="false" />
+          <Property Name="Icon" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Tbl_Technologies">
           <Key>
@@ -257,6 +266,7 @@
           <EntitySet Name="Tbl_ProjectDetails" EntityType="Self.Tbl_ProjectDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Projects" EntityType="Self.Tbl_Projects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Resource" EntityType="Self.Tbl_Resource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Skills" EntityType="Self.Tbl_Skills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Technologies" EntityType="Self.Tbl_Technologies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_User" EntityType="Self.Tbl_User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Tbl_AboutMe_Tbl_Language" Association="Self.FK_Tbl_AboutMe_Tbl_Language">
@@ -300,8 +310,7 @@
             <End Role="Tbl_Technologies" EntitySet="Tbl_Technologies" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PersonelWebDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -619,7 +628,17 @@
             <End Role="Tbl_Projects" EntitySet="Tbl_Projects" />
             <End Role="Tbl_ProjectDetails" EntitySet="Tbl_ProjectDetails" />
           </AssociationSet>
+          <EntitySet Name="Tbl_Skills" EntityType="PersonelWebDbModel.Tbl_Skills" />
         </EntityContainer>
+        <EntityType Name="Tbl_Skills">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WhichSkills" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LanguageID" Type="Int32" Nullable="false" />
+          <Property Name="Icon" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -756,6 +775,16 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Skills">
+            <EntityTypeMapping TypeName="PersonelWebDbModel.Tbl_Skills">
+              <MappingFragment StoreEntitySet="Tbl_Skills">
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="WhichSkills" ColumnName="WhichSkills" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

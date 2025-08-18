@@ -10,10 +10,9 @@ namespace MyPeronalWebSite.Models.ViewModel
     {
 
 
-        public Tbl_ProjectDetails Tbl_ProjectDetails { get; set; }
-
-        public Tbl_Navbar Tbl_Navbar { get; set; }
-
+        public Tbl_Projects Project { get; set; }
+        public List<Tbl_Resource> Resources { get; set; }
+        public List<Tbl_Navbar> Navbar { get; set; }
         public Tbl_AboutMe Tbl_AboutMe { get; set; }
 
 

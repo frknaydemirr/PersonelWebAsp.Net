@@ -13,6 +13,10 @@ namespace MyPeronalWebSite
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // Attribute routing'i aktif et
+            routes.MapMvcAttributeRoutes();
+
+            // Default route (her zaman en sona bırakılır)
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

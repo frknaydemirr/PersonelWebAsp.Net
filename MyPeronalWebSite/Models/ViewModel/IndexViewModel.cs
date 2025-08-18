@@ -18,7 +18,7 @@ namespace MyPeronalWebSite.Models.ViewModel
 
         public List<Tbl_Technologies> Tbl_Technologies { get; set; }
 
-
+        public List<Tbl_Skills> Tbl_Skills { get; set; }
         public NavbarViewModel NavbarViewModel { get; internal set; }
 
 

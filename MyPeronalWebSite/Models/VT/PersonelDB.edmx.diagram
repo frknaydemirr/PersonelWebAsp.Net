@@ -26,6 +26,7 @@
         <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_Resource_Tbl_Language" ManuallyRouted="false" />
         <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_Technologies_Tbl_Language" ManuallyRouted="false" />
         <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_ProjectDetails_Tbl_Projects" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_Skills" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

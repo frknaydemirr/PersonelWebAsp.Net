@@ -1238,6 +1238,7 @@
     <Content Include="IMG\Ekran görüntüsü 2025-08-16 233258.png" />
     <Content Include="IMG\Ekran görüntüsü 2025-08-16 233318.png" />
     <Content Include="IMG\Ekran görüntüsü 2025-08-16 233618.png" />
+    <Content Include="IMG\Ekran görüntüsü 2025-08-17 212512.png" />
     <Content Include="Models\VT\PersonelDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>PersonelDB.edmx</DependentUpon>
@@ -1260,6 +1261,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\UrlHelperClass.cs" />
     <Compile Include="Models\ViewModel\IndexViewModel.cs" />
     <Compile Include="Models\ViewModel\NavbarViewModel.cs" />
     <Compile Include="Models\ViewModel\ProjectDetailViewModel.cs" />
@@ -1303,6 +1305,9 @@
       <DependentUpon>PersonelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VT\Tbl_Resource.cs">
+      <DependentUpon>PersonelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VT\Tbl_Skills.cs">
       <DependentUpon>PersonelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VT\Tbl_Technologies.cs">

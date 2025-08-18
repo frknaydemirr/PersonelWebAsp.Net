@@ -36,5 +36,6 @@ namespace MyPeronalWebSite.Models.VT
         public virtual DbSet<Tbl_Resource> Tbl_Resource { get; set; }
         public virtual DbSet<Tbl_Technologies> Tbl_Technologies { get; set; }
         public virtual DbSet<Tbl_User> Tbl_User { get; set; }
+        public virtual DbSet<Tbl_Skills> Tbl_Skills { get; set; }
     }
 }
