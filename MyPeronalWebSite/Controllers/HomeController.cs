@@ -28,20 +28,13 @@ namespace MyPeronalWebSite.Controllers
             return View(vm);
         }
 
-
-        [Route("Project/{newTitle}-{id:int}")]
-        public ActionResult ProjectDetail(int? id)
+        [Route("project-details/{title}-{id:int}")]
+        public ActionResult ProjectDetail(string title, int id)
         {
-            if (!id.HasValue)
-            {
-                return RedirectToAction("Index");
-            }
-
             var dil = Request.Cookies["lang"]?.Value ?? "tr";
             int langId = db.Tbl_Language.FirstOrDefault(x => x.ShortTitle == dil)?.ID ?? 1;
 
             var project = db.Tbl_Projects.FirstOrDefault(x => x.ID == id && x.LanguageID == langId);
-
             if (project == null)
             {
                 return HttpNotFound();
@@ -50,15 +43,12 @@ namespace MyPeronalWebSite.Controllers
             ProjectDetailViewModel vm = new ProjectDetailViewModel
             {
                 Project = project,
-                Resources = db.Tbl_Resource.Where(x => x.LanguageID == langId && x.Page == "ProjectDetail").ToList(),
-                //Navbar = db.Tbl_Navbar.Where(x => x.LanguageID == langId).ToList()
-                // ihtiyacına göre slider, firma bilgileri vb. ekleyebilirsin
+                Resources = db.Tbl_Resource.Where(x => x.LanguageID == langId && x.Page == "ProjectDetail").ToList()
             };
-
-          
 
             return View(vm);
         }
+
 
 
     }

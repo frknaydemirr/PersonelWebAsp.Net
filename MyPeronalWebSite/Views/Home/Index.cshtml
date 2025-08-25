@@ -324,59 +324,7 @@
 <!-- Tpm Our Supported Company Area End -->
 
 
-<div class="tpm-custom-box-bg">
-    <!-- Tpm Latest Portfolio Area Start -->
-    <div class="latest-portfolio-area custom-column-grid">
-        <div class="container">
-            <div class="section-head mb--60">
-                <div class="section-sub-title center-title tmp-scroll-trigger tmp-fade-in animation-order-1">
-                    <span class="subtitle">Latest Portfolio</span>
-                </div>
-                <h2 class="title split-collab tmp-scroll-trigger tmp-fade-in animation-order-2">Transforming Ideas into Exceptional </h2>
-                <p class="description section-sm tmp-scroll-trigger tmp-fade-in animation-order-3">
-                    Business consulting consultants provide expert advice and guida
-                    businesses to help them improve their performance, efficiency, and organizational
-                </p>
-            </div>
-            <div class="row">
-                @foreach (var item in Model.Tbl_Projects)
-                {
-                    <div class="col-lg-6 col-md-6">
-                        <div class="latest-portfolio-card tmp-hover-link tmp-scroll-trigger tmp-fade-in animation-order-1">
-                            <div class="portfoli-card-img">
-                                <div class="img-box v2">
-                                    <a href="project-details.html">
-                                        <img class="img-primary hidden-on-mobile" src="@item.ProjectImg" style="width:100%;" alt="Blog Thumbnail">
 
-                                        <img class="img-secondary" src="@item.ProjectImg" style="width:100%; alt="BLog Thumbnail">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="portfolio-card-content-wrap">
-                                <div class="content-left">
-                                    <h3 class="portfolio-card-title">
-                                        <a class="link" href="project-details.html">@item.ProjectTitle</a>
-                                    </h3>
-                                    <p class="portfoli-card-para">@item.ProjectEntryDescription</p>
-                                </div>
-                                <a href="project-details.html" class="tmp-arrow-icon-btn">
-                                    <div class="btn-inner">
-                                        <i class="tmp-icon fa-solid fa-arrow-up-right"></i>
-                                        <i class="tmp-icon-bottom fa-solid fa-arrow-up-right"></i>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-
-
-            </div>
-        </div>
-    </div>
-
-</div>
 
 
 <!-- Tpm My Price plan Start -->
@@ -389,9 +337,9 @@
     <div class="container">
         <div class="section-head mb--50">
             <div class="section-sub-title center-title tmp-scroll-trigger tmp-fade-in animation-order-1">
-                <span class="subtitle">Blog and news</span>
+                <span class="subtitle">Tamamlanmış Projeler </span>
             </div>
-            <h2 class="title split-collab tmp-scroll-trigger tmp-fade-in animation-order-2">Current Project</h2>
+            <h2 class="title split-collab tmp-scroll-trigger tmp-fade-in animation-order-2">PROJELER</h2>
         </div>
         <div class="row">
             @foreach (var item in Model.Tbl_Projects)
@@ -400,12 +348,12 @@
                     <div class="latest-portfolio-card tmp-hover-link tmp-scroll-trigger tmp-fade-in animation-order-1">
                         <div class="portfoli-card-img">
                             <div class="img-box v2">
-                                <a title="projectdetail" href="@Url.Action("ProjectDetail", "Home", new {
-                                newTitle = Url.FriendlyURLTitle(item.ProjectTitle),
-                                id = item.ID
-                            })">
+                                <a title="projectdetail"
+                                   href="@Url.Action("ProjectDetail", "Home", new {
+                                       title = Url.FriendlyURLTitle(item.ProjectTitle),
+                                       id = item.ID
+                                   })">
                                     <img class="img-primary hidden-on-mobile" src="@item.ProjectImg" style="width:100%;" alt="@item.ProjectTitle" />
-
                                     <img class="img-secondary" src="@item.ProjectImg" style="width:100%;" alt="@item.ProjectTitle" />
                                 </a>
                             </div>
@@ -413,19 +361,21 @@
                         <div class="portfolio-card-content-wrap">
                             <div class="content-left">
                                 <h3 class="portfolio-card-title">
-                                    <a class="link" title="projectdetail" href="@Url.Action("ProjectDetail", "Home", new {
-                                    newTitle = Url.FriendlyURLTitle(item.ProjectTitle),
-                                    id = item.ID
-                                })">
+                                    <a class="link" title="projectdetail"
+                                       href="@Url.Action("ProjectDetail", "Home", new {
+                                           title = Url.FriendlyURLTitle(item.ProjectTitle),
+                                           id = item.ID
+                                       })">
                                         @item.ProjectTitle
                                     </a>
                                 </h3>
                                 <p class="portfoli-card-para">@item.ProjectEntryDescription</p>
                             </div>
-                            <a title="projectdetail" href="@Url.Action("ProjectDetail", "Home", new {
-                            newTitle = Url.FriendlyURLTitle(item.ProjectTitle),
-                            id = item.ID
-                        })" class="tmp-arrow-icon-btn">
+                            <a title="projectdetail"
+                               href="@Url.Action("ProjectDetail", "Home", new {
+                                   title = Url.FriendlyURLTitle(item.ProjectTitle),
+                                   id = item.ID
+                               })" class="tmp-arrow-icon-btn">
                                 <div class="btn-inner">
                                     <i class="tmp-icon fa-solid fa-arrow-up-right"></i>
                                     <i class="tmp-icon-bottom fa-solid fa-arrow-up-right"></i>
@@ -436,10 +386,74 @@
                 </div>
             }
         </div>
-
-
     </div>
 </section>
+
+
+
+<section class="blog-and-news-are tmp-section-gap">
+    <div class="container">
+        <div class="section-head mb--50">
+            <div class="section-sub-title center-title tmp-scroll-trigger tmp-fade-in animation-order-1">
+                <span class="subtitle">Şu Anda Geliştirilen Projeler  </span>
+            </div>
+            <h2 class="title split-collab tmp-scroll-trigger tmp-fade-in animation-order-2">PROJELER</h2>
+        </div>
+        <div class="row">
+            @foreach (var item in Model.Tbl_CurrentProject)
+            {
+                <div class="col-lg-6 col-md-6">
+                    <div class="latest-portfolio-card tmp-hover-link tmp-scroll-trigger tmp-fade-in animation-order-1">
+                        <div class="portfoli-card-img">
+                            <div class="img-box v2">
+                                <a title="projectdetail"
+                                   href="@Url.Action("ProjectDetail", "Home", new {
+                                       title = Url.FriendlyURLTitle(item.ProjectTitle),
+                                       id = item.ID
+                                   })">
+                                    <img class="img-primary hidden-on-mobile" src="@item.ImageURL" style="width:100%;" alt="@item.ProjectTitle" />
+                                    <img class="img-secondary" src="@item.ImageURL" style="width:100%;" alt="@item.ProjectTitle" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="portfolio-card-content-wrap">
+                            <div class="content-left">
+                                <h3 class="portfolio-card-title">
+                                    <a class="link" title="projectdetail"
+                                       href="@Url.Action("ProjectDetail", "Home", new {
+                                           title = Url.FriendlyURLTitle(item.ProjectTitle),
+                                           id = item.ID
+                                       })">
+                                        @item.ProjectTitle
+                                    </a>
+                                </h3>
+                                <p class="portfoli-card-para">@item.ProjectTitle</p>
+                            </div>
+                            <a title="projectdetail"
+                               href="@Url.Action("ProjectDetail", "Home", new {
+                                   title = Url.FriendlyURLTitle(item.ProjectTitle),
+                                   id = item.ID
+                               })" class="tmp-arrow-icon-btn">
+                                <div class="btn-inner">
+                                    <i class="tmp-icon fa-solid fa-arrow-up-right"></i>
+                                    <i class="tmp-icon-bottom fa-solid fa-arrow-up-right"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
 
 <section class="get-in-touch-area tmp-section-gapBottom">
     <div class="container">

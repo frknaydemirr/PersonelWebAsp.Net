@@ -222,24 +222,20 @@
     <div class="project-details-area-wrapper tmp-section-gap">
         <div class="container">
             <div class="row">
+               
                 <div class="col-lg-12">
                     <div class="project-details-thumnail-wrap">
-                        <img src="assets/images/projects-details/thumnail-img.png" alt="thumbnail">
+                        <img src="@Model.Project.ProjectImg" alt="thumbnail">
                     </div>
                 </div>
                 <div class="col-lg-8">
                     <div class="project-details-content-wrap">
-                        <h2 class="title">Supporting Health Initiatives</h2>
+                        <h2 class="title">@Model.Project.ProjectEntryTitle</h2>
                         <p class="docs">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                            printer took a galltype and scrambled it to make a type specimen book. It has survived not
-                            only five centuries tinto electronic typesetting remaining essentially unchanged
+                          @Model.Project.ProjectEntryDescription
                         </p>
                         <p class="docs">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                            print
+                            @Model.Project.ProjectDescription
                         </p>
 
                         <div class="check-box-wrap">
