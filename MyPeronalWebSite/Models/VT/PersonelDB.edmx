@@ -100,6 +100,7 @@
           <Property Name="ProjectDescription" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ProjectEntryTitle" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ProjectEntryDescription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="GithubURL" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Tbl_Resource">
           <Key>
@@ -208,30 +209,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_Projects_Tbl_Language">
-          <End Role="Tbl_Language" Type="Self.Tbl_Language" Multiplicity="1" />
-          <End Role="Tbl_Projects" Type="Self.Tbl_Projects" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_Language">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Tbl_Projects">
-              <PropertyRef Name="LanguageID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_Projects_Tbl_Language1">
-          <End Role="Tbl_Language" Type="Self.Tbl_Language" Multiplicity="1" />
-          <End Role="Tbl_Projects" Type="Self.Tbl_Projects" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_Language">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Tbl_Projects">
-              <PropertyRef Name="LanguageID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Tbl_Resource_Tbl_Language">
           <End Role="Tbl_Language" Type="Self.Tbl_Language" Multiplicity="1" />
           <End Role="Tbl_Resource" Type="Self.Tbl_Resource" Multiplicity="*" />
@@ -292,14 +269,6 @@
           <AssociationSet Name="FK_Tbl_ProjectDetails_Tbl_Projects" Association="Self.FK_Tbl_ProjectDetails_Tbl_Projects">
             <End Role="Tbl_Projects" EntitySet="Tbl_Projects" />
             <End Role="Tbl_ProjectDetails" EntitySet="Tbl_ProjectDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_Projects_Tbl_Language" Association="Self.FK_Tbl_Projects_Tbl_Language">
-            <End Role="Tbl_Language" EntitySet="Tbl_Language" />
-            <End Role="Tbl_Projects" EntitySet="Tbl_Projects" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_Projects_Tbl_Language1" Association="Self.FK_Tbl_Projects_Tbl_Language1">
-            <End Role="Tbl_Language" EntitySet="Tbl_Language" />
-            <End Role="Tbl_Projects" EntitySet="Tbl_Projects" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_Resource_Tbl_Language" Association="Self.FK_Tbl_Resource_Tbl_Language">
             <End Role="Tbl_Language" EntitySet="Tbl_Language" />
@@ -427,6 +396,7 @@
           <NavigationProperty Name="Tbl_Language" Relationship="Self.FK_Tbl_Projects_Tbl_Language" FromRole="Tbl_Projects" ToRole="Tbl_Language" />
           <NavigationProperty Name="Tbl_Language1" Relationship="Self.FK_Tbl_Projects_Tbl_Language1" FromRole="Tbl_Projects" ToRole="Tbl_Language" />
           <NavigationProperty Name="Tbl_ProjectDetails" Relationship="Self.FK_Tbl_ProjectDetails_Tbl_Projects" FromRole="Tbl_Projects" ToRole="Tbl_ProjectDetails" />
+          <Property Name="GithubURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Tbl_Resource">
           <Key>
@@ -739,6 +709,7 @@
           <EntitySetMapping Name="Tbl_Projects">
             <EntityTypeMapping TypeName="PersonelWebDbModel.Tbl_Projects">
               <MappingFragment StoreEntitySet="Tbl_Projects">
+                <ScalarProperty Name="GithubURL" ColumnName="GithubURL" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
                 <ScalarProperty Name="ProjectTitle" ColumnName="ProjectTitle" />
