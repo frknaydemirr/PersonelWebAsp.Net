@@ -5,12 +5,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace MyPeronalWebSite.Controllers
 {
     public class HomeController : Controller
     {
         PersonelWebDbEntities db = new PersonelWebDbEntities();
+
+        [Route("")]
+        [Route("Anasayfa")]
+        [Route("Home")]
         public ActionResult Index()
         {
             

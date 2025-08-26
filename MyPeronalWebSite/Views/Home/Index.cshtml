@@ -173,13 +173,13 @@
                 <div class="col-lg-3">
                     <div class="banner-right-content">
                         <div class="about-me tmp-scroll-trigger tmp-fade-in animation-order-1">
-                            <h3 class="title">About Me</h3>
+                            <h3 class="title">Hakkımda</h3>
                             <p class="para tmp-title-split">
                                 @Model.Tbl_AboutMe.Description
                             </p>
                         </div>
                         <div class="find-me-on mt--40 tmp-scroll-trigger tmp-fade-in animation-order-2">
-                            <h2 class="find-me-on-title">Find me on</h2>
+                            <h2 class="find-me-on-title">Bana Ulaşabilirsiniz</h2>
                             <div class="social-link banner">
 
                                 <a href="@Model.Tbl_AboutMe.LinkedlnURL"><i class="fa-brands fa-linkedin-in"></i></a>
@@ -230,7 +230,7 @@
 <!-- Tpm Counter Area End -->
 <!-- Tpm Latest Service Area Start -->
 <section class="latest-service-area tmp-section-gapTop">
-    <div class="container">
+    <div class="container" id="about">
         <div class="section-head mb--60">
             <div class="section-sub-title center-title tmp-scroll-trigger tmp-fade-in animation-order-1">
                 <span class="subtitle">Latest Service</span>
@@ -244,32 +244,29 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="service-card-v2 tmponhover tmp-scroll-trigger tmp-fade-in animation-order-1">
-                    <h2 class="service-card-num"><span>01.</span>A Portfolio of Creativity</h2>
+                    <h2 class="service-card-num"><span>1.</span>Kısaca Ben </h2>
                     <p class="service-para">
-                        Business consulting consultants provide expert advice and guida the a
-                        businesses to help theme their performance efficiency
+                        @Model.Tbl_AboutMe.ShortDescription
                     </p>
                 </div>
-                <div class="service-card-v2 tmponhover tmp-scroll-trigger tmp-fade-in animation-order-2">
-                    <h2 class="service-card-num"><span>02.</span>My Portfolio of Innovation</h2>
-                    <p class="service-para">My work is driven by the belief that thoughtful design and strategic planning can empower brands, transform businesses</p>
-                </div>
-                <div class="service-card-v2 tmponhover tmp-scroll-trigger tmp-fade-in animation-order-3">
-                    <h2 class="service-card-num"><span>03.</span>A Showcase of My Projects</h2>
-                    <p class="service-para">In this portfolio, you’ll find a curated selection of projects that highlight my skills in [Main Areas, e.g., responsive web design</p>
-                </div>
+              
             </div>
             <div class="col-lg-6">
                 <div class="service-card-user-image">
-
-                    <img class="tmp-scroll-trigger tmp-zoom-in animation-order-1" src="@Model.Tbl_AboutMe.ImageURL" alt="latest-user-image">
-
+                  
+                        <img class="tmp-scroll-trigger tmp-zoom-in animation-order-1" src="@Model.Tbl_AboutMe.ImageURL" alt="latest-user-image">
+                    
 
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+
+
+
+
 <!-- Tpm Latest Service Area End -->
 <!-- tmp skill area start -->
 <!-- tmp skill area end -->
@@ -279,54 +276,46 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
+                <h3 class="tech-title">Kulla
+                nılan Teknolojiler</h3>
                 <div class="support-company-logo tmp-scroll-trigger tmp-fade-in animation-order-1">
-                    <img src="/Content/images/our-supported-company/company-logo-1.svg" alt="Reeni - Personal Portfolio HTML Template">
+                    @foreach (var item in Model.Tbl_Technologies)
+                    {
+                        <img class="tech-logo" src="@item.ImageURL" alt="Reeni - Personal Portfolio HTML Template" />
+                    }
                 </div>
             </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-                <div class="support-company-logo tmp-scroll-trigger tmp-fade-in animation-order-2">
-                    C#
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-                <div class="support-company-logo tmp-scroll-trigger tmp-fade-in animation-order-3">
-                    <img src="/Content/images/our-supported-company/company-logo-3.svg" alt="Reeni - Personal Portfolio HTML Template">
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-                <div class="support-company-logo tmp-scroll-trigger tmp-fade-in animation-order-4">
-                    <img src="/Content/images/our-supported-company/company-logo-4.svg" alt="Reeni - Personal Portfolio HTML Template">
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-                <div class="support-company-logo tmp-scroll-trigger tmp-fade-in animation-order-5">
-                    <img src="/Content/images/our-supported-company/company-logo-5.svg" alt="Reeni - Personal Portfolio HTML Template">
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-                <div class="support-company-logo tmp-scroll-trigger tmp-fade-in animation-order-6">
-                    <img src="/Content/images/our-supported-company/company-logo-6.svg" alt="Reeni - Personal Portfolio HTML Template">
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-                <div class="support-company-logo tmp-scroll-trigger tmp-fade-in animation-order-7">
-                    <img src="/Content/images/our-supported-company/company-logo-7.svg" alt="Reeni - Personal Portfolio HTML Template">
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-                <div class="support-company-logo tmp-scroll-trigger tmp-fade-in animation-order-8">
-                    <img src="/Content/images/our-supported-company/company-logo-8.svg" alt="Reeni - Personal Portfolio HTML Template">
-                </div>
-            </div>
+
+
         </div>
     </div>
 </div>
+<style>
+    .tech-title {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #fff; /* koyu temada beyaz yazı */
+        text-align: center; /* ortalı başlık */
+        letter-spacing: 1px;
+    }
+
+    .support-company-logo {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; /* logolar ortalansın */
+        gap: 12px; /* logolar arası boşluk */
+    }
+
+    .tech-logo {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+    }
+
+
+</style>
 <!-- Tpm Our Supported Company Area End -->
-
-
-
-
-
 <!-- Tpm My Price plan Start -->
     >
 <!-- Tpm My Price plan End -->
@@ -335,7 +324,7 @@
 <!-- Tpm Blog and news Area Start -->
 <section class="blog-and-news-are tmp-section-gap">
     <div class="container">
-        <div class="section-head mb--50">
+        <div class="section-head mb--50" id="projects">
             <div class="section-sub-title center-title tmp-scroll-trigger tmp-fade-in animation-order-1">
                 <span class="subtitle">Tamamlanmış Projeler </span>
             </div>
@@ -457,7 +446,7 @@
 
 <section class="get-in-touch-area tmp-section-gapBottom">
     <div class="container">
-        <div class="contact-get-in-touch-wrap">
+        <div class="contact-get-in-touch-wrap" id="get-in-touch">
             <div class="get-in-touch-wrapper tmponhover" style="--x: 460px; --y: 415px;">
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-5">
@@ -539,44 +528,19 @@
             <div class="row g-5">
                 <div class="col-lg-5 col-md-6">
                     <div class="single-footer-wrapper border-right mr--20">
-                        <div class="logo">
-                            <a href="index.html">
-                                <img src="/Content/images/logo/white-logo-reeni-2.png" alt="Reeni - Personal Portfolio HTML Template for developers and freelancers">
-                            </a>
-                        </div>
-                        <p class="description"><span>Get Ready</span> To <br> Create Great</p>
+
+                        <p class="description"><span>İletişime </span>  <br> Geç</p>
                         <form action="#" class="newsletter-form-1 mt--40">
-                            <input type="email" placeholder="Email Adress">
+                            <input type="email" placeholder="Email ">
                             <span class="form-icon"><i class="fa-regular fa-envelope"></i></span>
                         </form>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-footer-wrapper quick-link-wrap">
-                        <h5 class="ft-title">Quick Link</h5>
-                        <ul class="ft-link tmp-link-animation">
-                            <li>
-                                <a href="about.html">About Me</a>
-                            </li>
-                            <li>
-                                <a href="team.html">Service</a>
-                            </li>
-                            <li>
-                                <a href="service.html">Contact Us</a>
-                            </li>
-                            <li>
-                                <a href="blog.html">Blog Post</a>
-                            </li>
-                            <li>
-                                <a href="contact.html">Pricing</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+             
                 <div class="col-lg-3 col-md-6">
                     <div class="single-footer-wrapper contact-wrap">
 
-                        <h5 class="ft-title">Contact </h5>
+                        <h5 class="ft-title">İletişim Bilgileri </h5>
                         <ul class="ft-link tmp-link-animation">
                             <li>
                                 <span class="ft-icon"><i class="fa-solid fa-envelope"></i></span>

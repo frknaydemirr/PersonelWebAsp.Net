@@ -1233,12 +1233,22 @@
     <Content Include="Content\js\vendor\waypoints.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Areas\Admin\Views\data.html" />
+    <Content Include="IMG\Backend.png" />
+    <Content Include="IMG\Bootstrap_logo.svg.png" />
     <Content Include="IMG\canvaa%29-fotor-202501261107-photoaidcom-cropped.png" />
+    <Content Include="IMG\Core.png" />
+    <Content Include="IMG\Csharp.png" />
     <Content Include="IMG\Ekran görüntüsü 2025-08-01 003957.png" />
     <Content Include="IMG\Ekran görüntüsü 2025-08-16 233258.png" />
     <Content Include="IMG\Ekran görüntüsü 2025-08-16 233318.png" />
     <Content Include="IMG\Ekran görüntüsü 2025-08-16 233618.png" />
     <Content Include="IMG\Ekran görüntüsü 2025-08-17 212512.png" />
+    <Content Include="IMG\Javascript.png" />
+    <Content Include="IMG\Java_logo-1.png" />
+    <Content Include="IMG\Microsoft_.NET_logo.svg.png" />
+    <Content Include="IMG\Mssql.jpeg" />
+    <Content Include="IMG\React.png" />
+    <Content Include="IMG\WebQr.png" />
     <Content Include="Models\VT\PersonelDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>PersonelDB.edmx</DependentUpon>

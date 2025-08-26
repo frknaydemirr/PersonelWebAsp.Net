@@ -222,17 +222,18 @@
     <div class="project-details-area-wrapper tmp-section-gap">
         <div class="container">
             <div class="row">
-               
+
                 <div class="col-lg-12">
                     <div class="project-details-thumnail-wrap">
                         <img src="@Model.Project.ProjectImg" alt="thumbnail">
                     </div>
                 </div>
+
                 <div class="col-lg-8">
                     <div class="project-details-content-wrap">
                         <h2 class="title">@Model.Project.ProjectEntryTitle</h2>
                         <p class="docs">
-                          @Model.Project.ProjectEntryDescription
+                            @Model.Project.ProjectEntryDescription
                         </p>
                         <p class="docs">
                             @Model.Project.ProjectDescription
@@ -263,209 +264,29 @@
                                 </li>
                             </ul>
                         </div>
-                        <h2 class="mini-title">Elevate Your Business with IT Solutions</h2>
-                        <p class="docs">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                            printer took a galltype and scrambled it to make a type specimen book. It has survived not
-                            only five centuries tinto electronic typesetting remaining essentially unchanged
-                        </p>
-                        <div class="project-details-swiper-wrapper">
-                            <div class="swiper project-details-swiper">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="project-details-img">
-                                            <img src="assets/images/projects-details/project-detials-swiper-img-1.jpg" alt="swiper-img">
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="project-details-img">
-                                            <img src="assets/images/projects-details/project-detials-swiper-img-2.png" alt="swiper-img">
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="project-details-img">
-                                            <img src="assets/images/projects-details/project-detials-swiper-img-1.jpg" alt="swiper-img">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="project-details-swiper-btn">
-                                <div class="github-redirect-btn">
-                                    <a href="@Model.Project.GithubURL" target="_blank" class="github-btn">
-                                        <span class="github-icon">
-                                            <svg viewBox="0 0 24 24" width="24" height="24">
-                                                <path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                                            </svg>
-                                        </span>
-                                        <span class="github-text">View on GitHub</span>
-                                        <span class="github-arrow">
-                                            <svg viewBox="0 0 24 24" width="16" height="16">
-                                                <path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-                                            </svg>
-                                        </span>
-                                        <span class="github-hover-effect"></span>
-                                    </a>
-                                </div>
-                            </div>
 
+
+
+                        <div class="project-details-swiper-btn">
+                            <div class="github-redirect-btn">
+                                <a href="@Model.Project.GithubURL" target="_blank" class="github-btn">
+                                    <span class="github-icon">
+                                        <svg viewBox="0 0 24 24" width="24" height="24">
+                                            <path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                                        </svg>
+                                    </span>
+                                    <span class="github-text">View on GitHub</span>
+                                    <span class="github-arrow">
+                                        <svg viewBox="0 0 24 24" width="16" height="16">
+                                            <path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                                        </svg>
+                                    </span>
+                                    <span class="github-hover-effect"></span>
+                                </a>
+                            </div>
                         </div>
+
                     </div>
-                    <style>
-                      github-redirect-btn {
-    text-align: center;
-    margin-top: 40px;
-}
-
-.github-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    background: linear-gradient(135deg, #6e5494 0%, #4078c0 100%);
-    color: white;
-    padding: 16px 32px;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    box-shadow: 0 10px 30px rgba(106, 84, 148, 0.3);
-    border: 2px solid transparent;
-    gap: 12px;
-}
-
-.github-btn:hover {
-    transform: translateY(-5px) scale(1.03);
-    box-shadow: 0 15px 35px rgba(106, 84, 148, 0.4);
-    color: white;
-}
-
-.github-btn:active {
-    transform: translateY(-2px) scale(1.01);
-}
-
-.github-hover-effect {
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.7s ease;
-}
-
-.github-btn:hover .github-hover-effect {
-    left: 100%;
-}
-
-.github-icon, .github-arrow {
-    transition: transform 0.3s ease;
-}
-
-.github-btn:hover .github-icon {
-    transform: rotate(360deg);
-}
-
-.github-btn:hover .github-arrow {
-    transform: translateX(4px);
-}
-
-.github-text {
-    font-size: 16px;
-    letter-spacing: 0.5px;
-}
-
-/* Butonun yanıp sönme efekti */
-@@keyframes pulse {
-    0% {
-        box-shadow: 0 10px 30px rgba(106, 84, 148, 0.3);
-    }
-    50% {
-        box-shadow: 0 10px 30px rgba(106, 84, 148, 0.6);
-    }
-    100% {
-        box-shadow: 0 10px 30px rgba(106, 84, 148, 0.3);
-    }
-}
-
-.github-btn {
-    animation: pulse 3s infinite;
-}
-
-/* Mobil uyumluluk */
-@@media (max-width: 768px) {
-    .github-btn {
-        padding: 14px 24px;
-        font-size: 14px;
-    }
-
-    .github-text {
-        font-size: 14px;
-    }
-}
-                    </style>
-                    <!-- Tpm Get In touch start -->
-                    <section class="get-in-touch-area pt--80">
-                        <div class="container p-0">
-                            <div class="contact-get-in-touch-wrap">
-                                <div class="get-in-touch-wrapper tmponhover">
-                                    <div class="row g-5 align-items-center">
-                                        <div class="col-lg-12">
-                                            <div class="contact-inner">
-                                                <div class="contact-form">
-                                                    <form class="tmp-dynamic-form" id="contact-form" method="POST" action="https://inversweb.com/product/html/reeni/mail.php">
-                                                        <div class="contact-form-wrapper row">
-                                                            <div class="col-lg-6">
-                                                                <div class="form-group">
-                                                                    <input class="input-field" name="contact-name" id="contact-name" placeholder="Your Name" type="text" required="">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-lg-6">
-                                                                <div class="form-group">
-                                                                    <input class="input-field" name="contact-phone" id="contact-phone" placeholder="Phone Number" type="number" required="">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-lg-6">
-                                                                <div class="form-group">
-                                                                    <input class="input-field" id="contact-email" name="contact-email" placeholder="Your Email" type="text">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-lg-6">
-                                                                <div class="form-group">
-                                                                    <input class="input-field" type="text" id="subject" name="subject" placeholder="Subject">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <textarea class="input-field" placeholder="Your Message" name="contact-message" id="contact-message"></textarea>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-12">
-                                                                <div class="tmp-button-here">
-                                                                    <button class="tmp-btn hover-icon-reverse radius-round w-100" name="submit" type="submit" id="submit">
-                                                                        <span class="icon-reverse-wrapper">
-                                                                            <span class="btn-text">Appointment Now</span>
-                                                                            <span class="btn-icon"><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
-                                                                            <span class="btn-icon"><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
-                                                                        </span>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- Tpm Get In touch End -->
                 </div>
                 <div class="col-lg-4">
                     <div class="signle-side-bar project-details-area tmponhover">
@@ -480,6 +301,165 @@
                         </div>
                     </div>
                 </div>
+                <style>
+                    github-redirect-btn {
+                        text-align: center;
+                        margin-top: 40px;
+                    }
+
+                    .github-btn {
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        position: relative;
+                        background: linear-gradient(135deg, #6e5494 0%, #4078c0 100%);
+                        color: white;
+                        padding: 16px 32px;
+                        border-radius: 50px;
+                        font-weight: 600;
+                        text-decoration: none;
+                        overflow: hidden;
+                        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                        box-shadow: 0 10px 30px rgba(106, 84, 148, 0.3);
+                        border: 2px solid transparent;
+                        gap: 12px;
+                    }
+
+                        .github-btn:hover {
+                            transform: translateY(-5px) scale(1.03);
+                            box-shadow: 0 15px 35px rgba(106, 84, 148, 0.4);
+                            color: white;
+                        }
+
+                        .github-btn:active {
+                            transform: translateY(-2px) scale(1.01);
+                        }
+
+                    .github-hover-effect {
+                        position: absolute;
+                        top: 0;
+                        left: -100%;
+                        width: 100%;
+                        height: 100%;
+                        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                        transition: left 0.7s ease;
+                    }
+
+                    .github-btn:hover .github-hover-effect {
+                        left: 100%;
+                    }
+
+                    .github-icon, .github-arrow {
+                        transition: transform 0.3s ease;
+                    }
+
+                    .github-btn:hover .github-icon {
+                        transform: rotate(360deg);
+                    }
+
+                    .github-btn:hover .github-arrow {
+                        transform: translateX(4px);
+                    }
+
+                    .github-text {
+                        font-size: 16px;
+                        letter-spacing: 0.5px;
+                    }
+
+                    /* Butonun yanıp sönme efekti */
+                    @@keyframes pulse {
+                        0% {
+                            box-shadow: 0 10px 30px rgba(106, 84, 148, 0.3);
+                        }
+
+                        50% {
+                            box-shadow: 0 10px 30px rgba(106, 84, 148, 0.6);
+                        }
+
+                        100% {
+                            box-shadow: 0 10px 30px rgba(106, 84, 148, 0.3);
+                        }
+                    }
+
+                    .github-btn {
+                        animation: pulse 3s infinite;
+                    }
+
+                    /* Mobil uyumluluk */
+                    @@media (max-width: 768px) {
+                        .github-btn {
+                            padding: 14px 24px;
+                            font-size: 14px;
+                        }
+
+                        .github-text {
+                            font-size: 14px;
+                        }
+                    }
+                </style>
+                <!-- Tpm Get In touch start -->
+                <section class="get-in-touch-area pt--80">
+                    <div class="container p-0">
+                        <div class="contact-get-in-touch-wrap">
+                            <div class="get-in-touch-wrapper tmponhover">
+                                <div class="row g-5 align-items-center">
+                                    <div class="col-lg-12">
+                                        <div class="contact-inner">
+                                            <div class="contact-form">
+                                                <form class="tmp-dynamic-form" id="contact-form" method="POST" action="https://inversweb.com/product/html/reeni/mail.php">
+                                                    <div class="contact-form-wrapper row">
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <input class="input-field" name="contact-name" id="contact-name" placeholder="Your Name" type="text" required="">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <input class="input-field" name="contact-phone" id="contact-phone" placeholder="Phone Number" type="number" required="">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <input class="input-field" id="contact-email" name="contact-email" placeholder="Your Email" type="text">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <input class="input-field" type="text" id="subject" name="subject" placeholder="Subject">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group">
+                                                                <textarea class="input-field" placeholder="Your Message" name="contact-message" id="contact-message"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12">
+                                                            <div class="tmp-button-here">
+                                                                <button class="tmp-btn hover-icon-reverse radius-round w-100" name="submit" type="submit" id="submit">
+                                                                    <span class="icon-reverse-wrapper">
+                                                                        <span class="btn-text">Appointment Now</span>
+                                                                        <span class="btn-icon"><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
+                                                                        <span class="btn-icon"><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
+                                                                    </span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Tpm Get In touch End -->
+            </div>
+             
             </div>
         </div>
     </div>
@@ -637,28 +617,7 @@
     </div> -->
 
 
-    <div class="demo-button-wrapper">
-        <div class="buy-theme">
-            <a href="https://themeforest.net/item/reeni-personal-portfolio-html-template/56387656" target="_blank">
-                <div class="theme-wrapper">
-                    <div>
-                        <svg width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M10.9854 19.9999C11.479 19.9999 11.8791 19.5998 11.8791 19.1063C11.8791 18.6127 11.479 18.2126 10.9854 18.2126C10.4919 18.2126 10.0918 18.6127 10.0918 19.1063C10.0918 19.5998 10.4919 19.9999 10.9854 19.9999Z" fill="white">
-                            </path>
-                            <path d="M16.1233 13.0134L11.0833 13.5539C10.9895 13.5633 10.9427 13.4477 11.0177 13.3883L15.9483 9.54819C16.267 9.28572 16.4732 8.87952 16.3857 8.44208C16.2983 7.77341 15.7452 7.33597 15.0453 7.42346L9.68658 8.20773C9.59284 8.22023 9.54285 8.1015 9.61784 8.04213L14.9297 3.98639C15.9764 3.17087 16.0639 1.57107 15.1047 0.639933C14.2329 -0.231832 12.8331 -0.203711 11.9613 0.668055L3.403 9.37634C3.08429 9.72629 2.93743 10.1919 3.02492 10.6855C3.17178 11.4729 3.95605 11.9948 4.74345 11.851L9.3585 10.9105C9.45849 10.8886 9.5116 11.023 9.42724 11.0792L4.30913 14.357C3.66859 14.7632 3.378 15.4912 3.5811 16.2192C3.7842 17.1785 4.74658 17.7315 5.67771 17.5003L13.3299 15.6162C13.4174 15.5943 13.4799 15.6943 13.4236 15.763L12.23 17.2378C11.9113 17.644 12.4331 18.1971 12.8706 17.8784L16.8013 14.6475C17.5012 14.0664 17.0357 12.929 16.1326 13.0165L16.1233 13.0134Z" fill="white"></path>
-                        </svg>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="all-demo show-demo">
-            <div class="demos">
-                <div class="theme-wrapper">
-                    <div>44 Pre-built sites</div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
 
     <div class="demo-modal-area">
