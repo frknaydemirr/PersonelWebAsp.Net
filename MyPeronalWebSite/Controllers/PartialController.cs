@@ -29,5 +29,8 @@ namespace MyPeronalWebSite.Controllers
             vm.Tbl_Projects = db.Tbl_Projects.Where(x => x.LanguageID == langId).ToList();
             return PartialView(vm);
         }
+
+
+
     }
 }

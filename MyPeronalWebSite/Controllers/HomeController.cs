@@ -20,10 +20,13 @@ namespace MyPeronalWebSite.Controllers
         {
             
             var dil = Request.Cookies["lang"]?.Value ?? "tr";
+            int dilId = DilId(dil);
+            ViewBag.DilId = dilId;
+
             int langId = db.Tbl_Language.FirstOrDefault(x => x.ShortTitle == dil)?.ID ?? 1;
             IndexViewModel vm = new IndexViewModel();
-            vm.Tbl_Resource=db.Tbl_Resource.Where(x=>x.LanguageID==langId).ToList();
-            vm.Tbl_CurrentProject=db.Tbl_CurrentProject.Where(x => x.LanguageID == langId).ToList();
+            vm.Tbl_Resource = db.Tbl_Resource.Where(x => x.LanguageID == langId).ToList();
+            vm.Tbl_CurrentProject = db.Tbl_CurrentProject.Where(x => x.LanguageID == langId).ToList();
             vm.Tbl_AboutMe = db.Tbl_AboutMe.FirstOrDefault(x => x.LanguageID == langId);
             vm.Tbl_Technologies = db.Tbl_Technologies.Where(x => x.LanguageID == langId).ToList();
             vm.Tbl_Contact = db.Tbl_Contact.Where(x => x.LanguageID == langId).ToList();
@@ -37,6 +40,8 @@ namespace MyPeronalWebSite.Controllers
         public ActionResult ProjectDetail(string title, int id)
         {
             var dil = Request.Cookies["lang"]?.Value ?? "tr";
+            int dilId = DilId(dil);
+            ViewBag.DilId = dilId;
             int langId = db.Tbl_Language.FirstOrDefault(x => x.ShortTitle == dil)?.ID ?? 1;
 
             var project = db.Tbl_Projects.FirstOrDefault(x => x.ID == id && x.LanguageID == langId);
@@ -54,7 +59,70 @@ namespace MyPeronalWebSite.Controllers
             return View(vm);
         }
 
+        [HttpPost]
+        public JsonResult SendMessage(string name, string message, string phoneNumber, string email, string subject, int langId)
+        {
+            try
+            {
+                // Zorunlu alanları kontrol et
+                if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(message))
+                {
+                    return Json(new { success = false, message = "Required fields cannot be empty." });
+                }
+
+                // Yeni kayıt ekleme
+                db.Tbl_Contact.Add(new Tbl_Contact
+                {
+                    Name = name,
+                    Email = email,
+                    PhoneNumber = phoneNumber,
+                    Message = message,
+                    Subcejt = subject,
+                    LanguageID = langId
+                });
+
+                db.SaveChanges();
+
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "An error occurred: " + ex.Message });
+            }
+        }
+
+
+
+        [HttpPost]
+        public ActionResult Dil_Degistir(string dil)
+        {
+            if (!string.IsNullOrEmpty(dil))
+            {
+                //yeni cookie oluşturuluyor
+                var cookie = new HttpCookie("lang", dil)
+                {
+                    Expires = DateTime.Now.AddYears(1) //1 yıl tarayıca kalacak
+                };
+
+                Response.Cookies.Add(cookie);
+            }
+            // Yönlendirme işlemi sadece burada yapılacak
+            return Json(new { success = true, redirectUrl = Url.Action("Index", "Home") });
+        }
+
+
+        public int DilId(string Dil)
+        {
+            return db.Tbl_Language.FirstOrDefault(x => x.ShortTitle == Dil).ID;
+        }
 
 
     }
+
+
+
+
+       
+
+
 }

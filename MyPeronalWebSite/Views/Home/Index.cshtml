@@ -156,13 +156,13 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="inner">
-                        <span class="sub-title tmp-scroll-trigger tmp-fade-in animation-order-1">Hello i'm</span>
+                        <span class="sub-title tmp-scroll-trigger tmp-fade-in animation-order-1"> @Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Giriş").Value</span>
                         <h1 class="title tmp-scroll-trigger tmp-fade-in animation-order-2">Furkan Aydemir</h1>
                         <div class="button-area-banner-three tmp-scroll-trigger tmp-fade-in animation-order-3">
 
                             <a class="tmp-btn hover-icon-reverse radius-round" href="~/CV/Furkan Aydemir ENG.pdf" download>
                                 <span class="icon-reverse-wrapper">
-                                    <span class="btn-text">Download CV</span>
+                                    <span class="btn-text"> @Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Cv").Value</span>
                                     <span class="btn-icon"><i class="fa-sharp fa-regular fa-download"></i></span>
                                     <span class="btn-icon"><i class="fa-sharp fa-regular fa-download"></i></span>
                                 </span>
@@ -179,7 +179,7 @@
                             </p>
                         </div>
                         <div class="find-me-on mt--40 tmp-scroll-trigger tmp-fade-in animation-order-2">
-                            <h2 class="find-me-on-title">Bana Ulaşabilirsiniz</h2>
+                            <h2 class="find-me-on-title"> @Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Bulmak").Value</h2>
                             <div class="social-link banner">
 
                                 <a href="@Model.Tbl_AboutMe.LinkedlnURL"><i class="fa-brands fa-linkedin-in"></i></a>
@@ -249,13 +249,13 @@
                         @Model.Tbl_AboutMe.ShortDescription
                     </p>
                 </div>
-              
+
             </div>
             <div class="col-lg-6">
                 <div class="service-card-user-image">
-                  
-                        <img class="tmp-scroll-trigger tmp-zoom-in animation-order-1" src="@Model.Tbl_AboutMe.ImageURL" alt="latest-user-image">
-                    
+
+                    <img class="tmp-scroll-trigger tmp-zoom-in animation-order-1" src="@Model.Tbl_AboutMe.ImageURL" alt="latest-user-image">
+
 
                 </div>
             </div>
@@ -276,8 +276,10 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-                <h3 class="tech-title">Kulla
-                nılan Teknolojiler</h3>
+                <h3 class="tech-title">
+                    Kulla
+                    nılan Teknolojiler
+                </h3>
                 <div class="support-company-logo tmp-scroll-trigger tmp-fade-in animation-order-1">
                     @foreach (var item in Model.Tbl_Technologies)
                     {
@@ -313,7 +315,12 @@
         object-fit: cover;
     }
 
-
+    .img-box.v2 {
+        width: 100%;
+        height: 250px; /* parent’ın yüksekliği varsa, resim tamamen kaplar */
+        overflow: hidden;
+        display: flex; /* hizalama için */
+    }
 </style>
 <!-- Tpm Our Supported Company Area End -->
 <!-- Tpm My Price plan Start -->
@@ -326,9 +333,9 @@
     <div class="container">
         <div class="section-head mb--50" id="projects">
             <div class="section-sub-title center-title tmp-scroll-trigger tmp-fade-in animation-order-1">
-                <span class="subtitle">Tamamlanmış Projeler </span>
+                <span class="subtitle"> @Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Bitmiş Proje").Value </span>
             </div>
-            <h2 class="title split-collab tmp-scroll-trigger tmp-fade-in animation-order-2">PROJELER</h2>
+            <h2 class="title split-collab tmp-scroll-trigger tmp-fade-in animation-order-2">@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Projeler").Value</h2>
         </div>
         <div class="row">
             @foreach (var item in Model.Tbl_Projects)
@@ -342,8 +349,7 @@
                                        title = Url.FriendlyURLTitle(item.ProjectTitle),
                                        id = item.ID
                                    })">
-                                    <img class="img-primary hidden-on-mobile" src="@item.ProjectImg" style="width:100%;" alt="@item.ProjectTitle" />
-                                    <img class="img-secondary" src="@item.ProjectImg" style="width:100%;" alt="@item.ProjectTitle" />
+                                    <img class=" hidden-on-mobile" src="@item.ProjectImg" alt="@item.ProjectTitle" />
                                 </a>
                             </div>
                         </div>
@@ -384,9 +390,9 @@
     <div class="container">
         <div class="section-head mb--50">
             <div class="section-sub-title center-title tmp-scroll-trigger tmp-fade-in animation-order-1">
-                <span class="subtitle">Şu Anda Geliştirilen Projeler  </span>
+                <span class="subtitle">@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "ŞimdikiProjeler").Value </span>
             </div>
-            <h2 class="title split-collab tmp-scroll-trigger tmp-fade-in animation-order-2">PROJELER</h2>
+            <h2 class="title split-collab tmp-scroll-trigger tmp-fade-in animation-order-2">@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Projeler").Value</h2>
         </div>
         <div class="row">
             @foreach (var item in Model.Tbl_CurrentProject)
@@ -400,8 +406,7 @@
                                        title = Url.FriendlyURLTitle(item.ProjectTitle),
                                        id = item.ID
                                    })">
-                                    <img class="img-primary hidden-on-mobile" src="@item.ImageURL" style="width:100%;" alt="@item.ProjectTitle" />
-                                    <img class="img-secondary" src="@item.ImageURL" style="width:100%;" alt="@item.ProjectTitle" />
+                                    <img class="hidden-on-mobile" src="@item.ImageURL" style="width:100%;" alt="@item.ProjectTitle" />
                                 </a>
                             </div>
                         </div>
@@ -452,64 +457,78 @@
                     <div class="col-lg-5">
                         <div class="section-head text-align-left">
                             <div class="section-sub-title tmp-scroll-trigger tmp-fade-in animation-order-1">
-                                <span class="subtitle">GET IN TOUCH</span>
+                                <span class="subtitle">@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "İletisimeGec").Value</span>
                             </div>
-                            <h2 class="title split-collab tmp-scroll-trigger tmp-fade-in animation-order-2">Elevate your brand with Me </h2>
-                            <p class="description tmp-scroll-trigger tmp-fade-in animation-order-3">
-                                ished fact that a reader will be
-                                distrol acted bioiiy desig
-                                ished fact that a reader will acted ished fact that a reader will be distrol
-                                acted
-                            </p>
+                            <h2 class="title split-collab tmp-scroll-trigger tmp-fade-in animation-order-2">
+                                @Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "İletisimTablo").Value
+                            </h2>
                         </div>
                     </div>
                     <div class="col-lg-7">
                         <div class="contact-inner">
                             <div class="contact-form">
                                 <div id="form-messages" class="error"></div>
-                                <form class="tmp-dynamic-form" id="contact-form" method="POST" action="https://inversweb.com/product/html/reeni/mailer.php">
+
+                                <!-- action değiştirildi -->
+                                <form class="tmp-dynamic-form" id="contact-form" method="POST" action="#">
                                     <div class="contact-form-wrapper row">
+
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <input class="input-field" name="name" id="contact-name" placeholder="Your Name" type="text" required="">
+                                                <input class="input-field" name="name" id="contact-name"
+                                                       placeholder="@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "İsim").Value"
+                                                       type="text" required="">
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <input class="input-field" id="contact-phone" placeholder="Phone Number" type="tel" required="">
+                                                <!-- name eklendi -->
+                                                <input class="input-field" id="contact-phone" name="phoneNumber"
+                                                       placeholder="@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Telefon").Value"
+                                                       type="tel" required="">
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <input class="input-field" id="contact-email" name="email" placeholder="Your Email" type="email" required="">
+                                                <input class="input-field" id="contact-email" name="email"
+                                                       placeholder="@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Email").Value"
+                                                       type="email" required="">
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <input class="input-field" type="text" id="subject" name="subject" placeholder="Subject">
+                                                <input class="input-field" type="text" id="subject" name="subject"
+                                                       placeholder="@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Konu").Value">
                                             </div>
                                         </div>
 
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <textarea class="input-field" placeholder="Your Message" name="message" id="contact-message" required=""></textarea>
+                                                <textarea class="input-field"
+                                                          placeholder="@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Mesaj").Value"
+                                                          name="message" id="contact-message" required=""></textarea>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-12">
                                             <div class="tmp-button-here">
-                                                <button class="tmp-btn hover-icon-reverse radius-round w-100" name="submit" type="submit" id="submit">
+                                                <!-- type değiştirildi -->
+                                                <button class="tmp-btn hover-icon-reverse radius-round w-100"
+                                                        type="submit" id="gonder" name="gonder">
                                                     <span class="icon-reverse-wrapper">
-                                                        <span class="btn-text">Appointment Now</span>
+                                                        <span class="btn-text">
+                                                            @Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Gonder").Value
+                                                        </span>
                                                         <span class="btn-icon"><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
                                                         <span class="btn-icon"><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
                                                     </span>
                                                 </button>
                                             </div>
                                         </div>
+
                                     </div>
                                 </form>
                             </div>
@@ -520,6 +539,7 @@
         </div>
     </div>
 </section>
+
 <!-- Tpm Blog and news Area End -->
 <!-- Start Footer Area  -->
 <footer class="footer-area footer-style-one-wrapper  tmp-section-gap">
@@ -529,14 +549,14 @@
                 <div class="col-lg-5 col-md-6">
                     <div class="single-footer-wrapper border-right mr--20">
 
-                        <p class="description"><span>İletişime </span>  <br> Geç</p>
+                        <p class="description"><span>@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "IletisimSlogan").Value</span></p>
                         <form action="#" class="newsletter-form-1 mt--40">
                             <input type="email" placeholder="Email ">
                             <span class="form-icon"><i class="fa-regular fa-envelope"></i></span>
                         </form>
                     </div>
                 </div>
-             
+
                 <div class="col-lg-3 col-md-6">
                     <div class="single-footer-wrapper contact-wrap">
 
@@ -575,10 +595,10 @@
             <div class="col-lg-12">
                 <div class="main-wrapper">
                     <p class="copy-right-para">
-                        © InversWeb
+                        @Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Yapan").Value
                         <script>
                             document.write(new Date().getFullYear())
-                        </script> | All Rights Reserved
+                        </script>
                     </p>
                     <ul>
                         <li><a href="#">Trams & Condition</a></li>
@@ -1715,5 +1735,82 @@
 </div>
 
 
+@*varsayılan dili aldık:*@
+<script>
+   var currentDilId =@ViewBag.DilId
+</script>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#gonder").click(function (e) {
+            debugger
+            e.preventDefault();
+
+            var name = $("#contact-name").val().trim();
+            var phoneNumber = $("#contact-phone").val().trim();
+            var email = $("#contact-email").val().trim();
+            var subject = $("#subject").val().trim();
+            var message = $("#contact-message").val().trim();
+
+            // Zorunlu alan kontrolü
+            if (!name || !email || !message) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Hata!',
+                    text: 'Lütfen zorunlu alanları (Ad, Email, Mesaj) doldurunuz.'
+                });
+                return;
+            }
+
+            $.ajax({
+                url: '@Url.Action("SendMessage", "Home")',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    name: name,
+                    email: email,
+                    phoneNumber: phoneNumber,
+                    subject: subject,
+                    message: message,
+                    langId: currentDilId
+                },
+                success: function (data) {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Gönderildi!',
+                            text: 'Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapılacaktır.',
+                            confirmButtonText: 'Tamam'
+                        });
+
+                        // Formu temizle
+                        $("#contact-form")[0].reset();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Hata!',
+                            text: data.message
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX hata:", error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Bir hata oluştu!',
+                        text: 'Lütfen tekrar deneyin.'
+                    });
+                }
+            });
+        });
+    });
+
+    // Formun kendi submit olayını engelle
+    $("#contact-form").submit(function (e) {
+        e.preventDefault();
+    });
+</script>
 

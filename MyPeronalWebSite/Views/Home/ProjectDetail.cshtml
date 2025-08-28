@@ -5,32 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="en">
 
 
-<!-- Mirrored from inversweb.com/product/html/reeni/project-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 24 Jul 2025 00:59:55 GMT -->
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Reeni is a modern personal portfolio template for designers, developers, content writer, cleaner, programmer, fashion designer, model, Influencer and freelancers. Fully responsive, SEO-friendly, Bootstrap and easy to customize.">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg">
-    <title>Project Details Reeni - Personal Portfolio HTML Template | Freelancer & Developer Portfolio</title>
-    <!-- Bootstrap min css -->
-    <link rel="stylesheet" href="assets/css/vendor/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/plugins/swiper.css">
-    <link rel="stylesheet" href="assets/css/plugins/odometer.css">
-    <link rel="stylesheet" href="assets/css/vendor/animate.min.css">
-    <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
-    <!-- custom css -->
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
 
-<body>
-
-
-    <!-- tpm-header-area end -->
 
     <div class="d-none d-xl-block">
         <div class="tmp-sidebar-area tmp_side_bar">
@@ -398,55 +375,86 @@
                     }
                 </style>
                 <!-- Tpm Get In touch start -->
-                <section class="get-in-touch-area pt--80">
-                    <div class="container p-0">
-                        <div class="contact-get-in-touch-wrap">
-                            <div class="get-in-touch-wrapper tmponhover">
+                <section class="get-in-touch-area tmp-section-gapBottom">
+                    <div class="container">
+                        <div class="contact-get-in-touch-wrap" id="get-in-touch">
+                            <div class="get-in-touch-wrapper tmponhover" style="--x: 460px; --y: 415px;">
                                 <div class="row g-5 align-items-center">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-5">
+                                        <div class="section-head text-align-left">
+                                            <div class="section-sub-title tmp-scroll-trigger tmp-fade-in animation-order-1">
+                                                <span class="subtitle">@Model.Resources.FirstOrDefault(x => x.NavigationName == "IletisimeGecDetay").Value</span>
+                                            </div>
+                                            <h2 class="title split-collab tmp-scroll-trigger tmp-fade-in animation-order-2">
+                                                @Model.Resources.FirstOrDefault(x => x.NavigationName == "İletisimTabloDetay").Value
+                                            </h2>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7">
                                         <div class="contact-inner">
                                             <div class="contact-form">
-                                                <form class="tmp-dynamic-form" id="contact-form" method="POST" action="https://inversweb.com/product/html/reeni/mail.php">
+                                                <div id="form-messages" class="error"></div>
+
+                                                <!-- action değiştirildi -->
+                                                <form class="tmp-dynamic-form" id="contact-form" method="POST" action="#">
                                                     <div class="contact-form-wrapper row">
+
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
-                                                                <input class="input-field" name="contact-name" id="contact-name" placeholder="Your Name" type="text" required="">
+                                                                <input class="input-field" name="name" id="contact-name"
+                                                                       placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "İsimDetay").Value"
+                                                                       type="text" required="">
                                                             </div>
                                                         </div>
 
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
-                                                                <input class="input-field" name="contact-phone" id="contact-phone" placeholder="Phone Number" type="number" required="">
+                                                                <!-- name eklendi -->
+                                                                <input class="input-field" id="contact-phone" name="phoneNumber"
+                                                                       placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "TelefonDetay").Value"
+                                                                       type="tel" required="">
                                                             </div>
                                                         </div>
 
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
-                                                                <input class="input-field" id="contact-email" name="contact-email" placeholder="Your Email" type="text">
+                                                                <input class="input-field" id="contact-email" name="email"
+                                                                       placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "EmailDetay").Value"
+                                                                       type="email" required="">
                                                             </div>
                                                         </div>
 
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
-                                                                <input class="input-field" type="text" id="subject" name="subject" placeholder="Subject">
+                                                                <input class="input-field" type="text" id="subject" name="subject"
+                                                                       placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "KonuDetay").Value">
                                                             </div>
                                                         </div>
+
                                                         <div class="col-lg-12">
                                                             <div class="form-group">
-                                                                <textarea class="input-field" placeholder="Your Message" name="contact-message" id="contact-message"></textarea>
+                                                                <textarea class="input-field"
+                                                                          placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "MesajDetay").Value"
+                                                                          name="message" id="contact-message" required=""></textarea>
                                                             </div>
                                                         </div>
+
                                                         <div class="col-lg-12">
                                                             <div class="tmp-button-here">
-                                                                <button class="tmp-btn hover-icon-reverse radius-round w-100" name="submit" type="submit" id="submit">
+                                                                <!-- type değiştirildi -->
+                                                                <button class="tmp-btn hover-icon-reverse radius-round w-100"
+                                                                        type="submit" id="gonder" name="gonder">
                                                                     <span class="icon-reverse-wrapper">
-                                                                        <span class="btn-text">Appointment Now</span>
+                                                                        <span class="btn-text">
+                                                                            @Model.Resources.FirstOrDefault(x => x.NavigationName == "GonderDetay").Value
+                                                                        </span>
                                                                         <span class="btn-icon"><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
                                                                         <span class="btn-icon"><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
                                                                     </span>
                                                                 </button>
                                                             </div>
                                                         </div>
+
                                                     </div>
                                                 </form>
                                             </div>
@@ -459,10 +467,10 @@
                 </section>
                 <!-- Tpm Get In touch End -->
             </div>
-             
-            </div>
+
         </div>
     </div>
+   
     <!-- Start Footer Area  -->
     <footer class="footer-area footer-style-one-wrapper  tmp-section-gap">
         <div class="container">
@@ -470,11 +478,7 @@
                 <div class="row g-5">
                     <div class="col-lg-5 col-md-6">
                         <div class="single-footer-wrapper border-right mr--20">
-                            <div class="logo">
-                                <a href="index.html">
-                                    <img src="assets/images/logo/white-logo-reeni.png" alt="Reeni - Personal Portfolio HTML Template for developers and freelancers">
-                                </a>
-                            </div>
+
                             <p class="description"><span>Get Ready</span> To <br> Create Great</p>
                             <form action="#" class="newsletter-form-1 mt--40">
                                 <input type="email" placeholder="Email Adress">
@@ -526,9 +530,7 @@
                 </div>
             </div>
         </div>
-        <div class="footer-bg-img">
-            <img src="assets/images/footer/footer-bg-img.png" alt="footer-img">
-        </div>
+
     </footer>
     <div class="copyright-area-one">
         <div class="container">
@@ -536,10 +538,10 @@
                 <div class="col-lg-12">
                     <div class="main-wrapper">
                         <p class="copy-right-para">
-                            © InversWeb
+                            @Model.Resources.FirstOrDefault(x => x.NavigationName == "YapanDetay").Value
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script> | All Rights Reserved
+                            </script>
                         </p>
                         <ul>
                             <li><a href="#">Trams & Condition</a></li>
@@ -1675,37 +1677,97 @@
         </div>
     </div>
 
-    <script src="assets/js/vendor/jquery.js"></script>
-    <script src="assets/js/vendor/jquery-ui.min.js"></script>
-    <script src="assets/js/vendor/waypoints.min.js"></script>
-
-    <script src="assets/js/plugins/odometer.js"></script>
-    <script src="assets/js/vendor/appear.js"></script>
 
 
-    <script src="assets/js/vendor/jquery-one-page-nav.js"></script>
-    <script src="assets/js/plugins/swiper.js"></script>
-
-    <script src="assets/js/plugins/gsap.js"></script>
-    <script src="assets/js/plugins/splittext.js"></script>
-    <script src="assets/js/plugins/scrolltigger.js"></script>
-    <script src="assets/js/plugins/scrolltoplugins.js"></script>
-    <script src="assets/js/plugins/smoothscroll.js"></script>
-    <!-- bootstrap Js-->
-    <script src="assets/js/vendor/bootstrap.min.js"></script>
-    <script src="assets/js/vendor/waw.js"></script>
-    <script src="assets/js/plugins/isotop.js"></script>
-    <script src="assets/js/plugins/animation.js"></script>
-    <script src="assets/js/plugins/contact.form.js"></script>
-    <script src="assets/js/vendor/backtop.js"></script>
-    <script src="assets/js/plugins/text-type.js"></script>
-    <!-- custom Js -->
-    <script src="assets/js/main.js"></script>
 
 
-</body>
+    <script>
+   var currentDilId =@ViewBag.DilId
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $("#gonder").click(function (e) {
+            debugger
+            e.preventDefault();
+
+            var name = $("#contact-name").val().trim();
+            var phoneNumber = $("#contact-phone").val().trim();
+            var email = $("#contact-email").val().trim();
+            var subject = $("#subject").val().trim();
+            var message = $("#contact-message").val().trim();
+
+            // Zorunlu alan kontrolü
+            if (!name || !email || !message) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Hata!',
+                    text: 'Lütfen zorunlu alanları (Ad, Email, Mesaj) doldurunuz.'
+                });
+                return;
+            }
+
+            $.ajax({
+                url: '@Url.Action("SendMessage", "Home")',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    name: name,
+                    email: email,
+                    phoneNumber: phoneNumber,
+                    subject: subject,
+                    message: message,
+                    langId: currentDilId
+                },
+                success: function (data) {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Gönderildi!',
+                            text: 'Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapılacaktır.',
+                            confirmButtonText: 'Tamam'
+                        });
+
+                        // Formu temizle
+                        $("#contact-form")[0].reset();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Hata!',
+                            text: data.message
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX hata:", error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Bir hata oluştu!',
+                        text: 'Lütfen tekrar deneyin.'
+                    });
+                }
+            });
+        });
+    });
+
+    // Formun kendi submit olayını engelle
+    $("#contact-form").submit(function (e) {
+        e.preventDefault();
+    });
+    </script>
 
 
-<!-- Mirrored from inversweb.com/product/html/reeni/project-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 24 Jul 2025 00:59:55 GMT -->
-</html>
+
+
+
+
+
+
+
+
+
+
 
