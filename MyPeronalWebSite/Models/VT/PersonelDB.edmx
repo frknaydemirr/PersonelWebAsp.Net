@@ -42,15 +42,6 @@
           <Property Name="Subcejt" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
-        <EntityType Name="Tbl_CurrentProject">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LanguageID" Type="int" Nullable="false" />
-          <Property Name="ProjectTitle" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="ImageURL" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
         <EntityType Name="Tbl_Language">
           <Key>
             <PropertyRef Name="ID" />
@@ -100,7 +91,8 @@
           <Property Name="ProjectDescription" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ProjectEntryTitle" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ProjectEntryDescription" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="GithubURL" Type="nvarchar(max)" />
+          <Property Name="GithubURL" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="isActive" Type="bit" />
         </EntityType>
         <EntityType Name="Tbl_Resource">
           <Key>
@@ -157,18 +149,6 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Tbl_Contact">
-              <PropertyRef Name="LanguageID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_CurrentProject_Tbl_Language">
-          <End Role="Tbl_Language" Type="Self.Tbl_Language" Multiplicity="1" />
-          <End Role="Tbl_CurrentProject" Type="Self.Tbl_CurrentProject" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_Language">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Tbl_CurrentProject">
               <PropertyRef Name="LanguageID" />
             </Dependent>
           </ReferentialConstraint>
@@ -237,7 +217,6 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_AboutMe" EntityType="Self.Tbl_AboutMe" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Contact" EntityType="Self.Tbl_Contact" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tbl_CurrentProject" EntityType="Self.Tbl_CurrentProject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Language" EntityType="Self.Tbl_Language" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Navbar" EntityType="Self.Tbl_Navbar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_ProjectDetails" EntityType="Self.Tbl_ProjectDetails" Schema="dbo" store:Type="Tables" />
@@ -253,10 +232,6 @@
           <AssociationSet Name="FK_Tbl_Contact_Tbl_Language" Association="Self.FK_Tbl_Contact_Tbl_Language">
             <End Role="Tbl_Language" EntitySet="Tbl_Language" />
             <End Role="Tbl_Contact" EntitySet="Tbl_Contact" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_CurrentProject_Tbl_Language" Association="Self.FK_Tbl_CurrentProject_Tbl_Language">
-            <End Role="Tbl_Language" EntitySet="Tbl_Language" />
-            <End Role="Tbl_CurrentProject" EntitySet="Tbl_CurrentProject" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_Navbar_Tbl_Language" Association="Self.FK_Tbl_Navbar_Tbl_Language">
             <End Role="Tbl_Language" EntitySet="Tbl_Language" />
@@ -322,16 +297,6 @@
           <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Tbl_Language" Relationship="Self.FK_Tbl_Contact_Tbl_Language" FromRole="Tbl_Contact" ToRole="Tbl_Language" />
         </EntityType>
-        <EntityType Name="Tbl_CurrentProject">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LanguageID" Type="Int32" Nullable="false" />
-          <Property Name="ProjectTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ImageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Tbl_Language" Relationship="Self.FK_Tbl_CurrentProject_Tbl_Language" FromRole="Tbl_CurrentProject" ToRole="Tbl_Language" />
-        </EntityType>
         <EntityType Name="Tbl_Language">
           <Key>
             <PropertyRef Name="ID" />
@@ -343,7 +308,6 @@
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Tbl_AboutMe" Relationship="Self.FK_Tbl_AboutMe_Tbl_Language" FromRole="Tbl_Language" ToRole="Tbl_AboutMe" />
           <NavigationProperty Name="Tbl_Contact" Relationship="Self.FK_Tbl_Contact_Tbl_Language" FromRole="Tbl_Language" ToRole="Tbl_Contact" />
-          <NavigationProperty Name="Tbl_CurrentProject" Relationship="Self.FK_Tbl_CurrentProject_Tbl_Language" FromRole="Tbl_Language" ToRole="Tbl_CurrentProject" />
           <NavigationProperty Name="Tbl_Navbar" Relationship="Self.FK_Tbl_Navbar_Tbl_Language" FromRole="Tbl_Language" ToRole="Tbl_Navbar" />
           <NavigationProperty Name="Tbl_ProjectDetails" Relationship="Self.FK_Tbl_ProjectDetails_Tbl_Language" FromRole="Tbl_Language" ToRole="Tbl_ProjectDetails" />
           <NavigationProperty Name="Tbl_Projects" Relationship="Self.FK_Tbl_Projects_Tbl_Language" FromRole="Tbl_Language" ToRole="Tbl_Projects" />
@@ -396,7 +360,8 @@
           <NavigationProperty Name="Tbl_Language" Relationship="Self.FK_Tbl_Projects_Tbl_Language" FromRole="Tbl_Projects" ToRole="Tbl_Language" />
           <NavigationProperty Name="Tbl_Language1" Relationship="Self.FK_Tbl_Projects_Tbl_Language1" FromRole="Tbl_Projects" ToRole="Tbl_Language" />
           <NavigationProperty Name="Tbl_ProjectDetails" Relationship="Self.FK_Tbl_ProjectDetails_Tbl_Projects" FromRole="Tbl_Projects" ToRole="Tbl_ProjectDetails" />
-          <Property Name="GithubURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GithubURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isActive" Type="Boolean" />
         </EntityType>
         <EntityType Name="Tbl_Resource">
           <Key>
@@ -446,18 +411,6 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Tbl_Contact">
-              <PropertyRef Name="LanguageID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_CurrentProject_Tbl_Language">
-          <End Role="Tbl_Language" Type="Self.Tbl_Language" Multiplicity="1" />
-          <End Role="Tbl_CurrentProject" Type="Self.Tbl_CurrentProject" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_Language">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Tbl_CurrentProject">
               <PropertyRef Name="LanguageID" />
             </Dependent>
           </ReferentialConstraint>
@@ -550,7 +503,6 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Tbl_AboutMe" EntityType="Self.Tbl_AboutMe" />
           <EntitySet Name="Tbl_Contact" EntityType="Self.Tbl_Contact" />
-          <EntitySet Name="Tbl_CurrentProject" EntityType="Self.Tbl_CurrentProject" />
           <EntitySet Name="Tbl_Language" EntityType="Self.Tbl_Language" />
           <EntitySet Name="Tbl_Navbar" EntityType="Self.Tbl_Navbar" />
           <EntitySet Name="Tbl_ProjectDetails" EntityType="Self.Tbl_ProjectDetails" />
@@ -565,10 +517,6 @@
           <AssociationSet Name="FK_Tbl_Contact_Tbl_Language" Association="Self.FK_Tbl_Contact_Tbl_Language">
             <End Role="Tbl_Language" EntitySet="Tbl_Language" />
             <End Role="Tbl_Contact" EntitySet="Tbl_Contact" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_CurrentProject_Tbl_Language" Association="Self.FK_Tbl_CurrentProject_Tbl_Language">
-            <End Role="Tbl_Language" EntitySet="Tbl_Language" />
-            <End Role="Tbl_CurrentProject" EntitySet="Tbl_CurrentProject" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_Navbar_Tbl_Language" Association="Self.FK_Tbl_Navbar_Tbl_Language">
             <End Role="Tbl_Language" EntitySet="Tbl_Language" />
@@ -655,16 +603,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_CurrentProject">
-            <EntityTypeMapping TypeName="PersonelWebDbModel.Tbl_CurrentProject">
-              <MappingFragment StoreEntitySet="Tbl_CurrentProject">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
-                <ScalarProperty Name="ProjectTitle" ColumnName="ProjectTitle" />
-                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Tbl_Language">
             <EntityTypeMapping TypeName="PersonelWebDbModel.Tbl_Language">
               <MappingFragment StoreEntitySet="Tbl_Language">
@@ -709,6 +647,7 @@
           <EntitySetMapping Name="Tbl_Projects">
             <EntityTypeMapping TypeName="PersonelWebDbModel.Tbl_Projects">
               <MappingFragment StoreEntitySet="Tbl_Projects">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="GithubURL" ColumnName="GithubURL" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />

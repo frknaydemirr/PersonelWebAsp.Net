@@ -12,7 +12,7 @@ namespace MyPeronalWebSite.Models.ViewModel
 
         public List<Tbl_Contact> Tbl_Contact { get; set; }
 
-        public List<Tbl_CurrentProject> Tbl_CurrentProject { get; set; }
+       
 
         public List<Tbl_Projects> Tbl_Projects { get; set; }
         public List<Tbl_Navbar> Tbl_Navbar { get; set; }

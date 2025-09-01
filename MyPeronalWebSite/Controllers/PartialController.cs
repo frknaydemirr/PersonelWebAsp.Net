@@ -22,7 +22,7 @@ namespace MyPeronalWebSite.Controllers
             int langId = db.Tbl_Language.FirstOrDefault(x => x.ShortTitle == dil)?.ID ?? 1;
             NavbarViewModel vm = new NavbarViewModel();
             vm.Tbl_Resource = db.Tbl_Resource.Where(x => x.LanguageID == langId).ToList();
-            vm.Tbl_CurrentProject = db.Tbl_CurrentProject.Where(x => x.LanguageID == langId).ToList();
+         
             vm.Tbl_AboutMe = db.Tbl_AboutMe.FirstOrDefault(x => x.LanguageID == langId);
             vm.Tbl_Technologies = db.Tbl_Technologies.Where(x => x.LanguageID == langId).ToList();
             vm.Tbl_Contact = db.Tbl_Contact.Where(x => x.LanguageID == langId).ToList();

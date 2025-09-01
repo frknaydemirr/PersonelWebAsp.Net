@@ -19,7 +19,6 @@ namespace MyPeronalWebSite.Models.VT
         {
             this.Tbl_AboutMe = new HashSet<Tbl_AboutMe>();
             this.Tbl_Contact = new HashSet<Tbl_Contact>();
-            this.Tbl_CurrentProject = new HashSet<Tbl_CurrentProject>();
             this.Tbl_Navbar = new HashSet<Tbl_Navbar>();
             this.Tbl_ProjectDetails = new HashSet<Tbl_ProjectDetails>();
             this.Tbl_Projects = new HashSet<Tbl_Projects>();
@@ -38,8 +37,6 @@ namespace MyPeronalWebSite.Models.VT
         public virtual ICollection<Tbl_AboutMe> Tbl_AboutMe { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_Contact> Tbl_Contact { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_CurrentProject> Tbl_CurrentProject { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_Navbar> Tbl_Navbar { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

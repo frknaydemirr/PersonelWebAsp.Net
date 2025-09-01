@@ -8,7 +8,6 @@
         <EntityTypeShape EntityType="PersonelWebDbModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_AboutMe" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_Contact" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_CurrentProject" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
         <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_Language" Width="1.5" PointX="0.75" PointY="13.25" IsExpanded="true" />
         <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_Navbar" Width="1.5" PointX="3" PointY="13.875" IsExpanded="true" />
         <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_ProjectDetails" Width="1.5" PointX="5.25" PointY="17.375" IsExpanded="true" />
@@ -18,7 +17,7 @@
         <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_User" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_AboutMe_Tbl_Language" ManuallyRouted="false" />
         <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_Contact_Tbl_Language" ManuallyRouted="false" />
-        <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_CurrentProject_Tbl_Language" ManuallyRouted="false" />
+
         <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_Navbar_Tbl_Language" ManuallyRouted="false" />
         <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_ProjectDetails_Tbl_Language" ManuallyRouted="false" />
         <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_Projects_Tbl_Language" ManuallyRouted="false" />

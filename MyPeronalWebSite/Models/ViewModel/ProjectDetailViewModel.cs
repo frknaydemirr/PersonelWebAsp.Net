@@ -15,6 +15,8 @@ namespace MyPeronalWebSite.Models.ViewModel
         public List<Tbl_Navbar> Navbar { get; set; }
         public Tbl_AboutMe Tbl_AboutMe { get; set; }
 
+      
+
 
     }
 }

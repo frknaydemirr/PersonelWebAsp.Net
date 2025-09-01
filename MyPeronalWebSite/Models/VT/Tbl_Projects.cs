@@ -28,6 +28,7 @@ namespace MyPeronalWebSite.Models.VT
         public string ProjectEntryTitle { get; set; }
         public string ProjectEntryDescription { get; set; }
         public string GithubURL { get; set; }
+        public Nullable<bool> isActive { get; set; }
     
         public virtual Tbl_Language Tbl_Language { get; set; }
         public virtual Tbl_Language Tbl_Language1 { get; set; }

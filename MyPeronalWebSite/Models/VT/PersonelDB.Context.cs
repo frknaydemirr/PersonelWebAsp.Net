@@ -28,7 +28,6 @@ namespace MyPeronalWebSite.Models.VT
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tbl_AboutMe> Tbl_AboutMe { get; set; }
         public virtual DbSet<Tbl_Contact> Tbl_Contact { get; set; }
-        public virtual DbSet<Tbl_CurrentProject> Tbl_CurrentProject { get; set; }
         public virtual DbSet<Tbl_Language> Tbl_Language { get; set; }
         public virtual DbSet<Tbl_Navbar> Tbl_Navbar { get; set; }
         public virtual DbSet<Tbl_ProjectDetails> Tbl_ProjectDetails { get; set; }

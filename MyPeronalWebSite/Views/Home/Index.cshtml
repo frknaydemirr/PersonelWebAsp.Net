@@ -11,77 +11,7 @@
 <!-- tpm-header-area start -->
 <!-- tpm-header-area end -->
 
-<div class="d-none d-xl-block">
-    <div class="tmp-sidebar-area tmp_side_bar">
-        <div class="inner">
-            <div class="top-area">
-                <a href="index.html" class="logo">
-                    <img class="logo-dark" src="/Content/images/logo/white-logo-reeni.png" alt="Reeni - Personal Portfolio HTML Template for developers and freelancers">
-                    <img class="logo-white" src="/Content/images/logo/logo-white.png" alt="Reeni - Personal Portfolio HTML Template for developers and freelancers">
-                </a>
-                <div class="close-icon-area">
-                    <button class="tmp-round-action-btn close_side_menu_active">
-                        <i class="fa-sharp fa-light fa-xmark"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="content-wrapper">
-                <div class="image-area-feature">
-                    <a href="index.html">
-                        <img src="/Content/images/logo/man.png" alt="personal-logo">
-                    </a>
-                </div>
-                <h5 class="title mt--30">Freelancer delivering exceptional Webflow, and Next.js solutions.</h5>
-                <p class="disc">
-                    @Model.Tbl_AboutMe.ShortDescription
-                </p>
-                <div class="short-contact-area">
-                    <!-- single contact information -->
-                    <div class="single-contact">
-                        <i class="fa-solid fa-phone"></i>
 
-                        <div class="information tmp-link-animation">
-                            <span>Call Now</span>
-                            <a href="#" class="number">@Model.Tbl_AboutMe.PhoneNumber</a>
-                        </div>
-                    </div>
-                    <!-- single contact information end -->
-                    <!-- single contact information -->
-                    <div class="single-contact">
-                        <i class="fa-solid fa-envelope"></i>
-                        <div class="information tmp-link-animation">
-
-                            <a href="mailto:@Model.Tbl_AboutMe.EmailAdress">@Model.Tbl_AboutMe.EmailAdress</a>
-                        </div>
-
-                    </div>
-                    <!-- single contact information end -->
-                    <!-- single contact information -->
-                    <div class="single-contact">
-                        <i class="fa-solid fa-location-crosshairs"></i>
-                        <div class="information tmp-link-animation">
-                            <span>My Address</span>
-                            <span class="number">@Model.Tbl_AboutMe.Adress</span>
-                        </div>
-                    </div>
-                    <!-- single contact information end -->
-                </div>
-                <!-- social area start -->
-                <div class="social-wrapper mt--20">
-                    <span class="subtitle">find with me</span>
-                    <div class="social-link">
-
-                        <a href="@Model.Tbl_AboutMe.LinkedlnURL"><i class="fa-brands fa-linkedin-in"></i></a>
-
-                        <a href="@Model.Tbl_AboutMe.GithubURL"><i class="fa-brands fa-github"></i></a>
-                    </div>
-                </div>
-                <!-- social area end -->
-            </div>
-        </div>
-    </div>
-    <a class="overlay_close_side_menu close_side_menu_active" href="javascript:void(0);"></a>
-</div>
 
 <div class="d-block d-xl-none">
     <div class="tmp-popup-mobile-menu">
@@ -133,10 +63,9 @@
             <div class="social-wrapper mt--40">
                 <span class="subtitle">find with me</span>
                 <div class="social-link">
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="@Model.Tbl_AboutMe.LinkedlnURL"><i class="fa-brands fa-linkedin-in"></i></a>
+
+                    <a href="@Model.Tbl_AboutMe.GithubURL"><i class="fa-brands fa-github"></i></a>
                 </div>
             </div>
             <!-- social area end -->
@@ -175,6 +104,7 @@
                         <div class="about-me tmp-scroll-trigger tmp-fade-in animation-order-1">
                             <h3 class="title">Hakkımda</h3>
                             <p class="para tmp-title-split">
+                                F
                                 @Model.Tbl_AboutMe.Description
                             </p>
                         </div>
@@ -324,7 +254,8 @@
 </style>
 <!-- Tpm Our Supported Company Area End -->
 <!-- Tpm My Price plan Start -->
-    >
+
+
 <!-- Tpm My Price plan End -->
 <!-- Tpm Testimonial Area Start -->
 <!-- Tpm Testimonial Area End -->
@@ -386,7 +317,7 @@
 
 
 
-<section class="blog-and-news-are tmp-section-gap">
+@*<section class="blog-and-news-are tmp-section-gap">
     <div class="container">
         <div class="section-head mb--50">
             <div class="section-sub-title center-title tmp-scroll-trigger tmp-fade-in animation-order-1">
@@ -395,7 +326,7 @@
             <h2 class="title split-collab tmp-scroll-trigger tmp-fade-in animation-order-2">@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Projeler").Value</h2>
         </div>
         <div class="row">
-            @foreach (var item in Model.Tbl_CurrentProject)
+            foreach (var item in Model.Tbl_CurrentProject)
             {
                 <div class="col-lg-6 col-md-6">
                     <div class="latest-portfolio-card tmp-hover-link tmp-scroll-trigger tmp-fade-in animation-order-1">
@@ -439,7 +370,7 @@
             }
         </div>
     </div>
-</section>
+</section>*@
 
 
 
