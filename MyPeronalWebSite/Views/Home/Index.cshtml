@@ -269,7 +269,7 @@
             <h2 class="title split-collab tmp-scroll-trigger tmp-fade-in animation-order-2">@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Projeler").Value</h2>
         </div>
         <div class="row">
-            @foreach (var item in Model.Tbl_Projects)
+            @foreach (var item in Model.Tbl_Projects.Where(x => x.isActive == false))
             {
                 <div class="col-lg-6 col-md-6">
                     <div class="latest-portfolio-card tmp-hover-link tmp-scroll-trigger tmp-fade-in animation-order-1">
@@ -317,7 +317,7 @@
 
 
 
-@*<section class="blog-and-news-are tmp-section-gap">
+<section class="blog-and-news-are tmp-section-gap">
     <div class="container">
         <div class="section-head mb--50">
             <div class="section-sub-title center-title tmp-scroll-trigger tmp-fade-in animation-order-1">
@@ -326,7 +326,7 @@
             <h2 class="title split-collab tmp-scroll-trigger tmp-fade-in animation-order-2">@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Projeler").Value</h2>
         </div>
         <div class="row">
-            foreach (var item in Model.Tbl_CurrentProject)
+            @foreach (var item in Model.Tbl_Projects.Where(x => x.isActive == true))
             {
                 <div class="col-lg-6 col-md-6">
                     <div class="latest-portfolio-card tmp-hover-link tmp-scroll-trigger tmp-fade-in animation-order-1">
@@ -334,10 +334,10 @@
                             <div class="img-box v2">
                                 <a title="projectdetail"
                                    href="@Url.Action("ProjectDetail", "Home", new {
-                                       title = Url.FriendlyURLTitle(item.ProjectTitle),
-                                       id = item.ID
-                                   })">
-                                    <img class="hidden-on-mobile" src="@item.ImageURL" style="width:100%;" alt="@item.ProjectTitle" />
+                           title = Url.FriendlyURLTitle(item.ProjectTitle),
+                           id = item.ID
+                       })">
+                                    <img class="hidden-on-mobile" src="@item.ProjectImg" style="width:100%;" alt="@item.ProjectTitle" />
                                 </a>
                             </div>
                         </div>
@@ -346,9 +346,9 @@
                                 <h3 class="portfolio-card-title">
                                     <a class="link" title="projectdetail"
                                        href="@Url.Action("ProjectDetail", "Home", new {
-                                           title = Url.FriendlyURLTitle(item.ProjectTitle),
-                                           id = item.ID
-                                       })">
+                               title = Url.FriendlyURLTitle(item.ProjectTitle),
+                               id = item.ID
+                           })">
                                         @item.ProjectTitle
                                     </a>
                                 </h3>
@@ -356,9 +356,9 @@
                             </div>
                             <a title="projectdetail"
                                href="@Url.Action("ProjectDetail", "Home", new {
-                                   title = Url.FriendlyURLTitle(item.ProjectTitle),
-                                   id = item.ID
-                               })" class="tmp-arrow-icon-btn">
+                       title = Url.FriendlyURLTitle(item.ProjectTitle),
+                       id = item.ID
+                   })" class="tmp-arrow-icon-btn">
                                 <div class="btn-inner">
                                     <i class="tmp-icon fa-solid fa-arrow-up-right"></i>
                                     <i class="tmp-icon-bottom fa-solid fa-arrow-up-right"></i>
@@ -368,9 +368,10 @@
                     </div>
                 </div>
             }
+
         </div>
     </div>
-</section>*@
+</section>
 
 
 
