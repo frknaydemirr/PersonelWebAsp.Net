@@ -18,23 +18,24 @@ namespace MyPeronalWebSite.Controllers
         [Route("Home")]
         public ActionResult Index()
         {
-            
-            var dil = Request.Cookies["lang"]?.Value ?? "tr";
-            int dilId = DilId(dil);
-            ViewBag.DilId = dilId;
+            var dil = (Request.Cookies["lang"]?.Value ?? "tr").ToLower(); // Cookie'den dil al, yoksa 'tr'
 
-            int langId = db.Tbl_Language.FirstOrDefault(x => x.ShortTitle == dil)?.ID ?? 1;
+            int langId = db.Tbl_Language.FirstOrDefault(x => x.ShortTitle.ToLower() == dil)?.ID ?? 1;
+
+            ViewBag.DilId = langId;
+
             IndexViewModel vm = new IndexViewModel();
             vm.Tbl_Resource = db.Tbl_Resource.Where(x => x.LanguageID == langId).ToList();
-        
             vm.Tbl_AboutMe = db.Tbl_AboutMe.FirstOrDefault(x => x.LanguageID == langId);
             vm.Tbl_Technologies = db.Tbl_Technologies.Where(x => x.LanguageID == langId).ToList();
             vm.Tbl_Contact = db.Tbl_Contact.Where(x => x.LanguageID == langId).ToList();
             vm.Tbl_Projects = db.Tbl_Projects.Where(x => x.LanguageID == langId).ToList();
             vm.Tbl_Skills = db.Tbl_Skills.Where(x => x.LanguageID == langId).ToList();
-            vm.Tbl_Navbar = db.Tbl_Navbar.Where(x => x.LanguageID == dilId).ToList();
+            vm.Tbl_Navbar = db.Tbl_Navbar.Where(x => x.LanguageID == langId).ToList();
+
             return View(vm);
         }
+
 
         [Route("project-details/{title}-{id:int}")]
         public ActionResult ProjectDetail(string title, int id)
@@ -98,8 +99,6 @@ namespace MyPeronalWebSite.Controllers
             }
         }
 
-
-
         [HttpPost]
         public ActionResult Dil_Degistir(string dil)
         {
@@ -120,8 +119,18 @@ namespace MyPeronalWebSite.Controllers
 
         public int DilId(string Dil)
         {
-            return db.Tbl_Language.FirstOrDefault(x => x.ShortTitle == Dil).ID;
+            if (string.IsNullOrEmpty(Dil))
+                Dil = "TR"; // Varsayılan dil kodu
+
+            var dilKaydi = db.Tbl_Language.FirstOrDefault(x => x.ShortTitle.ToLower() == Dil.ToLower());
+
+            if (dilKaydi == null)
+                return 1; // Varsayılan dil ID'si
+
+            return dilKaydi.ID;
         }
+
+
 
 
     }
@@ -129,7 +138,7 @@ namespace MyPeronalWebSite.Controllers
 
 
 
-       
+
 
 
 }

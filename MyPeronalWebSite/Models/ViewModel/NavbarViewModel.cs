@@ -21,5 +21,7 @@ namespace MyPeronalWebSite.Models.ViewModel
 
         public List<Tbl_Technologies> Tbl_Technologies { get; set; }
 
+        public List<Tbl_Language> Tbl_Languages { get; set; }
+
     }
 }
