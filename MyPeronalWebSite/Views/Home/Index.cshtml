@@ -102,9 +102,9 @@
                 <div class="col-lg-3">
                     <div class="banner-right-content">
                         <div class="about-me tmp-scroll-trigger tmp-fade-in animation-order-1">
-                            <h3 class="title">Hakkımda</h3>
+                            <h3 class="title"> @Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "HakkımdaAna").Value</h3>
                             <p class="para tmp-title-split">
-                                F
+                                
                                 @Model.Tbl_AboutMe.Description
                             </p>
                         </div>
@@ -163,18 +163,15 @@
     <div class="container" id="about">
         <div class="section-head mb--60">
             <div class="section-sub-title center-title tmp-scroll-trigger tmp-fade-in animation-order-1">
-                <span class="subtitle">Latest Service</span>
+                <span class="subtitle">@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "BenKimim").Value</span>
             </div>
-            <h2 class="title split-collab tmp-scroll-trigger tmp-fade-in animation-order-2">Inspiring The World One Project</h2>
-            <p class="description section-sm tmp-scroll-trigger tmp-fade-in animation-order-3">
-                Business consulting consultants provide expert advice and guida
-                businesses to help them improve their performance, efficiency, and organizational
-            </p>
+            
+
         </div>
         <div class="row">
             <div class="col-lg-6">
                 <div class="service-card-v2 tmponhover tmp-scroll-trigger tmp-fade-in animation-order-1">
-                    <h2 class="service-card-num"><span>1.</span>Kısaca Ben </h2>
+                    <h2 class="service-card-num"><span>1.</span>@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Kısaca").Value </h2>
                     <p class="service-para">
                         @Model.Tbl_AboutMe.ShortDescription
                     </p>
@@ -207,8 +204,7 @@
         <div class="row justify-content-center">
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
                 <h3 class="tech-title">
-                    Kulla
-                    nılan Teknolojiler
+                    @Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Teknoloji").Value
                 </h3>
                 <div class="support-company-logo tmp-scroll-trigger tmp-fade-in animation-order-1">
                     @foreach (var item in Model.Tbl_Technologies)
@@ -490,7 +486,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="single-footer-wrapper contact-wrap">
 
-                        <h5 class="ft-title">İletişim Bilgileri </h5>
+                        <h5 class="ft-title">@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "İletisimBilgi").Value </h5>
                         <ul class="ft-link tmp-link-animation">
                             <li>
                                 <span class="ft-icon"><i class="fa-solid fa-envelope"></i></span>
