@@ -79,31 +79,20 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
+              
+
+                @{
+                    var currentUrl = Context.Request.Path.ToString();
+                    var menuItems = Model.Tbl_Navbar ?? new List<MyPeronalWebSite.Models.VT.Tbl_Navbar>();
+
+                }
+
                 <div class="header-content">
                     <div class="logo">
-                        <a href="index.html">
-                            <img class="logo-dark" src="/Content/images/logo/white-logo-reeni-2.png" alt="Reeni - Personal Portfolio HTML Template for developers and freelancers">
-                            <img class="logo-white" src="/Content/images/logo/logo-white.png" alt="Reeni - Personal Portfolio HTML Template for developers and freelancers">
+                        <a href="/">
+                            <img src="/Content/images/logo/white-logo-reeni-2.png" alt="Logo" />
                         </a>
                     </div>
-                    @{
-                        var currentUrl = Context.Request.Path.ToString();
-                        var selectedLanguageId = 1; // Örnek: 1 = Türkçe, 3 = İngilizce
-                        var menuItems = Model.Tbl_Navbar;
-
-                        if (menuItems != null)
-                        {
-                            menuItems = menuItems
-                                .Where(x => x.IsActive && x.LanguageID == selectedLanguageId)
-                                .OrderBy(x => x.Turn)
-                                .ToList();
-                        }
-                        else
-                        {
-                            menuItems = new List<MyPeronalWebSite.Models.VT.Tbl_Navbar>(); // boş liste
-                        }
-                    }
-
 
                     <nav class="tmp-mainmenu-nav d-none d-xl-block">
                         <ul class="tmp-mainmenu">
@@ -116,22 +105,20 @@
                             }
                         </ul>
                     </nav>
+
                     <div class="tmp-header-right">
                         <div class="social-share-wrapper d-none d-md-block">
                             <div class="social-link">
-                                <a href="@Model.Tbl_AboutMe.LinkedlnURL"><i class="fa-brands fa-linkedin-in"></i></a>
-
-                                <a href="@Model.Tbl_AboutMe.GithubURL"><i class="fa-brands fa-github"></i></a>
+                                <a href="@Model.Tbl_AboutMe?.LinkedlnURL"><i class="fa-brands fa-linkedin-in"></i></a>
+                                <a href="@Model.Tbl_AboutMe?.GithubURL"><i class="fa-brands fa-github"></i></a>
                             </div>
                         </div>
 
-                        <!-- Dil seçme yapısı eklendi -->
+                        <!-- Dil Seçici -->
                         <div class="language-selector">
-                            <select class="language-dropdown">
-                                <option value="tr">Türkçe</option>
-                                <option value="en">English</option>
-                                <option value="de">Deutsch</option>
-                                <option value="fr">Français</option>
+                            <select class="language-dropdown" onchange="changeLanguage(this)">
+                                <option value="tr" @(Request.Cookies["lang"]?.Value == "tr" ? "selected" : "")>Türkçe</option>
+                                <option value="en" @(Request.Cookies["lang"]?.Value == "en" ? "selected" : "")>English</option>
                             </select>
                         </div>
 
@@ -144,48 +131,45 @@
                             </div>
                         </div>
                     </div>
-
-                    <style>
-                        /* Dil seçici için stil */
-                        .language-selector {
-                            margin: 0 15px;
-                        }
-
-                        .language-dropdown {
-                            padding: 6px 10px;
-                            border: 1px solid #ddd;
-                            border-radius: 4px;
-                            background-color: #f8f9fa;
-                            color: #333;
-                            font-size: 14px;
-                            cursor: pointer;
-                            outline: none;
-                            transition: all 0.3s ease;
-                        }
-
-                            .language-dropdown:hover {
-                                border-color: #aaa;
-                                background-color: #fff;
-                            }
-
-                            .language-dropdown:focus {
-                                border-color: #4a90e2;
-                                box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
-                            }
-
-                        /* Mevcut yapıyla uyumlu hale getirmek için */
-                        .tmp-header-right {
-                            display: flex;
-                            align-items: center;
-                            justify-content: flex-end;
-                        }
-
-                        .social-share-wrapper, .language-selector, .actions-area {
-                            display: flex;
-                            align-items: center;
-                        }
-                    </style>
                 </div>
+
+                <script>
+    function changeLanguage(select) {
+        var lang = select.value;
+        document.cookie = "lang=" + lang + "; path=/";
+        location.reload(); // Sayfayı yeniden yükle
+    }
+                </script>
+
+                <style>
+                    .language-selector {
+                        margin: 0 15px;
+                    }
+
+                    .language-dropdown {
+                        padding: 6px 10px;
+                        border: 1px solid #ddd;
+                        border-radius: 4px;
+                        background-color: #f8f9fa;
+                        color: #333;
+                        font-size: 14px;
+                        cursor: pointer;
+                    }
+
+                    .tmp-header-right {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-end;
+                    }
+
+                    .social-share-wrapper,
+                    .language-selector,
+                    .actions-area {
+                        display: flex;
+                        align-items: center;
+                    }
+                </style>
+
             </div>
         </div>
     </div>

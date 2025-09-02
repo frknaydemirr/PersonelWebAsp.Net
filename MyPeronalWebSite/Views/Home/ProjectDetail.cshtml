@@ -114,11 +114,11 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-inner text-center">
-                        <h1 class="title split-collab">Project Details</h1>
+                        <h1 class="title split-collab">@Model.Resources.FirstOrDefault(x => x.NavigationName == "ProjeDetay").Value</h1>
                         <ul class="page-list">
-                            <li class="tmp-breadcrumb-item"><a href="https://inversweb.com/">Home</a></li>
+                            <li class="tmp-breadcrumb-item"><a href=""> @Model.Resources.FirstOrDefault(x => x.NavigationName == "ProjeDetayAnaSayfa").Value</a></li>
                             <li class="icon"><i class="fa-solid fa-angle-right"></i></li>
-                            <li class="tmp-breadcrumb-item active">Project Details</li>
+                            <li class="tmp-breadcrumb-item active"> @Model.Resources.FirstOrDefault(x => x.NavigationName == "ProjeDetay").Value</li>
                         </ul>
                     </div>
                 </div>
@@ -148,32 +148,7 @@
                             @Model.Project.ProjectDescription
                         </p>
 
-                        <div class="check-box-wrap">
-                            <ul>
-                                <li>
-                                    <h4 class="check-box-item">
-                                        <span>
-                                            <i class="fa-solid fa-circle-check"></i>
-                                        </span>Ui/visual Design
-                                    </h4>
-                                </li>
-                                <li>
-                                    <h4 class="check-box-item">
-                                        <span>
-                                            <i class="fa-solid fa-circle-check"></i>
-                                        </span>App Development
-                                    </h4>
-                                </li>
-                                <li>
-                                    <h4 class="check-box-item">
-                                        <span>
-                                            <i class="fa-solid fa-circle-check"></i>
-                                        </span>Software Developer
-                                    </h4>
-                                </li>
-                            </ul>
-                        </div>
-
+                       
 
 
                         <div class="project-details-swiper-btn">
@@ -197,19 +172,7 @@
 
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="signle-side-bar project-details-area tmponhover">
-                        <div class="header">
-                            <h3 class="title">Project Details</h3>
-                        </div>
-                        <div class="body">
-                            <div class="project-details-info">Name: <span>Hosting vps</span></div>
-                            <div class="project-details-info">Author: <span>Nadimul Islam</span></div>
-                            <div class="project-details-info">Date: <span>23 January,2024</span></div>
-                            <div class="project-details-info">Tags: <span>Host Web Design</span></div>
-                        </div>
-                    </div>
-                </div>
+              
                 <style>
                     github-redirect-btn {
                         text-align: center;
@@ -418,31 +381,10 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-footer-wrapper quick-link-wrap">
-                            <h5 class="ft-title">Quick Link</h5>
-                            <ul class="ft-link tmp-link-animation">
-                                <li>
-                                    <a href="about.html">About Me</a>
-                                </li>
-                                <li>
-                                    <a href="team.html">Service</a>
-                                </li>
-                                <li>
-                                    <a href="service.html">Contact Us</a>
-                                </li>
-                                <li>
-                                    <a href="blog.html">Blog Post</a>
-                                </li>
-                                <li>
-                                    <a href="contact.html">Pricing</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    
                     <div class="col-lg-3 col-md-6">
                         <div class="single-footer-wrapper contact-wrap">
-                            <h5 class="ft-title">Contact </h5>
+                            <h5 class="ft-title">@Model.Resources.FirstOrDefault(x => x.NavigationName == "FooterİletisimDetay").Value </h5>
                             <ul class="ft-link tmp-link-animation">
                                 <li><span class="ft-icon"><i class="fa-solid fa-envelope"></i></span><a href="#">nafiz125@gmail.com</a></li>
                                 <li>
@@ -475,11 +417,7 @@
                                 document.write(new Date().getFullYear())
                             </script>
                         </p>
-                        <ul>
-                            <li><a href="#">Trams & Condition</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                        </ul>
+                        
                     </div>
                 </div>
             </div>
