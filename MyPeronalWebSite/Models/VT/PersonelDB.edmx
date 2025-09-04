@@ -29,6 +29,7 @@
           <Property Name="EmailAdress" Type="nvarchar(max)" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Adress" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Cv" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Tbl_Contact">
           <Key>
@@ -283,6 +284,7 @@
           <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Tbl_Language" Relationship="Self.FK_Tbl_AboutMe_Tbl_Language" FromRole="Tbl_AboutMe" ToRole="Tbl_Language" />
+          <Property Name="Cv" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Tbl_Contact">
           <Key>
@@ -577,6 +579,7 @@
           <EntitySetMapping Name="Tbl_AboutMe">
             <EntityTypeMapping TypeName="PersonelWebDbModel.Tbl_AboutMe">
               <MappingFragment StoreEntitySet="Tbl_AboutMe">
+                <ScalarProperty Name="Cv" ColumnName="Cv" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

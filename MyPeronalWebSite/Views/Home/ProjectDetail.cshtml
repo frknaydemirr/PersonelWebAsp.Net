@@ -16,10 +16,7 @@
             <div class="inner">
                 <div class="header-top">
                     <div class="logo">
-                        <a href="index.html" class="logo-area">
-                            <img class="logo-dark" src="assets/images/logo/white-logo-reeni.png" alt="Reeni - Personal Portfolio HTML Template for developers and freelancers">
-                            <img class="logo-white" src="assets/images/logo/logo-white.png" alt="Reeni - Personal Portfolio HTML Template for developers and freelancers">
-                        </a>
+
 
                     </div>
                     <div class="close-menu">
@@ -28,76 +25,29 @@
                         </button>
                     </div>
                 </div>
+                @{
+
+                    var currentUrl = Context.Request.Path.ToString();
+                    var menuItems = Model.Navbar ?? new List<MyPeronalWebSite.Models.VT.Tbl_Navbar>();
+                }
+
                 <ul class="tmp-mainmenu">
-                    <li>
-                        <a href="#">
-                            Home
-                        </a>
-                        <!-- <ul class="submenu">
-                            <li><a href="index.html">Home 01</a></li>
-                            <li><a href="index-02.html">Home 02</a></li>
-                            <li><a href="index-03.html">Home 03</a></li>
-                            <li><a href="index-04.html">Home 04</a></li>
-                            <li><a href="index-05.html">Home 05</a></li>
-                            <li><a href="index-06.html">Home 06</a></li>
-                            <li><a href="index-07.html">Home 07</a></li>
-                            <li><a href="index-08.html">Home 08</a></li>
-                            <li><a href="index-09.html">Home 09</a></li>
-                            <li><a href="index-10.html">Home 10</a></li>
-                            <li><a href="index-11.html">Home 11</a></li>
-                            <li><a href="index-12.html">Home 12</a></li>
-                            <li><a href="index-13.html">Home 13</a></li>
-                        </ul> -->
-                    </li>
-                    <li>
-                        <a href="about.html">About</a>
-                    </li>
-                    <li class="has-dropdown">
-                        <a href="#">
-                            Services
-                            <i class="fa-regular fa-chevron-down"></i>
-                        </a>
-                        <ul class="submenu">
-                            <li><a href="service.html">Service</a></li>
-                            <li><a href="service-details.html">Service Details</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-dropdown">
-                        <a href="#">
-                            Blog
-                            <i class="fa-regular fa-chevron-down"></i>
-                        </a>
-                        <ul class="submenu">
-                            <li><a href="blog.html">Blog Classic</a></li>
-                            <li><a href="blog-col-4.html">Blog Column 3</a></li>
-                            <li><a href="blog-details.html">Blog Details</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-dropdown">
-                        <a href="#">
-                            Project
-                            <i class="fa-regular fa-chevron-down"></i>
-                        </a>
-                        <ul class="submenu">
-                            <li><a href="project.html">Project</a></li>
-                            <li><a href="project-style-two.html">Project Style 2</a></li>
-                            <li><a href="project-style-three.html">Project Style 3</a></li>
-                            <li><a href="project-details.html">Project Details</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="contact.html">Contact</a>
-                    </li>
+                    @foreach (var item in menuItems)
+                    {
+                        var isActive = currentUrl == item.URL ? "current" : "";
+                        <li class="@isActive">
+                            <a href="@item.URL">@item.Title</a>
+                        </li>
+                    }
                 </ul>
 
 
                 <div class="social-wrapper mt--40">
-                    <span class="subtitle">find with me</span>
+
                     <div class="social-link">
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-github"></i></a>
                         <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+
                     </div>
                 </div>
                 <!-- social area end -->
@@ -148,7 +98,23 @@
                             @Model.Project.ProjectDescription
                         </p>
 
-                       
+                        @* ID 4 veya 5 için link *@
+                        @if (Model.Project.ID == 4 || Model.Project.ID == 5)
+                        {
+                            <p class="docs">
+                                <strong>@Model.Resources.FirstOrDefault(x => x.NavigationName == "WebSite").Value</strong> <a href="https://www.ispartaisitme.com" target="_blank" style="color:#00aaff;">ispartaisitme.com</a>
+                            </p>
+                        }
+
+                        @* ID 10 veya 11 için link *@
+                        @if (Model.Project.ID == 10 || Model.Project.ID == 11)
+                        {
+                            <p class="docs">
+                                <strong>@Model.Resources.FirstOrDefault(x => x.NavigationName == "WebSite").Value</strong> <a href="http://webqrmenu.com" target="_blank" style="color: #00aaff;">webqrmenu.com</a>
+                            </p>
+                        }
+
+
 
 
                         <div class="project-details-swiper-btn">
@@ -386,18 +352,16 @@
                         <div class="single-footer-wrapper contact-wrap">
                             <h5 class="ft-title">@Model.Resources.FirstOrDefault(x => x.NavigationName == "FooterİletisimDetay").Value </h5>
                             <ul class="ft-link tmp-link-animation">
-                                <li><span class="ft-icon"><i class="fa-solid fa-envelope"></i></span><a href="#">nafiz125@gmail.com</a></li>
+                                <li><span class="ft-icon"><i class="fa-solid fa-envelope"></i></span><a href="#">furkanaydemir12@hotmail.com</a></li>
                                 <li>
-                                    <span class="ft-icon"><i class="fa-solid fa-location-dot"></i></span>3891
-                                    Ranchview Dr. Richardson
+                                    <span class="ft-icon"><i class="fa-solid fa-location-dot"></i></span>Etimesgut/Ankara
                                 </li>
-                                <li><span class="ft-icon"><i class="fa-solid fa-phone"></i></span><a href="#">01245789321</a></li>
+                                <li><span class="ft-icon"><i class="fa-solid fa-phone"></i></span><a href="#">05071740165</a></li>
                             </ul>
                             <div class="social-link footer">
-                                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                                <a href="https://github.com/frknaydemirr"><i class="fa-brands fa-github"></i></a>
+                                <a href="https://www.linkedin.com/in/furkanaydemir13/"><i class="fa-brands fa-linkedin-in"></i></a>
+
                             </div>
                         </div>
                     </div>

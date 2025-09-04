@@ -24,6 +24,7 @@ namespace MyPeronalWebSite.Models.VT
         public string EmailAdress { get; set; }
         public string PhoneNumber { get; set; }
         public string Adress { get; set; }
+        public string Cv { get; set; }
     
         public virtual Tbl_Language Tbl_Language { get; set; }
     }

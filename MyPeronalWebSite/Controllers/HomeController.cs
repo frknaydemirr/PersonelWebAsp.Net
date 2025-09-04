@@ -24,6 +24,7 @@ namespace MyPeronalWebSite.Controllers
 
             ViewBag.DilId = langId;
 
+
             IndexViewModel vm = new IndexViewModel();
             vm.Tbl_Resource = db.Tbl_Resource.Where(x => x.LanguageID == langId).ToList();
             vm.Tbl_AboutMe = db.Tbl_AboutMe.FirstOrDefault(x => x.LanguageID == langId);
@@ -43,19 +44,25 @@ namespace MyPeronalWebSite.Controllers
             var dil = Request.Cookies["lang"]?.Value ?? "tr";
             int dilId = DilId(dil);
             ViewBag.DilId = dilId;
-            int langId = db.Tbl_Language.FirstOrDefault(x => x.ShortTitle == dil)?.ID ?? 1;
 
+            int langId = db.Tbl_Language.FirstOrDefault(x => x.ShortTitle == dil)?.ID ?? 1;
+            var navbarItems = db.Tbl_Navbar
+    .Where(x => x.Tbl_Language.ShortTitle.ToLower() == dil.ToLower())
+    .ToList();
             var project = db.Tbl_Projects.FirstOrDefault(x => x.ID == id && x.LanguageID == langId);
             if (project == null)
             {
                 return HttpNotFound();
             }
+           
 
             ProjectDetailViewModel vm = new ProjectDetailViewModel
             {
                 Project = project,
                 Resources = db.Tbl_Resource.Where(x => x.LanguageID == langId && x.Page == "ProjectDetail").ToList(),
-             
+                Navbar = navbarItems
+
+
             };
 
             return View(vm);
