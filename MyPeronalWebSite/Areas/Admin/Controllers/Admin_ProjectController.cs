@@ -1,12 +1,13 @@
-﻿using System;
+﻿using MyPeronalWebSite.Models.VT;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using MyPeronalWebSite.Models.VT;
 
 namespace MyPeronalWebSite.Areas.Admin.Controllers
 {
@@ -49,18 +50,79 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,LanguageID,ProjectTitle,ProjectImg,ProjectDescription,ProjectEntryTitle,ProjectEntryDescription,GithubURL,isActive")] Tbl_Projects tbl_Projects)
+        [ValidateInput(false)] // HTML içeriğine izin vermek istersen
+        public ActionResult Create([Bind(Include = "ID,LanguageID,ProjectTitle,ProjectImg,ProjectDescription,ProjectEntryTitle,ProjectEntryDescription,GithubURL,isActive")] Tbl_Projects tbl_Projects, HttpPostedFileBase ProjectImgFile = null)
         {
-            if (ModelState.IsValid)
+            try
             {
+                // 1. Model validasyonu
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
+                    ViewBag.ErrorMessage = "Form verileri geçersiz";
+                    return View(tbl_Projects);
+                }
+
+                // 2. Resim yükleme zorunluluğu
+                if (ProjectImgFile == null || ProjectImgFile.ContentLength == 0)
+                {
+                    ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
+                    ViewBag.ErrorMessage = "Lütfen bir proje resmi seçiniz";
+                    return View(tbl_Projects);
+                }
+
+                // 3. Resim format kontrolü
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+                var extension = Path.GetExtension(ProjectImgFile.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(extension))
+                {
+                    ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
+                    ViewBag.ErrorMessage = "Sadece JPG, JPEG, PNG, GIF veya WEBP formatında resimler yükleyebilirsiniz";
+                    return View(tbl_Projects);
+                }
+
+                // 4. Resim boyutu kontrolü (5MB)
+                if (ProjectImgFile.ContentLength > 5 * 1024 * 1024)
+                {
+                    ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
+                    ViewBag.ErrorMessage = "Resim boyutu 5MB'tan büyük olamaz";
+                    return View(tbl_Projects);
+                }
+
+                // 5. Klasör işlemleri
+                var uploadPath = Server.MapPath("~/Uploads/Projects");
+                if (!Directory.Exists(uploadPath))
+                {
+                    Directory.CreateDirectory(uploadPath);
+                }
+
+                // 6. Resmi kaydet
+                var fileName = Guid.NewGuid().ToString() + extension;
+                var filePath = Path.Combine(uploadPath, fileName);
+                ProjectImgFile.SaveAs(filePath);
+                tbl_Projects.ProjectImg = "/Uploads/Projects/" + fileName;
+
+                // 7. Veritabanına kaydet
                 db.Tbl_Projects.Add(tbl_Projects);
                 db.SaveChanges();
+
+                TempData["SuccessMessage"] = "Proje başarıyla oluşturuldu!";
                 return RedirectToAction("Index");
             }
+            catch (Exception ex)
+            {
+                // Hata yakalama
+                string errorMessage = "Kayıt oluşturulurken hata oluştu: " + ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorMessage += " | Inner Exception: " + ex.InnerException.Message;
+                }
 
-            ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
-            ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
-            return View(tbl_Projects);
+                ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
+                ViewBag.ErrorMessage = errorMessage;
+                return View(tbl_Projects);
+            }
         }
 
         // GET: Admin/Admin_Project/Edit/5

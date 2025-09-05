@@ -120,6 +120,28 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+
+        [HttpPost]
+        public JsonResult DeleteContactInfo(int id)
+        {
+            try
+            {
+                Tbl_Contact tbl_Contact = db.Tbl_Contact.Find(id);
+                if (tbl_Contact == null)
+                {
+                    return Json(new { success = false, message = "Contact Info not found." });
+                }
+                db.Tbl_Contact.Remove(tbl_Contact);
+                db.SaveChanges();
+                return Json(new { success = true, message = "Contact message deleted successfully." });
+
+            }
+            catch
+            {
+                return Json(new { success = false, message = "An error occurred while deleting the contact ınfo." });
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

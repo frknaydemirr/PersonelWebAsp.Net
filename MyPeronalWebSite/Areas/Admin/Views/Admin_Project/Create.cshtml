@@ -142,128 +142,151 @@
     </style>
 </head>
 <body>
-    <div class="container-fluid px-4">
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title mb-0"><i class="fas fa-project-diagram me-2"></i>YENİ PROJE EKLE</h3>
-                        <div>
-                            @Html.ActionLink("Listeye Dön", "Index", null, new { @class = "btn btn-sm btn-outline-light" })
-                        </div>
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Yeni Proje Ekle</h1>
                     </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Projeler</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
 
-                    <div class="card-body">
-                        @using (Html.BeginForm("Create", "Tbl_Projects", FormMethod.Post, new { enctype = "multipart/form-data", id = "projectForm" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
-
-                            <div class="row g-3">
-                                <!-- Dil Seçimi -->
-                                <div class="col-md-6">
-                                    <div class="mb-4">
-                                        @Html.LabelFor(model => model.LanguageID, "Dil", htmlAttributes: new { @class = "form-label fw-bold mb-2" })
-                                        @Html.DropDownList("LanguageID", null, "Dil seçin...", htmlAttributes: new { @class = "form-select", required = "required" })
-                                        @Html.ValidationMessageFor(model => model.LanguageID, "", new { @class = "text-danger small" })
-                                    </div>
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid px-4">
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title mb-0">
+                                    <i class="fas fa-project-diagram me-2"></i>YENİ PROJE EKLE
+                                </h3>
+                                <div>
+                                    @Html.ActionLink("Listeye Dön", "Index", null, new { @class = "btn btn-sm btn-outline-light" })
                                 </div>
+                            </div>
 
-                                <!-- Proje Başlığı -->
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-4">
-                                        @Html.EditorFor(model => model.ProjectTitle, new { htmlAttributes = new { @class = "form-control", placeholder = " ", required = "required" } })
-                                        @Html.LabelFor(model => model.ProjectTitle)
-                                        @Html.ValidationMessageFor(model => model.ProjectTitle, "", new { @class = "text-danger small" })
-                                    </div>
-                                </div>
+                            <div class="card-body">
+                                @using (Html.BeginForm("Create", "Tbl_Projects", FormMethod.Post, new { enctype = "multipart/form-data", id = "projectForm" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
 
-                                <!-- Proje Giriş Başlığı -->
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-4">
-                                        @Html.EditorFor(model => model.ProjectEntryTitle, new { htmlAttributes = new { @class = "form-control", placeholder = " " } })
-                                        @Html.LabelFor(model => model.ProjectEntryTitle)
-                                        @Html.ValidationMessageFor(model => model.ProjectEntryTitle, "", new { @class = "text-danger small" })
-                                    </div>
-                                </div>
-
-                                <!-- Github URL -->
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-4">
-                                        @Html.EditorFor(model => model.GithubURL, new { htmlAttributes = new { @class = "form-control", placeholder = " ", type = "url" } })
-                                        @Html.LabelFor(model => model.GithubURL)
-                                        @Html.ValidationMessageFor(model => model.GithubURL, "", new { @class = "text-danger small" })
-                                    </div>
-                                </div>
-
-                                <!-- Proje Açıklaması -->
-                                <div class="col-12">
-                                    <div class="mb-4">
-                                        @Html.LabelFor(model => model.ProjectDescription, htmlAttributes: new { @class = "form-label fw-bold mb-2" })
-                                        <div class="editor-container">
-                                            @Html.TextAreaFor(model => model.ProjectDescription, new { @class = "form-control", id = "editorDescription", rows = "6", placeholder = "Proje açıklaması giriniz..." })
-                                        </div>
-                                        @Html.ValidationMessageFor(model => model.ProjectDescription, "", new { @class = "text-danger small" })
-                                    </div>
-                                </div>
-
-                                <!-- Proje Giriş Açıklaması -->
-                                <div class="col-12">
-                                    <div class="mb-4">
-                                        @Html.LabelFor(model => model.ProjectEntryDescription, htmlAttributes: new { @class = "form-label fw-bold mb-2" })
-                                        <div class="editor-container">
-                                            @Html.TextAreaFor(model => model.ProjectEntryDescription, new { @class = "form-control", id = "editorEntryDescription", rows = "4", placeholder = "Proje giriş açıklaması giriniz..." })
-                                        </div>
-                                        @Html.ValidationMessageFor(model => model.ProjectEntryDescription, "", new { @class = "text-danger small" })
-                                    </div>
-                                </div>
-
-                                <!-- Resim Yükleme -->
-                                <div class="col-12">
-                                    <div class="mb-4">
-                                        <label class="form-label fw-bold mb-2">Proje Resmi</label>
-
-                                        <!-- Resim Önizleme -->
-                                        <div class="image-container text-center mb-3">
-                                            <img id="imagePreview" src="#" alt="Resim Önizleme" />
+                                    <div class="row g-3">
+                                        <!-- Dil Seçimi -->
+                                        <div class="col-md-6">
+                                            <div class="mb-4">
+                                                @Html.LabelFor(model => model.LanguageID, "Dil", htmlAttributes: new { @class = "form-label fw-bold mb-2" })
+                                                @Html.DropDownList("LanguageID", null, "Dil seçin...", htmlAttributes: new { @class = "form-select", required = "required" })
+                                                @Html.ValidationMessageFor(model => model.LanguageID, "", new { @class = "text-danger small" })
+                                            </div>
                                         </div>
 
-                                        <!-- Dosya Yükleme -->
-                                        <div class="file-upload-wrapper">
-                                            <label for="ProjectImg" class="file-upload-label">
-                                                <div class="file-upload-icon">
-                                                    <i class="fas fa-cloud-upload-alt fa-2x mb-3"></i>
+                                        <!-- Proje Başlığı -->
+                                        <div class="col-md-6">
+                                            <div class="form-floating mb-4">
+                                                @Html.EditorFor(model => model.ProjectTitle, new { htmlAttributes = new { @class = "form-control", placeholder = " ", required = "required" } })
+                                                @Html.LabelFor(model => model.ProjectTitle)
+                                                @Html.ValidationMessageFor(model => model.ProjectTitle, "", new { @class = "text-danger small" })
+                                            </div>
+                                        </div>
+
+                                        <!-- Proje Giriş Başlığı -->
+                                        <div class="col-md-6">
+                                            <div class="form-floating mb-4">
+                                                @Html.EditorFor(model => model.ProjectEntryTitle, new { htmlAttributes = new { @class = "form-control", placeholder = " " } })
+                                                @Html.LabelFor(model => model.ProjectEntryTitle)
+                                                @Html.ValidationMessageFor(model => model.ProjectEntryTitle, "", new { @class = "text-danger small" })
+                                            </div>
+                                        </div>
+
+                                        <!-- Github URL -->
+                                        <div class="col-md-6">
+                                            <div class="form-floating mb-4">
+                                                @Html.EditorFor(model => model.GithubURL, new { htmlAttributes = new { @class = "form-control", placeholder = " ", type = "url" } })
+                                                @Html.LabelFor(model => model.GithubURL)
+                                                @Html.ValidationMessageFor(model => model.GithubURL, "", new { @class = "text-danger small" })
+                                            </div>
+                                        </div>
+
+                                        <!-- Proje Açıklaması -->
+                                        <div class="col-12">
+                                            <div class="mb-4">
+                                                @Html.LabelFor(model => model.ProjectDescription, htmlAttributes: new { @class = "form-label fw-bold mb-2" })
+                                                <div class="editor-container">
+                                                    @Html.TextAreaFor(model => model.ProjectDescription, new { @class = "form-control", id = "editorDescription", rows = "6", placeholder = "Proje açıklaması giriniz..." })
                                                 </div>
-                                                <div class="mb-2">Resim eklemek için tıklayın</div>
-                                                <span class="badge bg-primary px-3 py-2">Resim Seç (Max 2MB)</span>
-                                                <div class="form-text text-muted mt-2">Önerilen boyut: 800x600 px</div>
-                                            </label>
-                                            <input type="file" name="ProjectImg" id="ProjectImg" class="d-none" accept="image/*" required />
+                                                @Html.ValidationMessageFor(model => model.ProjectDescription, "", new { @class = "text-danger small" })
+                                            </div>
+                                        </div>
+
+                                        <!-- Proje Giriş Açıklaması -->
+                                        <div class="col-12">
+                                            <div class="mb-4">
+                                                @Html.LabelFor(model => model.ProjectEntryDescription, htmlAttributes: new { @class = "form-label fw-bold mb-2" })
+                                                <div class="editor-container">
+                                                    @Html.TextAreaFor(model => model.ProjectEntryDescription, new { @class = "form-control", id = "editorEntryDescription", rows = "4", placeholder = "Proje giriş açıklaması giriniz..." })
+                                                </div>
+                                                @Html.ValidationMessageFor(model => model.ProjectEntryDescription, "", new { @class = "text-danger small" })
+                                            </div>
+                                        </div>
+
+                                        <!-- Resim Yükleme -->
+                                        <div class="col-12">
+                                            <div class="mb-4">
+                                                <label class="form-label fw-bold mb-2">Proje Resmi</label>
+
+                                                <div class="image-container text-center mb-3">
+                                                    <img id="imagePreview" src="#" alt="Resim Önizleme" />
+                                                </div>
+
+                                                <div class="file-upload-wrapper">
+                                                    <label for="ProjectImg" class="file-upload-label">
+                                                        <div class="file-upload-icon">
+                                                            <i class="fas fa-cloud-upload-alt fa-2x mb-3"></i>
+                                                        </div>
+                                                        <div class="mb-2">Resim eklemek için tıklayın</div>
+                                                        <span class="badge bg-primary px-3 py-2">Resim Seç (Max 2MB)</span>
+                                                        <div class="form-text text-muted mt-2">Önerilen boyut: 800x600 px</div>
+                                                    </label>
+                                                    <input type="file" name="ProjectImg" id="ProjectImg" class="d-none" accept="image/*" required />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Aktiflik Durumu -->
+                                        <div class="col-md-6">
+                                            <div class="form-check form-switch mb-4 mt-3">
+                                                @Html.EditorFor(model => model.isActive, new { htmlAttributes = new { @class = "form-check-input", role = "switch", id = "flexSwitchCheckChecked", @checked = true } })
+                                                @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "form-check-label fw-bold", @for = "flexSwitchCheckChecked" })
+                                                @Html.ValidationMessageFor(model => model.isActive, "", new { @class = "text-danger small" })
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <!-- Aktiflik Durumu -->
-                                <div class="col-md-6">
-                                    <div class="form-check form-switch mb-4 mt-3">
-                                        @Html.EditorFor(model => model.isActive, new { htmlAttributes = new { @class = "form-check-input", role = "switch", id = "flexSwitchCheckChecked", @checked = true } })
-                                        @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "form-check-label fw-bold", @for = "flexSwitchCheckChecked" })
-                                        @Html.ValidationMessageFor(model => model.isActive, "", new { @class = "text-danger small" })
+                                    <div class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
+                                        @Html.ActionLink("İptal", "Index", null, new { @class = "btn btn-outline-secondary px-4" })
+                                        <button type="submit" class="btn btn-primary px-4">
+                                            <i class="fas fa-save me-2"></i> Kaydet
+                                        </button>
                                     </div>
-                                </div>
+                                }
                             </div>
-
-                            <div class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
-                                @Html.ActionLink("İptal", "Index", null, new { @class = "btn btn-outline-secondary px-4" })
-                                <button type="submit" class="btn btn-primary px-4">
-                                    <i class="fas fa-save me-2"></i> Kaydet
-                                </button>
-                            </div>
-                        }
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+        <!-- /.content -->
     </div>
 
     <!-- jQuery -->
@@ -273,7 +296,6 @@
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- TinyMCE -->
-
     <script src="~/Areas/Admin/Content/tinymce/js/tinymce/tinymce.min.js"></script>
 
     <script>
@@ -312,9 +334,9 @@
                 menubar: false,
                 plugins: 'lists link image charmap preview code fullscreen',
                 toolbar: 'undo redo | formatselect | bold italic underline strikethrough | \
-                                      alignleft aligncenter alignright alignjustify | \
-                                      bullist numlist outdent indent | link image charmap | \
-                                      preview fullscreen code | removeformat',
+                                              alignleft aligncenter alignright alignjustify | \
+                                              bullist numlist outdent indent | link image charmap | \
+                                              preview fullscreen code | removeformat',
                 height: 300,
                 image_caption: true,
                 quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
@@ -329,9 +351,9 @@
                 menubar: false,
                 plugins: 'lists link image charmap preview code fullscreen',
                 toolbar: 'undo redo | formatselect | bold italic underline strikethrough | \
-                                      alignleft aligncenter alignright alignjustify | \
-                                      bullist numlist outdent indent | link image charmap | \
-                                      preview fullscreen code | removeformat',
+                                              alignleft aligncenter alignright alignjustify | \
+                                              bullist numlist outdent indent | link image charmap | \
+                                              preview fullscreen code | removeformat',
                 height: 200,
                 image_caption: true,
                 quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',

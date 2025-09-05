@@ -2520,14 +2520,10 @@
     <Content Include="Areas\Admin\Views\Admin_Project\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Admin_Technologies\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Admin_Technologies\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin_Technologies\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Admin_Technologies\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Admin_User\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Admin_User\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Admin_User\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin_Contact\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin_Contact\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin_Contact\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Admin_Contact\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Admin_ProjectDetails\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Admin_ProjectDetails\Delete.cshtml" />
