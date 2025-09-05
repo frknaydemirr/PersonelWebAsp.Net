@@ -6,7 +6,6 @@ using System.Web.Mvc;
 
 namespace MyPeronalWebSite.Areas.Admin.Controllers
 {
-     
     public class AdminController : Controller
     {
         // GET: Admin/Admin

@@ -73,6 +73,8 @@
 
         <a class="overlay_close_side_menu close_side_menu_active" href="javascript:void(0);"></a>
     </div>
+
+    @*navbar*@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -92,8 +94,13 @@
                             @foreach (var item in menuItems)
                             {
                                 var isActive = currentUrl == item.URL ? "current" : "";
+
+                                // ID ile çalışan bir yapı (#hakkimizda gibi)
+                                var isAnchor = item.URL.StartsWith("#");
+                                var link = isAnchor ? item.URL : Url.Content(item.URL);
+
                                 <li class="@isActive">
-                                    <a href="@item.URL">@item.Title</a>
+                                    <a href="@link">@item.Title</a>
                                 </li>
                             }
                         </ul>
