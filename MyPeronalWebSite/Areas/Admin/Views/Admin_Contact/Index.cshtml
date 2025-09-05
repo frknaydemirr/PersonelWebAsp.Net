@@ -1,0 +1,137 @@
+﻿@model IEnumerable<MyPeronalWebSite.Models.VT.Tbl_Contact>
+
+
+
+@{
+    ViewBag.Title = "İletişim Mesajları";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml"; // Admin paneline göre
+}
+
+<div class="content-wrapper">
+
+    <!-- Sayfa Başlığı -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>İletişim Mesajları</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ana İçerik -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card">
+                <!-- Başlık -->
+                <div class="card-header bg-primary">
+                    <h3 class="card-title text-white">Mesaj Listesi</h3>
+                </div>
+
+                <!-- Tablo -->
+                <div class="card-body">
+                    <div style="overflow-x: auto;">
+                        <table id="contactTable" class="table table-bordered table-hover w-100">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>@Html.DisplayNameFor(model => model.First().Name)</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().Email)</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().PhoneNumber)</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().Subcejt)</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().Message)</th>
+                                    
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        <td>@item.Email</td>
+                                        <td>@item.PhoneNumber</td>
+                                        <td>@item.Subcejt</td>
+                                        <td class="truncate-text">@item.Message</td>
+                                       
+                                        <td>
+                                            <div class="btn-group btn-group-sm">
+                                                @Html.ActionLink("Düzenle", "Edit", new { id = item.ID }, new { @class = "btn btn-info" })
+                                                @Html.ActionLink("Detay", "Details", new { id = item.ID }, new { @class = "btn btn-secondary" })
+                                                @Html.ActionLink("Sil", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- CSS Bağlantıları -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.bootstrap4.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+<!-- JS Bağlantıları -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
+
+<!-- DataTables Başlat -->
+<script>
+    $(document).ready(function () {
+        $('#contactTable').DataTable({
+            scrollX: true,
+            autoWidth: false,
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    className: 'btn btn-success btn-sm',
+                    text: '<i class="fas fa-file-excel"></i> Excel'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    className: 'btn btn-danger btn-sm',
+                    text: '<i class="fas fa-file-pdf"></i> PDF'
+                },
+                {
+                    extend: 'print',
+                    className: 'btn btn-info btn-sm',
+                    text: '<i class="fas fa-print"></i> Yazdır'
+                }
+            ],
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/tr.json'
+            }
+        });
+    });
+</script>
+
+<!-- Özel CSS -->
+<style>
+    .truncate-text {
+        max-width: 300px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .dt-buttons .btn {
+        margin-right: 5px;
+    }
+</style>
+

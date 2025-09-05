@@ -1,0 +1,146 @@
+﻿@model IEnumerable<MyPeronalWebSite.Models.VT.Tbl_ProjectDetails>
+
+@{
+    ViewBag.Title = "Proje Detayları";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- CONTENT WRAPPER BAŞLANGICI -->
+<div class="content-wrapper">
+
+    <!-- SAYFA BAŞLIĞI -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Proje Detayları</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ANA İÇERİK -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card">
+                <!-- Başlık -->
+                <div class="card-header bg-warning">
+                    <h3 class="card-title text-white">Proje Detayları Listesi</h3>
+                    <div class="card-tools">
+                        @Html.ActionLink("Yeni Proje Detayı Ekle", "Create", null, new { @class = "btn btn-light" })
+                    </div>
+                </div>
+
+                <!-- Tablo -->
+                <div class="card-body">
+                    <table id="projectDetailsTable" class="table table-bordered table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.First().ImageURL)</th>
+                                <th>@Html.DisplayNameFor(model => model.First().ProjectTitle)</th>
+                                <th>@Html.DisplayNameFor(model => model.First().ProjectDescription)</th>
+                                <th>@Html.DisplayNameFor(model => model.First().Date)</th>
+                                <th>@Html.DisplayNameFor(model => model.First().Tags)</th>
+                                <th>@Html.DisplayNameFor(model => model.First().Tbl_Language.Title)</th>
+                                <th>@Html.DisplayNameFor(model => model.First().Tbl_Projects.ProjectTitle)</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @* ImageURL muhtemelen resim yoluysa gösteriyoruz *@
+                                        <img src="@item.ImageURL" alt="Proje Görseli" style="max-height:50px;" />
+                                    </td>
+                                    <td>@item.ProjectTitle</td>
+                                    <td>
+                                        @(item.ProjectDescription != null && item.ProjectDescription.Length > 50
+        ? item.ProjectDescription.Substring(0, 50) + "..."
+        : item.ProjectDescription)
+                                    </td>
+                                    <td>@item.Date.ToString("dd.MM.yyyy")</td>
+                                    <td>@item.Tags</td>
+                                    <td>@item.Tbl_Language.Title</td>
+                                    <td>@item.Tbl_Projects.ProjectTitle</td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            @Html.ActionLink("Düzenle", "Edit", new { id = item.ID }, new { @class = "btn btn-info" })
+                                            @Html.ActionLink("Detay", "Details", new { id = item.ID }, new { @class = "btn btn-secondary" })
+                                            <button class="btn btn-danger delete-btn" data-id="@item.ID">
+                                                <i class="fas fa-trash-alt"></i> Sil
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Footer -->
+                <div class="card-footer clearfix">
+                    <div class="float-right">
+                        @Html.ActionLink("Yeni Proje Detayı Ekle", "Create", null, new { @class = "btn btn-warning" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+<!-- CONTENT WRAPPER BİTİŞİ -->
+<!-- DataTables ve FontAwesome Stilleri -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.bootstrap4.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+<!-- Gerekli Scriptler -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
+
+<!-- DataTable Başlat -->
+<script>
+    $(document).ready(function () {
+        $('#projectDetailsTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="fas fa-file-excel"></i> Excel',
+                    className: 'btn btn-success btn-sm'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: '<i class="fas fa-file-pdf"></i> PDF',
+                    className: 'btn btn-danger btn-sm'
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-print"></i> Yazdır',
+                    className: 'btn btn-info btn-sm'
+                }
+            ],
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/tr.json'
+            }
+        });
+
+        $('.delete-btn').click(function () {
+            var id = $(this).data('id');
+            if (confirm('Bu proje detayını silmek istediğinize emin misiniz?')) {
+                // Silme işlemi için kendi yöntemini uygula
+                alert('Silme işlemi burada yapılacak. ID: ' + id);
+            }
+        });
+    });
+</script>
