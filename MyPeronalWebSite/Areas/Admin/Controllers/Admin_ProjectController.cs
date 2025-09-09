@@ -128,6 +128,7 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
         }
 
         // GET: Admin/Admin_Project/Edit/5
+        // GET: Admin/Admin_Project/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -146,31 +147,22 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
         // POST: Admin/Admin_Project/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ValidateInput(false)] // HTML içerik için gerekli
+        [ValidateInput(false)]
         public ActionResult Edit(Tbl_Projects tbl_Projects, HttpPostedFileBase ProjectImg = null)
         {
             try
             {
-                // Debug için model state hatalarını logla
+                // Model state kontrolü
                 if (!ModelState.IsValid)
                 {
-                    var errors = ModelState.Values.SelectMany(v => v.Errors);
-                    foreach (var error in errors)
-                    {
-                        System.Diagnostics.Debug.WriteLine("ModelState Error: " + error.ErrorMessage);
-                    }
-
                     ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
                     ViewBag.ErrorMessage = "Lütfen gerekli alanları doğru şekilde doldurun.";
                     return View(tbl_Projects);
                 }
 
-                // Mevcut entity'i track etmeyi bırak
-                var existingEntity = db.Tbl_Projects.Find(tbl_Projects.ID);
-                if (existingEntity != null)
-                {
-                    db.Entry(existingEntity).State = EntityState.Detached;
-                }
+                // HTML tag'larını temizleme
+                tbl_Projects.ProjectDescription = StripHtmlTags(tbl_Projects.ProjectDescription);
+                tbl_Projects.ProjectEntryDescription = StripHtmlTags(tbl_Projects.ProjectEntryDescription);
 
                 // Resim güncelleme işlemi
                 if (ProjectImg != null && ProjectImg.ContentLength > 0)
@@ -186,11 +178,11 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
                         return View(tbl_Projects);
                     }
 
-                    // Boyut kontrolü (2MB)
-                    if (ProjectImg.ContentLength > 2 * 1024 * 1024)
+                    // Boyut kontrolü (5MB - Create ile aynı olmalı)
+                    if (ProjectImg.ContentLength > 5 * 1024 * 1024)
                     {
                         ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
-                        ViewBag.ErrorMessage = "Resim boyutu 2MB'tan büyük olamaz";
+                        ViewBag.ErrorMessage = "Resim boyutu 5MB'tan büyük olamaz";
                         return View(tbl_Projects);
                     }
 
@@ -206,9 +198,10 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
                     ProjectImg.SaveAs(filePath);
 
                     // Eski resmi sil (varsa)
-                    if (!string.IsNullOrEmpty(tbl_Projects.ProjectImg))
+                    var currentEntity = db.Tbl_Projects.AsNoTracking().FirstOrDefault(p => p.ID == tbl_Projects.ID);
+                    if (currentEntity != null && !string.IsNullOrEmpty(currentEntity.ProjectImg))
                     {
-                        var oldFilePath = Server.MapPath(tbl_Projects.ProjectImg);
+                        var oldFilePath = Server.MapPath(currentEntity.ProjectImg);
                         if (System.IO.File.Exists(oldFilePath))
                         {
                             System.IO.File.Delete(oldFilePath);
@@ -237,14 +230,19 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                // Hata detayını logla
-                System.Diagnostics.Debug.WriteLine("Hata: " + ex.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
-
                 ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
                 ViewBag.ErrorMessage = "Güncelleme sırasında bir hata oluştu: " + ex.Message;
                 return View(tbl_Projects);
             }
+        }
+
+        // HTML tag'larını temizleyen yardımcı metod
+        private string StripHtmlTags(string html)
+        {
+            if (string.IsNullOrEmpty(html))
+                return html;
+
+            return System.Text.RegularExpressions.Regex.Replace(html, "<.*?>", string.Empty);
         }
 
 

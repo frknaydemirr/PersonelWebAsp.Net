@@ -20,6 +20,7 @@
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
 
     <style>
+        /* CSS kodunuz aynı kalacak */
         body {
             background-color: #f8f9fa;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -251,18 +252,14 @@
                                         <div class="col-12">
                                             <div class="mb-3">
                                                 @Html.LabelFor(model => model.ProjectDescription, htmlAttributes: new { @class = "form-label fw-bold mb-2" })
-                                                <div class="editor-container">
-                                                    @Html.TextAreaFor(model => model.ProjectDescription, new { @class = "form-control", id = "editorDescription", rows = "6", placeholder = "Proje açıklaması giriniz..." })
-                                                </div>
+                                                @Html.TextAreaFor(model => model.ProjectDescription, new { @class = "form-control", id = "editorDescription", rows = "6", placeholder = "Proje açıklaması giriniz..." })
                                                 @Html.ValidationMessageFor(model => model.ProjectDescription, "", new { @class = "text-danger small" })
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="mb-3">
                                                 @Html.LabelFor(model => model.ProjectEntryDescription, htmlAttributes: new { @class = "form-label fw-bold mb-2" })
-                                                <div class="editor-container">
-                                                    @Html.TextAreaFor(model => model.ProjectEntryDescription, new { @class = "form-control", id = "editorEntryDescription", rows = "4", placeholder = "Proje giriş açıklaması giriniz..." })
-                                                </div>
+                                                @Html.TextAreaFor(model => model.ProjectEntryDescription, new { @class = "form-control", id = "editorEntryDescription", rows = "4", placeholder = "Proje giriş açıklaması giriniz..." })
                                                 @Html.ValidationMessageFor(model => model.ProjectEntryDescription, "", new { @class = "text-danger small" })
                                             </div>
                                         </div>
@@ -273,18 +270,19 @@
                                                 <label class="form-label fw-bold mb-2">Proje Resmi</label>
                                                 <div class="image-container">
                                                     @if (!string.IsNullOrEmpty(Model.ProjectImg))
-                                                    {<img id="currentImage" src="@Model.ProjectImg" alt="Mevcut Resim" />}
-                                                    <img id="imagePreview" src="#" alt="Yeni Resim Önizleme" />
+                                                    {
+                                                        <img id="currentImage" src="@Model.ProjectImg" alt="Mevcut Resim" class="img-thumbnail" style="max-width: 300px;" />
+                                                    }
+                                                    <img id="imagePreview" src="#" alt="Yeni Resim Önizleme" style="display:none; max-width: 300px;" class="img-thumbnail" />
                                                 </div>
-                                                <div class="file-upload-wrapper">
+                                                <div class="file-upload-wrapper mt-3">
                                                     <label for="ProjectImg" class="file-upload-label">
                                                         <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
                                                         <div class="mb-2">Resmi değiştirmek için tıklayın</div>
-                                                        <span class="badge bg-primary px-3 py-2">Resim Seç (Max 2MB)</span>
+                                                        <span class="badge bg-primary px-3 py-2">Resim Seç (Max 5MB)</span>
                                                         <div class="form-text text-muted mt-2">Önerilen boyut: 800x600 px</div>
                                                     </label>
                                                     <input type="file" name="ProjectImg" id="ProjectImg" class="d-none" accept="image/*" />
-                                                    @Html.HiddenFor(model => model.ProjectImg)
                                                 </div>
                                             </div>
                                         </div>
@@ -300,7 +298,7 @@
 
                                     <div class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
                                         @Html.ActionLink("İptal", "Index", null, new { @class = "btn btn-outline-secondary px-4" })
-                                        <button type="submit" class="btn btn-primary px-4">
+                                        <button type="submit" class="btn btn-primary px-4" id="submitButton">
                                             <i class="fas fa-save me-2"></i> Kaydet
                                         </button>
                                     </div>
@@ -321,18 +319,41 @@
 
     <script>
         $(document).ready(function () {
-            // Resim önizleme
+            // TinyMCE Editor'ü başlat
+            tinymce.init({
+                selector: '#editorDescription, #editorEntryDescription',
+                menubar: false,
+                plugins: 'lists link image charmap preview code fullscreen',
+                toolbar: 'undo redo | formatselect | bold italic underline strikethrough | \
+                          alignleft aligncenter alignright alignjustify | \
+                          bullist numlist outdent indent | link image charmap | \
+                          preview fullscreen code | removeformat',
+                height: 300,
+                image_caption: true,
+                quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
+                branding: false,
+                contextmenu: 'link image inserttable | cell row column deletetable',
+                license_key: 'gpl',
+                setup: function (editor) {
+                    editor.on('change', function () {
+                        editor.save();
+                    });
+                }
+            });
+
+            // Resim önizleme - BOYUTU 5MB YAP
             $('#ProjectImg').change(function (event) {
                 const file = event.target.files[0];
                 const preview = $('#imagePreview');
                 const currentImage = $('#currentImage');
 
                 if (file) {
-                    if (file.size > 2 * 1024 * 1024) {
+                    // Dosya boyutu kontrolü (max 5MB - controller ile aynı olmalı)
+                    if (file.size > 5 * 1024 * 1024) {
                         Swal.fire({
                             icon: 'error',
                             title: 'Hata',
-                            text: 'Dosya boyutu 2MB\'dan büyük olamaz!'
+                            text: 'Dosya boyutu 5MB\'dan büyük olamaz!'
                         });
                         $(this).val('');
                         return;
@@ -350,62 +371,82 @@
                 }
             });
 
-            // TinyMCE Editorlar
-            if (typeof tinymce !== 'undefined') {
-                tinymce.init({
-                    selector: '#editorDescription',
-                    menubar: false,
-                    plugins: 'lists link image charmap preview code fullscreen',
-                    toolbar: 'undo redo | formatselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image charmap | preview fullscreen code | removeformat',
-                    height: 300,
-                    image_caption: true,
-                    quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
-                    branding: false,
-                    setup: function (editor) {
-                        editor.on('change', function () {
-                            editor.save();
-                        });
-                    }
-                });
+            // Form gönderim kontrolü - AJAX ile gönderim
+            $('#projectForm').on('submit', function (e) {
+                e.preventDefault(); // Normal form gönderimini engelle
 
-                tinymce.init({
-                    selector: '#editorEntryDescription',
-                    menubar: false,
-                    plugins: 'lists link image charmap preview code fullscreen',
-                    toolbar: 'undo redo | formatselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image charmap | preview fullscreen code | removeformat',
-                    height: 200,
-                    image_caption: true,
-                    quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
-                    branding: false,
-                    setup: function (editor) {
-                        editor.on('change', function () {
-                            editor.save();
-                        });
-                    }
-                });
-            }
-
-            // Form gönderim kontrolü
-            $('#projectForm').submit(function (e) {
-                console.log('Form submit ediliyor...');
-
-                // Editor içeriklerini alanlara aktar
+                // TinyMCE editör içeriklerini kaydet
                 if (typeof tinymce !== 'undefined') {
-                    if (tinymce.get('editorDescription')) {
-                        var descContent = tinymce.get('editorDescription').getContent();
-                        $('#editorDescription').val(descContent);
-                        console.log('Description içerik aktarıldı');
-                    }
-
-                    if (tinymce.get('editorEntryDescription')) {
-                        var entryContent = tinymce.get('editorEntryDescription').getContent();
-                        $('#editorEntryDescription').val(entryContent);
-                        console.log('Entry Description içerik aktarıldı');
-                    }
+                    tinymce.triggerSave();
                 }
 
-                return true; // Formun submit edilmesine izin ver
+                // Form verilerini topla
+                var formData = new FormData(this);
+
+                // AJAX ile formu gönder
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function () {
+                        // Yükleniyor göster
+                        $('#submitButton').prop('disabled', true).html('<i class="fas fa-spinner fa-spin me-2"></i> Kaydediliyor...');
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Başarılı',
+                                text: response.message
+                            }).then(() => {
+                                window.location.href = '@Url.Action("Index", "Admin_Project")';
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Hata',
+                                text: response.message
+                            });
+                            $('#submitButton').prop('disabled', false).html('<i class="fas fa-save me-2"></i> Kaydet');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Hata',
+                            text: 'Bir hata oluştu: ' + error
+                        });
+                        $('#submitButton').prop('disabled', false).html('<i class="fas fa-save me-2"></i> Kaydet');
+                    }
+                });
             });
+
+            // Hata mesajlarını göster
+            @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+            {
+                <text>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Hata',
+                    text: '@Html.Raw(ViewBag.ErrorMessage)'
+                });
+                </text>
+            }
+
+            @if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+            {
+                <text>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Başarılı',
+                    text: '@TempData["SuccessMessage"]'
+                }).then(() => {
+                    window.location.href = '@Url.Action("Index", "Admin_Project")';
+                });
+                </text>
+            }
         });
     </script>
 </body>

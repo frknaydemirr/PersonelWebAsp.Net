@@ -1,12 +1,14 @@
-﻿using System;
+﻿using MyPeronalWebSite.Models.VT;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using MyPeronalWebSite.Models.VT;
 
 namespace MyPeronalWebSite.Areas.Admin.Controllers
 {
@@ -36,30 +38,74 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
             return View(tbl_Technologies);
         }
 
-        // GET: Admin/Admin_Technologies/Create
-        public ActionResult Create()
-        {
-            ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title");
-            return View();
-        }
-
-        // POST: Admin/Admin_Technologies/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ImageURL,LanguageID")] Tbl_Technologies tbl_Technologies)
+        public ActionResult Create(Tbl_Technologies tbl_Technologies, HttpPostedFileBase techImage)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Tbl_Technologies.Add(tbl_Technologies);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                // Dosya kontrolü
+                if (techImage == null || techImage.ContentLength == 0)
+                {
+                    ModelState.AddModelError("techImage", "Lütfen bir teknoloji görseli seçin");
+                    ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Technologies.LanguageID);
+                    return View(tbl_Technologies);
+                }
+
+                // Dosya işlemleri
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+                var fileExtension = Path.GetExtension(techImage.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(fileExtension))
+                {
+                    ModelState.AddModelError("techImage", "Sadece JPG, JPEG, PNG, GIF veya WebP formatları kabul edilir");
+                    ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Technologies.LanguageID);
+                    return View(tbl_Technologies);
+                }
+
+                if (techImage.ContentLength > 2 * 1024 * 1024)
+                {
+                    ModelState.AddModelError("techImage", "Dosya boyutu 2MB'dan büyük olamaz");
+                    ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Technologies.LanguageID);
+                    return View(tbl_Technologies);
+                }
+
+                // Dosyayı kaydet
+                string fileName = Guid.NewGuid().ToString() + fileExtension;
+                string path = Path.Combine(Server.MapPath("~/Content/Images/Technologies"), fileName);
+
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+                techImage.SaveAs(path);
+                tbl_Technologies.ImageURL = "/Content/Images/Technologies/" + fileName;
+
+                // VERİTABANI İŞLEMİ - Doğrulama olmadan
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        db.Tbl_Technologies.Add(tbl_Technologies);
+                        db.SaveChanges();
+                        transaction.Commit();
+
+                        TempData["SuccessMessage"] = "Teknoloji başarıyla eklendi";
+                        return RedirectToAction("Index");
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = "Bir hata oluştu: " + ex.Message;
             }
 
             ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Technologies.LanguageID);
             return View(tbl_Technologies);
         }
+
 
         // GET: Admin/Admin_Technologies/Edit/5
         public ActionResult Edit(int? id)
