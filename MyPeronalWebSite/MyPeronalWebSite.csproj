@@ -2532,6 +2532,8 @@
     <Content Include="Areas\Admin\Content\tinymce\CHANGELOG.md" />
     <Content Include="Areas\Admin\Content\tinymce\js\tinymce\langs\README.md" />
     <Content Include="Areas\Admin\Content\tinymce\js\tinymce\license.md" />
+    <Content Include="Areas\Admin\Views\Admin_AboutMe\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin_AboutMe\Index.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />

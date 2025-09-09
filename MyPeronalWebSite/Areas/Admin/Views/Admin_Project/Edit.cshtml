@@ -200,7 +200,7 @@
                             </div>
 
                             <div class="card-body">
-                                @using (Html.BeginForm("Edit", "Tbl_Projects", FormMethod.Post, new { enctype = "multipart/form-data", id = "projectForm" }))
+                                @using (Html.BeginForm("Edit", "Admin_Project", FormMethod.Post, new { enctype = "multipart/form-data", id = "projectForm" }))
                                 {
                                     @Html.AntiForgeryToken()
                                     @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
@@ -329,9 +329,15 @@
 
                 if (file) {
                     if (file.size > 2 * 1024 * 1024) {
-                        Swal.fire({ icon: 'error', title: 'Hata', text: 'Dosya boyutu 2MB\'dan büyük olamaz!' });
-                        $(this).val(''); return;
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Hata',
+                            text: 'Dosya boyutu 2MB\'dan büyük olamaz!'
+                        });
+                        $(this).val('');
+                        return;
                     }
+
                     const reader = new FileReader();
                     reader.onload = function (e) {
                         preview.attr('src', e.target.result).show();
@@ -345,21 +351,60 @@
             });
 
             // TinyMCE Editorlar
-            tinymce.init({
-                selector: '#editorDescription', menubar: false, plugins: 'lists link image charmap preview code fullscreen',
-                toolbar: 'undo redo | formatselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image charmap | preview fullscreen code | removeformat',
-                height: 300, image_caption: true, quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote', branding: false
-            });
-            tinymce.init({
-                selector: '#editorEntryDescription', menubar: false, plugins: 'lists link image charmap preview code fullscreen',
-                toolbar: 'undo redo | formatselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image charmap | preview fullscreen code | removeformat',
-                height: 200, image_caption: true, quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote', branding: false
-            });
+            if (typeof tinymce !== 'undefined') {
+                tinymce.init({
+                    selector: '#editorDescription',
+                    menubar: false,
+                    plugins: 'lists link image charmap preview code fullscreen',
+                    toolbar: 'undo redo | formatselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image charmap | preview fullscreen code | removeformat',
+                    height: 300,
+                    image_caption: true,
+                    quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
+                    branding: false,
+                    setup: function (editor) {
+                        editor.on('change', function () {
+                            editor.save();
+                        });
+                    }
+                });
+
+                tinymce.init({
+                    selector: '#editorEntryDescription',
+                    menubar: false,
+                    plugins: 'lists link image charmap preview code fullscreen',
+                    toolbar: 'undo redo | formatselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image charmap | preview fullscreen code | removeformat',
+                    height: 200,
+                    image_caption: true,
+                    quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
+                    branding: false,
+                    setup: function (editor) {
+                        editor.on('change', function () {
+                            editor.save();
+                        });
+                    }
+                });
+            }
 
             // Form gönderim kontrolü
-            $('#projectForm').submit(function () {
-                $('#editorDescription').val(tinymce.get('editorDescription').getContent());
-                $('#editorEntryDescription').val(tinymce.get('editorEntryDescription').getContent());
+            $('#projectForm').submit(function (e) {
+                console.log('Form submit ediliyor...');
+
+                // Editor içeriklerini alanlara aktar
+                if (typeof tinymce !== 'undefined') {
+                    if (tinymce.get('editorDescription')) {
+                        var descContent = tinymce.get('editorDescription').getContent();
+                        $('#editorDescription').val(descContent);
+                        console.log('Description içerik aktarıldı');
+                    }
+
+                    if (tinymce.get('editorEntryDescription')) {
+                        var entryContent = tinymce.get('editorEntryDescription').getContent();
+                        $('#editorEntryDescription').val(entryContent);
+                        console.log('Entry Description içerik aktarıldı');
+                    }
+                }
+
+                return true; // Formun submit edilmesine izin ver
             });
         });
     </script>

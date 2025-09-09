@@ -120,6 +120,35 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+
+
+        [HttpPost]
+        public JsonResult DeleteTechnology(int id)
+        {
+            try
+            {
+                Tbl_Technologies tbl_Technologies = db.Tbl_Technologies.Find(id);
+                if (tbl_Technologies == null)
+                {
+                    return Json(new { success = false, message = "User not found." });
+                }
+                db.Tbl_Technologies.Remove(tbl_Technologies);
+                db.SaveChanges();
+                return Json(new { success = true, message = "User deleted successfully." });
+
+            }
+            catch
+            {
+                return Json(new { success = false, message = "An error occurred while deleting the User." });
+            }
+        }
+
+
+
+
+
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

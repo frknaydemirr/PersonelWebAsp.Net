@@ -1,0 +1,243 @@
+﻿@model MyPeronalWebSite.Models.VT.Tbl_AboutMe
+
+@{
+    ViewBag.Title = "Hakkımda Düzenle";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hakkımda Düzenle</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- SweetAlert2 -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+    <style>
+        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .card { border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: none; margin-top: 1rem; }
+        .card-header { background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; display: flex; justify-content: space-between; flex-wrap: wrap; }
+        .card-body { padding: 1.5rem; }
+        .form-control, .form-select { height: 50px; padding: 10px 15px; font-size: 16px; border-radius: 8px; }
+        .btn-primary { background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); border: none; padding: 12px 30px; font-weight: 600; border-radius: 8px; }
+        .image-container { position: relative; max-width: 100%; margin-bottom: 1rem; text-align: center; }
+        #currentImage, #imagePreview { max-width: 100%; max-height: 300px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: block; margin: 0 auto; object-fit: contain; }
+        #imagePreview { display: none; }
+        .file-upload-label { display: block; padding: 15px; border: 2px dashed #dee2e6; border-radius: 8px; text-align: center; cursor: pointer; background-color: #f8f9fa; }
+        .file-upload-label:hover { border-color: #2575fc; background-color: rgba(37,117,252,0.05); }
+        .editor-container { margin-top: 15px; }
+        .ck-editor__editable { min-height: 200px; max-height: 500px; overflow-y: auto; }
+        @@media (max-width: 768px) {
+            .card-header { flex-direction: column; align-items: flex-start; }
+            .card-header .btn { margin-top: 10px; align-self: flex-end; }
+            .form-control, .form-select { height: 45px; font-size: 14px; }
+            .btn { width: 100%; margin-bottom: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <!-- Content Header -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6"><h1>Hakkımda Düzenle</h1></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid px-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title mb-0"><i class="fas fa-user me-2"></i>HAKKIMDA DÜZENLE</h3>
+                        <div>@Html.ActionLink("Listeye Dön", "Index", "Tbl_AboutMe", new { area = "Admin" }, new { @class = "btn btn-sm btn-outline-light" })</div>
+                    </div>
+
+                    <div class="card-body">
+                        @using (Html.BeginForm("Edit", "AdminAboutMe", new { area = "Admin" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "aboutMeForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+                            @Html.HiddenFor(model => model.ID)
+
+                            <div class="row g-3">
+                                <!-- Profil Resmi -->
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold mb-2">Profil Resmi</label>
+                                        <div class="image-container">
+                                            @if (!string.IsNullOrEmpty(Model.ImageURL))
+                                            {<img id="currentImage" src="@Model.ImageURL" alt="Mevcut Resim" />}
+                                            <img id="imagePreview" src="#" alt="Yeni Resim Önizleme" />
+                                        </div>
+                                        <div class="file-upload-wrapper">
+                                            <label for="ImageURL" class="file-upload-label">
+                                                <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
+                                                <div class="mb-2">Resmi değiştirmek için tıklayın</div>
+                                                <span class="badge bg-primary px-3 py-2">Resim Seç (Max 2MB)</span>
+                                            </label>
+                                            @Html.TextBoxFor(model => model.ImageURL, new { type = "file", id = "ImageURL", @class = "d-none", accept = "image/*" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Description -->
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "form-label fw-bold mb-2" })
+                                        <div class="editor-container">
+                                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", id = "editorDescription", rows = "6" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ShortDescription -->
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        @Html.LabelFor(model => model.ShortDescription, htmlAttributes: new { @class = "form-label fw-bold mb-2" })
+                                        @Html.EditorFor(model => model.ShortDescription, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+
+                                <!-- Sosyal / İletişim -->
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        @Html.EditorFor(model => model.LinkedlnURL, new { htmlAttributes = new { @class = "form-control", placeholder = "LinkedIn URL" } })
+                                        @Html.LabelFor(model => model.LinkedlnURL)
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        @Html.EditorFor(model => model.GithubURL, new { htmlAttributes = new { @class = "form-control", placeholder = "Github URL" } })
+                                        @Html.LabelFor(model => model.GithubURL)
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        @Html.EditorFor(model => model.EmailAdress, new { htmlAttributes = new { @class = "form-control", placeholder = "Email" } })
+                                        @Html.LabelFor(model => model.EmailAdress)
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Telefon" } })
+                                        @Html.LabelFor(model => model.PhoneNumber)
+                                    </div>
+                                </div>
+
+                                <!-- Adres -->
+                                <div class="col-12">
+                                    <div class="form-floating mb-3">
+                                        @Html.EditorFor(model => model.Adress, new { htmlAttributes = new { @class = "form-control", placeholder = "Adres" } })
+                                        @Html.LabelFor(model => model.Adress)
+                                    </div>
+                                </div>
+
+                                <!-- Dil -->
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        @Html.LabelFor(model => model.LanguageID, "Dil", htmlAttributes: new { @class = "form-label fw-bold mb-2" })
+                                        @Html.DropDownList("LanguageID", null, "Dil seçin...", new { @class = "form-select", required = "required" })
+                                    </div>
+                                </div>
+
+                                <!-- CV PDF -->
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold mb-2">CV PDF</label>
+                                        <div class="file-upload-wrapper">
+                                            <label for="CvPDF" class="file-upload-label">
+                                                <i class="fas fa-file-pdf fa-2x mb-2 text-danger"></i>
+                                                <div class="mb-2">PDF yüklemek için tıklayın</div>
+                                                <span class="badge bg-danger px-3 py-2">PDF Seç (Max 5MB)</span>
+                                            </label>
+                                            @Html.TextBoxFor(model => model.Cv, new { type = "file", id = "CvPDF", @class = "d-none", accept = "application/pdf" })
+                                        </div>
+                                        @if (!string.IsNullOrEmpty(Model.Cv))
+                                        {
+                                            <a href="@Model.Cv" target="_blank" class="btn btn-outline-danger mt-2"><i class="fas fa-download me-2"></i>Mevcut CV'yi İndir</a>
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
+                                    @Html.ActionLink("İptal", "Index", "Tbl_AboutMe", new { area = "Admin" }, new { @class = "btn btn-outline-secondary px-4" })
+                                    <button type="submit" class="btn btn-primary px-4"><i class="fas fa-save me-2"></i> Kaydet</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/Areas/Admin/Content/tinymce/js/tinymce/tinymce.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Resim önizleme
+            $('#ImageURL').change(function (event) {
+                const file = event.target.files[0];
+                const preview = $('#imagePreview');
+                const currentImage = $('#currentImage');
+
+                if (file) {
+                    if (file.size > 2 * 1024 * 1024) {
+                        Swal.fire({ icon: 'error', title: 'Hata', text: 'Dosya boyutu 2MB\'dan büyük olamaz!' });
+                        $(this).val(''); return;
+                    }
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        preview.attr('src', e.target.result).show();
+                        if (currentImage.length > 0) currentImage.hide();
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.hide();
+                    if (currentImage.length > 0) currentImage.show();
+                }
+            });
+
+            // CV PDF boyutu kontrolü
+            $('#CvPDF').change(function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    if (file.size > 5 * 1024 * 1024) {
+                        Swal.fire({ icon: 'error', title: 'Hata', text: 'PDF boyutu 5MB\'dan büyük olamaz!' });
+                        $(this).val('');
+                        return;
+                    }
+                }
+            });
+
+            // TinyMCE
+            tinymce.init({
+                selector: '#editorDescription',
+                menubar: false,
+                plugins: 'lists link image charmap preview code fullscreen',
+                toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | link image | preview fullscreen code',
+                height: 300,
+                branding: false
+            });
+
+            // Form submit content update
+            $('#aboutMeForm').submit(function () {
+                $('#editorDescription').val(tinymce.get('editorDescription').getContent());
+            });
+        });
+    </script>
+</body>
+</html>

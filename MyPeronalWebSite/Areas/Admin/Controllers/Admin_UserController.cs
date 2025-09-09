@@ -104,6 +104,33 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
             return View(tbl_User);
         }
 
+
+        [HttpPost]
+        public JsonResult DeleteUser(int id)
+        {
+            try
+            {
+                Tbl_User tbl_User = db.Tbl_User.Find(id);
+                if (tbl_User == null)
+                {
+                    return Json(new { success = false, message = "User not found." });
+                }
+                db.Tbl_User.Remove(tbl_User);
+                db.SaveChanges();
+                return Json(new { success = true, message = "User deleted successfully." });
+
+            }
+            catch
+            {
+                return Json(new { success = false, message = "An error occurred while deleting the User." });
+            }
+        }
+
+
+
+
+
+
         // POST: Admin/Admin_User/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

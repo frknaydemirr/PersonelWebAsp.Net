@@ -38,24 +38,26 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
         }
 
         // GET: Admin/Admin_Project/Create
+        // GET: Admin/Admin_Project/Create
+        // GET: Admin/Admin_Project/Create
         public ActionResult Create()
         {
-            ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title");
             ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title");
             return View();
         }
 
         // POST: Admin/Admin_Project/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ValidateInput(false)] // HTML içeriğine izin vermek istersen
-        public ActionResult Create([Bind(Include = "ID,LanguageID,ProjectTitle,ProjectImg,ProjectDescription,ProjectEntryTitle,ProjectEntryDescription,GithubURL,isActive")] Tbl_Projects tbl_Projects, HttpPostedFileBase ProjectImgFile = null)
+        [ValidateInput(false)]
+        public ActionResult Create( // İSİM Create OLMALI
+            [Bind(Include = "ID,LanguageID,ProjectTitle,ProjectImg,ProjectDescription,ProjectEntryDescription,ProjectEntryTitle,GithubURL,isActive")]
+    Tbl_Projects tbl_Projects,
+            HttpPostedFileBase ProjectImg = null) // Parametre ismi View'daki file input name ile aynı olmalı
         {
             try
             {
-                // 1. Model validasyonu
+                // Model validasyonu
                 if (!ModelState.IsValid)
                 {
                     ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
@@ -63,17 +65,17 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
                     return View(tbl_Projects);
                 }
 
-                // 2. Resim yükleme zorunluluğu
-                if (ProjectImgFile == null || ProjectImgFile.ContentLength == 0)
+                // Resim yükleme kontrolü
+                if (ProjectImg == null || ProjectImg.ContentLength == 0)
                 {
                     ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
                     ViewBag.ErrorMessage = "Lütfen bir proje resmi seçiniz";
                     return View(tbl_Projects);
                 }
 
-                // 3. Resim format kontrolü
+                // Resim format kontrolü
                 var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
-                var extension = Path.GetExtension(ProjectImgFile.FileName).ToLower();
+                var extension = Path.GetExtension(ProjectImg.FileName).ToLower();
 
                 if (!allowedExtensions.Contains(extension))
                 {
@@ -82,28 +84,28 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
                     return View(tbl_Projects);
                 }
 
-                // 4. Resim boyutu kontrolü (5MB)
-                if (ProjectImgFile.ContentLength > 5 * 1024 * 1024)
+                // Resim boyutu kontrolü (5MB)
+                if (ProjectImg.ContentLength > 5 * 1024 * 1024)
                 {
                     ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
                     ViewBag.ErrorMessage = "Resim boyutu 5MB'tan büyük olamaz";
                     return View(tbl_Projects);
                 }
 
-                // 5. Klasör işlemleri
+                // Klasör işlemleri
                 var uploadPath = Server.MapPath("~/Uploads/Projects");
                 if (!Directory.Exists(uploadPath))
                 {
                     Directory.CreateDirectory(uploadPath);
                 }
 
-                // 6. Resmi kaydet
+                // Resmi kaydet
                 var fileName = Guid.NewGuid().ToString() + extension;
                 var filePath = Path.Combine(uploadPath, fileName);
-                ProjectImgFile.SaveAs(filePath);
+                ProjectImg.SaveAs(filePath);
                 tbl_Projects.ProjectImg = "/Uploads/Projects/" + fileName;
 
-                // 7. Veritabanına kaydet
+                // Veritabanına kaydet
                 db.Tbl_Projects.Add(tbl_Projects);
                 db.SaveChanges();
 
@@ -138,27 +140,113 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
-            ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
             return View(tbl_Projects);
         }
 
         // POST: Admin/Admin_Project/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,LanguageID,ProjectTitle,ProjectImg,ProjectDescription,ProjectEntryTitle,ProjectEntryDescription,GithubURL,isActive")] Tbl_Projects tbl_Projects)
+        [ValidateInput(false)] // HTML içerik için gerekli
+        public ActionResult Edit(Tbl_Projects tbl_Projects, HttpPostedFileBase ProjectImg = null)
         {
-            if (ModelState.IsValid)
+            try
             {
+                // Debug için model state hatalarını logla
+                if (!ModelState.IsValid)
+                {
+                    var errors = ModelState.Values.SelectMany(v => v.Errors);
+                    foreach (var error in errors)
+                    {
+                        System.Diagnostics.Debug.WriteLine("ModelState Error: " + error.ErrorMessage);
+                    }
+
+                    ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
+                    ViewBag.ErrorMessage = "Lütfen gerekli alanları doğru şekilde doldurun.";
+                    return View(tbl_Projects);
+                }
+
+                // Mevcut entity'i track etmeyi bırak
+                var existingEntity = db.Tbl_Projects.Find(tbl_Projects.ID);
+                if (existingEntity != null)
+                {
+                    db.Entry(existingEntity).State = EntityState.Detached;
+                }
+
+                // Resim güncelleme işlemi
+                if (ProjectImg != null && ProjectImg.ContentLength > 0)
+                {
+                    var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+                    var extension = Path.GetExtension(ProjectImg.FileName).ToLower();
+
+                    // Format kontrolü
+                    if (!allowedExtensions.Contains(extension))
+                    {
+                        ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
+                        ViewBag.ErrorMessage = "Sadece JPG, JPEG, PNG, GIF veya WEBP formatında resimler yükleyebilirsiniz";
+                        return View(tbl_Projects);
+                    }
+
+                    // Boyut kontrolü (2MB)
+                    if (ProjectImg.ContentLength > 2 * 1024 * 1024)
+                    {
+                        ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
+                        ViewBag.ErrorMessage = "Resim boyutu 2MB'tan büyük olamaz";
+                        return View(tbl_Projects);
+                    }
+
+                    // Klasör kontrolü ve kaydetme
+                    var uploadPath = Server.MapPath("~/Uploads/Projects");
+                    if (!Directory.Exists(uploadPath))
+                    {
+                        Directory.CreateDirectory(uploadPath);
+                    }
+
+                    var fileName = Guid.NewGuid().ToString() + extension;
+                    var filePath = Path.Combine(uploadPath, fileName);
+                    ProjectImg.SaveAs(filePath);
+
+                    // Eski resmi sil (varsa)
+                    if (!string.IsNullOrEmpty(tbl_Projects.ProjectImg))
+                    {
+                        var oldFilePath = Server.MapPath(tbl_Projects.ProjectImg);
+                        if (System.IO.File.Exists(oldFilePath))
+                        {
+                            System.IO.File.Delete(oldFilePath);
+                        }
+                    }
+
+                    tbl_Projects.ProjectImg = "/Uploads/Projects/" + fileName;
+                }
+                else
+                {
+                    // Resim değişmemişse mevcut URL'yi koru
+                    var currentEntity = db.Tbl_Projects.AsNoTracking().FirstOrDefault(p => p.ID == tbl_Projects.ID);
+                    if (currentEntity != null)
+                    {
+                        tbl_Projects.ProjectImg = currentEntity.ProjectImg;
+                    }
+                }
+
+                // Veritabanını güncelle
                 db.Entry(tbl_Projects).State = EntityState.Modified;
                 db.SaveChanges();
+
+                // Başarı mesajı
+                TempData["SuccessMessage"] = "Proje başarıyla güncellendi.";
                 return RedirectToAction("Index");
             }
-            ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
-            ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
-            return View(tbl_Projects);
+            catch (Exception ex)
+            {
+                // Hata detayını logla
+                System.Diagnostics.Debug.WriteLine("Hata: " + ex.Message);
+                System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
+
+                ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
+                ViewBag.ErrorMessage = "Güncelleme sırasında bir hata oluştu: " + ex.Message;
+                return View(tbl_Projects);
+            }
         }
+
 
         // GET: Admin/Admin_Project/Delete/5
         public ActionResult Delete(int? id)

@@ -113,6 +113,28 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
             return View(tbl_ProjectDetails);
         }
 
+        [HttpPost]
+        public JsonResult DeleteProjectDetail(int id)
+        {
+            try
+            {
+                Tbl_ProjectDetails tbl_ProjectDetails = db.Tbl_ProjectDetails.Find(id);
+                if (tbl_ProjectDetails == null)
+                {
+                    return Json(new { success = false, message = "Project not found." });
+                }
+                db.Tbl_ProjectDetails.Remove(tbl_ProjectDetails);
+                db.SaveChanges();
+                return Json(new { success = true, message = "Project deleted successfully." });
+
+            }
+            catch
+            {
+                return Json(new { success = false, message = "An error occurred while deleting the project." });
+            }
+        }
+
+
         // POST: Admin/Admin_ProjectDetails/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

@@ -1,7 +1,7 @@
-﻿@model IEnumerable<MyPeronalWebSite.Models.VT.Tbl_Technologies>
+﻿@model IEnumerable<MyPeronalWebSite.Models.VT.Tbl_AboutMe>
 
 @{
-    ViewBag.Title = "Teknolojiler Listesi";
+    ViewBag.Title = "Hakkımda Listesi";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -13,10 +13,10 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Teknolojiler Listesi</h1>
+                    <h1>Hakkımda Listesi</h1>
                 </div>
-                <div class="col-sm-6 text-right">
-                    @Html.ActionLink("Yeni Teknoloji Ekle", "Create", null, new { @class = "btn btn-success btn-sm" })
+                <div class="col-sm-6">
+                   
                 </div>
             </div>
         </div>
@@ -28,53 +28,73 @@
             <div class="card">
                 <!-- Başlık -->
                 <div class="card-header bg-primary">
-                    <h3 class="card-title text-white">Teknolojiler</h3>
+                    <h3 class="card-title text-white">Hakkımda Listesi</h3>
                 </div>
 
                 <!-- Tablo -->
                 <div class="card-body">
-                    <table id="technologiesTable" class="table table-bordered table-hover w-100">
+                    <table id="aboutMeTable" class="table table-bordered table-hover w-100">
                         <thead class="thead-dark">
                             <tr>
-                                <th>@(Model != null && Model.Any() ? Html.DisplayNameFor(m => m.First().ImageURL) : "Görsel")</th>
-                                <th>@(Model != null && Model.Any() ? Html.DisplayNameFor(m => m.First().Tbl_Language.Title) : "Dil")</th>
+                                <th>@Html.DisplayNameFor(model => model.First().ImageURL)</th>
+                                <th>@Html.DisplayNameFor(model => model.First().Description)</th>
+                                <th>@Html.DisplayNameFor(model => model.First().ShortDescription)</th>
+                                <th>@Html.DisplayNameFor(model => model.First().LinkedlnURL)</th>
+                                <th>@Html.DisplayNameFor(model => model.First().GithubURL)</th>
+                                <th>@Html.DisplayNameFor(model => model.First().EmailAdress)</th>
+                                <th>@Html.DisplayNameFor(model => model.First().PhoneNumber)</th>
+                                <th>@Html.DisplayNameFor(model => model.First().Adress)</th>
+                                <th>@Html.DisplayNameFor(model => model.First().Cv)</th>
+                                <th>@Html.DisplayNameFor(model => model.First().Tbl_Language.Title)</th>
                                 <th>İşlemler</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if (Model != null && Model.Any())
+                            @foreach (var item in Model)
                             {
-                                foreach (var item in Model)
-                                {
-                                    <tr id="row-@item.ID">
-                                        <td>
-                                            @if (!string.IsNullOrEmpty(item.ImageURL))
-                                            {
-                                                <img src="@item.ImageURL" style="max-height:50px;" class="img-thumbnail" />
-                                            }
-                                            else
-                                            {
-                                                <span class="text-muted">Görsel Yok</span>
-                                            }
-                                        </td>
-                                        <td>@item.Tbl_Language?.Title</td>
-                                        <td>
-                                            <div class="btn-group btn-group-sm">
-                                                @Html.ActionLink("Düzenle", "Edit", new { id = item.ID }, new { @class = "btn btn-info" })
-                                                <button class="btn btn-danger delete-btn" data-id="@item.ID"><i class="fas fa-trash-alt"></i> Sil</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                }
+                                <tr id="row-@item.ID">
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(item.ImageURL))
+                                        {
+                                            <img src="@item.ImageURL" style="max-height:50px;" class="img-thumbnail" />
+                                        }
+                                        else
+                                        { <span class="text-muted">Görsel Yok</span>}
+                                    </td>
+                                    <td>
+                                        @( (item.Description ?? "").Split(' ').Length > 25
+        ? string.Join(" ", (item.Description ?? "").Split(' ').Take(25)) + "..."
+        : item.Description )
+                                    </td>
+
+                                    <td>
+                                        @( (item.ShortDescription ?? "").Split(' ').Length > 25
+        ? string.Join(" ", (item.ShortDescription ?? "").Split(' ').Take(25)) + "..."
+        : item.ShortDescription )
+                                    </td>
+                                    <td>@item.LinkedlnURL</td>
+                                    <td>@item.GithubURL</td>
+                                    <td>@item.EmailAdress</td>
+                                    <td>@item.PhoneNumber</td>
+                                    <td>@item.Adress</td>
+                                    <td>@item.Cv</td>
+                                    <td>@item.Tbl_Language.Title</td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            @Html.ActionLink("Düzenle", "Edit", new { id = item.ID }, new { @class = "btn btn-info" })
+
+                                        </div>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
-
                     </table>
                 </div>
 
             </div>
         </div>
     </section>
+
 </div>
 <!-- CONTENT WRAPPER BİTİŞİ -->
 <!-- CSS Bağlantıları -->
@@ -98,7 +118,7 @@
 <!-- DataTable Başlat -->
 <script>
     $(document).ready(function () {
-        var table = $('#technologiesTable').DataTable({
+        var table = $('#aboutMeTable').DataTable({
             scrollX: true,
             autoWidth: false,
             dom: 'Bfrtip',
@@ -128,7 +148,7 @@
             }).then((result) => {
                 if(result.isConfirmed){
                     $.ajax({
-                        url: '@Url.Action("DeleteTechnology", "Admin_Technologies")',
+                        url: '@Url.Action("DeleteAboutMe", "Admin_AboutMe")', // Controller ve Action
                         type: 'POST',
                         data: { id: id },
                         beforeSend: function(){

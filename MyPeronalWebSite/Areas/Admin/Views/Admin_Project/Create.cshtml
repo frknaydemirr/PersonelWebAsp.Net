@@ -176,7 +176,13 @@
                             </div>
 
                             <div class="card-body">
-                                @using (Html.BeginForm("Create", "Tbl_Projects", FormMethod.Post, new { enctype = "multipart/form-data", id = "projectForm" }))
+                                @using (Html.BeginForm("Create", "Admin_Project", FormMethod.Post, new
+                                {
+                                    enctype = "multipart/form-data",
+                                    id = "projectForm",
+                                    @class = "needs-validation",
+                                    novalidate = "novalidate"
+                                }))
                                 {
                                     @Html.AntiForgeryToken()
                                     @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
@@ -299,82 +305,98 @@
     <script src="~/Areas/Admin/Content/tinymce/js/tinymce/tinymce.min.js"></script>
 
     <script>
-        $(document).ready(function () {
-            // Resim önizleme
-            $('#ProjectImg').change(function (event) {
-                const file = event.target.files[0];
-                const preview = $('#imagePreview');
+    $(document).ready(function () {
+        // Resim önizleme
+        $('#ProjectImg').change(function (event) {
+            const file = event.target.files[0];
+            const preview = $('#imagePreview');
 
-                if (file) {
-                    // Dosya boyutu kontrolü (max 2MB)
-                    if (file.size > 2 * 1024 * 1024) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Hata',
-                            text: 'Dosya boyutu 2MB\'dan büyük olamaz!'
-                        });
-                        $(this).val('');
-                        return;
-                    }
-
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        preview.attr('src', e.target.result);
-                        preview.show();
-                    }
-                    reader.readAsDataURL(file);
-                } else {
+            if (file) {
+                // Dosya boyutu kontrolü (max 5MB - controller ile aynı olmalı)
+                if (file.size > 5 * 1024 * 1024) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata',
+                        text: 'Dosya boyutu 5MB\'dan büyük olamaz!'
+                    });
+                    $(this).val('');
                     preview.hide();
+                    return;
                 }
-            });
 
-            // TinyMCE Editor - Proje Açıklaması
-            tinymce.init({
-                selector: '#editorDescription',
-                menubar: false,
-                plugins: 'lists link image charmap preview code fullscreen',
-                toolbar: 'undo redo | formatselect | bold italic underline strikethrough | \
-                                              alignleft aligncenter alignright alignjustify | \
-                                              bullist numlist outdent indent | link image charmap | \
-                                              preview fullscreen code | removeformat',
-                height: 300,
-                image_caption: true,
-                quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
-                branding: false,
-                contextmenu: 'link image inserttable | cell row column deletetable',
-                license_key: 'gpl',
-            });
-
-            // TinyMCE Editor - Proje Giriş Açıklaması
-            tinymce.init({
-                selector: '#editorEntryDescription',
-                menubar: false,
-                plugins: 'lists link image charmap preview code fullscreen',
-                toolbar: 'undo redo | formatselect | bold italic underline strikethrough | \
-                                              alignleft aligncenter alignright alignjustify | \
-                                              bullist numlist outdent indent | link image charmap | \
-                                              preview fullscreen code | removeformat',
-                height: 200,
-                image_caption: true,
-                quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
-                branding: false,
-                contextmenu: 'link image inserttable | cell row column deletetable',
-                license_key: 'gpl',
-            });
-
-            // Form gönderim kontrolü
-            $('#projectForm').submit(function (e) {
-                // TinyMCE'den içerikleri al
-                var descriptionContent = tinymce.get('editorDescription').getContent();
-                var entryDescriptionContent = tinymce.get('editorEntryDescription').getContent();
-
-                // TextArea'lara içerikleri yaz
-                $('#editorDescription').val(descriptionContent);
-                $('#editorEntryDescription').val(entryDescriptionContent);
-
-                return true;
-            });
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.attr('src', e.target.result);
+                    preview.show();
+                }
+                reader.readAsDataURL(file);
+            } else {
+                preview.hide();
+            }
         });
+
+        // TinyMCE Editor - Proje Açıklaması
+        tinymce.init({
+            selector: '#editorDescription',
+            menubar: false,
+            plugins: 'lists link image charmap preview code fullscreen',
+            toolbar: 'undo redo | formatselect | bold italic underline strikethrough | \
+                                      alignleft aligncenter alignright alignjustify | \
+                                      bullist numlist outdent indent | link image charmap | \
+                                      preview fullscreen code | removeformat',
+            height: 300,
+            image_caption: true,
+            quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
+            branding: false,
+            contextmenu: 'link image inserttable | cell row column deletetable',
+            license_key: 'gpl',
+        });
+
+        // TinyMCE Editor - Proje Giriş Açıklaması
+        tinymce.init({
+            selector: '#editorEntryDescription',
+            menubar: false,
+            plugins: 'lists link image charmap preview code fullscreen',
+            toolbar: 'undo redo | formatselect | bold italic underline strikethrough | \
+                                      alignleft aligncenter alignright alignjustify | \
+                                      bullist numlist outdent indent | link image charmap | \
+                                      preview fullscreen code | removeformat',
+            height: 200,
+            image_caption: true,
+            quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
+            branding: false,
+            contextmenu: 'link image inserttable | cell row column deletetable',
+            license_key: 'gpl',
+        });
+
+        // Form gönderim kontrolü
+        $('#projectForm').submit(function (e) {
+            e.preventDefault(); // Önce formun normal submitini engelle
+
+            // TinyMCE'den içerikleri al
+            var descriptionContent = tinymce.get('editorDescription') ? tinymce.get('editorDescription').getContent() : $('#editorDescription').val();
+            var entryDescriptionContent = tinymce.get('editorEntryDescription') ? tinymce.get('editorEntryDescription').getContent() : $('#editorEntryDescription').val();
+
+            // TextArea'lara içerikleri yaz
+            $('#editorDescription').val(descriptionContent);
+            $('#editorEntryDescription').val(entryDescriptionContent);
+
+            // Formu manuel olarak submit et
+            this.submit();
+        });
+
+        // Hata mesajlarını göster
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <text>
+            Swal.fire({
+                icon: 'error',
+                title: 'Hata',
+                text: '@ViewBag.ErrorMessage'
+            });
+            </text>
+        }
+    });
     </script>
 </body>
 </html>
