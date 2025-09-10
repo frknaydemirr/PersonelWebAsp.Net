@@ -98,7 +98,7 @@
                             <h3 class="title"> @Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "HakkımdaAna").Value</h3>
                             <p class="para tmp-title-split">
 
-                                @Model.Tbl_AboutMe.Description
+                                @Html.Raw(@Model.Tbl_AboutMe.Description)
                             </p>
                         </div>
                         <div class="find-me-on mt--40 tmp-scroll-trigger tmp-fade-in animation-order-2">

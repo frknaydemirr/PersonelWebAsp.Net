@@ -62,117 +62,123 @@
                     </div>
 
                     <div class="card-body">
-                        @using (Html.BeginForm("Edit", "AdminAboutMe", new { area = "Admin" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "aboutMeForm" }))
+                        @using (Html.BeginForm("Edit", "Admin_AboutMe", new { area = "Admin" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "aboutMeForm" }))
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
                             @Html.HiddenFor(model => model.ID)
 
-                            <div class="row g-3">
-                                <!-- Profil Resmi -->
-                                <div class="col-12">
-                                    <div class="mb-3">
-                                        <label class="form-label fw-bold mb-2">Profil Resmi</label>
-                                        <div class="image-container">
-                                            @if (!string.IsNullOrEmpty(Model.ImageURL))
-                                            {<img id="currentImage" src="@Model.ImageURL" alt="Mevcut Resim" />}
-                                            <img id="imagePreview" src="#" alt="Yeni Resim Önizleme" />
-                                        </div>
-                                        <div class="file-upload-wrapper">
-                                            <label for="ImageURL" class="file-upload-label">
-                                                <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
-                                                <div class="mb-2">Resmi değiştirmek için tıklayın</div>
-                                                <span class="badge bg-primary px-3 py-2">Resim Seç (Max 2MB)</span>
-                                            </label>
-                                            @Html.TextBoxFor(model => model.ImageURL, new { type = "file", id = "ImageURL", @class = "d-none", accept = "image/*" })
-                                        </div>
+                        <div class="row g-3">
+                            <!-- Profil Resmi -->
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold mb-2">Profil Resmi</label>
+                                    <div class="image-container">
+                                        @if (!string.IsNullOrEmpty(Model.ImageURL))
+                                        {<img id="currentImage" src="@Model.ImageURL" alt="Mevcut Resim" />}
+                                        <img id="imagePreview" src="#" alt="Yeni Resim Önizleme" />
                                     </div>
-                                </div>
-
-                                <!-- Description -->
-                                <div class="col-12">
-                                    <div class="mb-3">
-                                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "form-label fw-bold mb-2" })
-                                        <div class="editor-container">
-                                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", id = "editorDescription", rows = "6" })
-                                        </div>
+                                    <div class="file-upload-wrapper">
+                                        <label for="ImageURL" class="file-upload-label">
+                                            <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
+                                            <div class="mb-2">Resmi değiştirmek için tıklayın</div>
+                                            <span class="badge bg-primary px-3 py-2">Resim Seç (Max 2MB)</span>
+                                        </label>
+                                        @Html.TextBoxFor(model => model.ImageURL, new { type = "file", id = "ImageURL", @class = "d-none", accept = "image/*" })
                                     </div>
-                                </div>
-
-                                <!-- ShortDescription -->
-                                <div class="col-12">
-                                    <div class="mb-3">
-                                        @Html.LabelFor(model => model.ShortDescription, htmlAttributes: new { @class = "form-label fw-bold mb-2" })
-                                        @Html.EditorFor(model => model.ShortDescription, new { htmlAttributes = new { @class = "form-control" } })
-                                    </div>
-                                </div>
-
-                                <!-- Sosyal / İletişim -->
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3">
-                                        @Html.EditorFor(model => model.LinkedlnURL, new { htmlAttributes = new { @class = "form-control", placeholder = "LinkedIn URL" } })
-                                        @Html.LabelFor(model => model.LinkedlnURL)
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3">
-                                        @Html.EditorFor(model => model.GithubURL, new { htmlAttributes = new { @class = "form-control", placeholder = "Github URL" } })
-                                        @Html.LabelFor(model => model.GithubURL)
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3">
-                                        @Html.EditorFor(model => model.EmailAdress, new { htmlAttributes = new { @class = "form-control", placeholder = "Email" } })
-                                        @Html.LabelFor(model => model.EmailAdress)
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3">
-                                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Telefon" } })
-                                        @Html.LabelFor(model => model.PhoneNumber)
-                                    </div>
-                                </div>
-
-                                <!-- Adres -->
-                                <div class="col-12">
-                                    <div class="form-floating mb-3">
-                                        @Html.EditorFor(model => model.Adress, new { htmlAttributes = new { @class = "form-control", placeholder = "Adres" } })
-                                        @Html.LabelFor(model => model.Adress)
-                                    </div>
-                                </div>
-
-                                <!-- Dil -->
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        @Html.LabelFor(model => model.LanguageID, "Dil", htmlAttributes: new { @class = "form-label fw-bold mb-2" })
-                                        @Html.DropDownList("LanguageID", null, "Dil seçin...", new { @class = "form-select", required = "required" })
-                                    </div>
-                                </div>
-
-                                <!-- CV PDF -->
-                                <div class="col-12">
-                                    <div class="mb-3">
-                                        <label class="form-label fw-bold mb-2">CV PDF</label>
-                                        <div class="file-upload-wrapper">
-                                            <label for="CvPDF" class="file-upload-label">
-                                                <i class="fas fa-file-pdf fa-2x mb-2 text-danger"></i>
-                                                <div class="mb-2">PDF yüklemek için tıklayın</div>
-                                                <span class="badge bg-danger px-3 py-2">PDF Seç (Max 5MB)</span>
-                                            </label>
-                                            @Html.TextBoxFor(model => model.Cv, new { type = "file", id = "CvPDF", @class = "d-none", accept = "application/pdf" })
-                                        </div>
-                                        @if (!string.IsNullOrEmpty(Model.Cv))
-                                        {
-                                            <a href="@Model.Cv" target="_blank" class="btn btn-outline-danger mt-2"><i class="fas fa-download me-2"></i>Mevcut CV'yi İndir</a>
-                                        }
-                                    </div>
-                                </div>
-
-                                <div class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
-                                    @Html.ActionLink("İptal", "Index", "Tbl_AboutMe", new { area = "Admin" }, new { @class = "btn btn-outline-secondary px-4" })
-                                    <button type="submit" class="btn btn-primary px-4"><i class="fas fa-save me-2"></i> Kaydet</button>
                                 </div>
                             </div>
+
+                            <!-- Description -->
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "form-label fw-bold mb-2" })
+                                    <div class="editor-container">
+                                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", id = "editorDescription", rows = "6", @Value = System.Net.WebUtility.HtmlDecode(Model.Description) })
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ShortDescription -->
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    @Html.LabelFor(model => model.ShortDescription, htmlAttributes: new { @class = "form-label fw-bold mb-2" })
+                                    @Html.EditorFor(model => model.ShortDescription, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+
+                            <!-- Sosyal / İletişim -->
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    @Html.EditorFor(model => model.LinkedlnURL, new { htmlAttributes = new { @class = "form-control", placeholder = "LinkedIn URL" } })
+                                    @Html.LabelFor(model => model.LinkedlnURL)
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    @Html.EditorFor(model => model.GithubURL, new { htmlAttributes = new { @class = "form-control", placeholder = "Github URL" } })
+                                    @Html.LabelFor(model => model.GithubURL)
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    @Html.EditorFor(model => model.EmailAdress, new { htmlAttributes = new { @class = "form-control", placeholder = "Email" } })
+                                    @Html.LabelFor(model => model.EmailAdress)
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Telefon" } })
+                                    @Html.LabelFor(model => model.PhoneNumber)
+                                </div>
+                            </div>
+
+                            <!-- Adres -->
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    @Html.EditorFor(model => model.Adress, new { htmlAttributes = new { @class = "form-control", placeholder = "Adres" } })
+                                    @Html.LabelFor(model => model.Adress)
+                                </div>
+                            </div>
+
+                            <!-- Dil -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    @Html.LabelFor(model => model.LanguageID, "Dil", htmlAttributes: new { @class = "form-label fw-bold mb-2" })
+                                    @Html.DropDownList("LanguageID", null, "Dil seçin...", new { @class = "form-select", required = "required" })
+                                </div>
+                            </div>
+
+                            <!-- CV PDF -->
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold mb-2">CV PDF</label>
+                                    <div class="file-upload-wrapper">
+                                        <label for="CvPDF" class="file-upload-label">
+                                            <i class="fas fa-file-pdf fa-2x mb-2 text-danger"></i>
+                                            <div class="mb-2">PDF yüklemek için tıklayın</div>
+                                            <span class="badge bg-danger px-3 py-2">PDF Seç (Max 5MB)</span>
+                                        </label>
+                                        <!-- TextBoxFor yerine normal input -->
+                                        <input type="file" id="CvPDF" name="CvPDF" class="d-none" accept="application/pdf" />
+                                    </div>
+
+                                    @if (!string.IsNullOrEmpty(Model.Cv))
+                                    {
+                                        <a href="@Model.Cv" target="_blank" class="btn btn-outline-danger mt-2">
+                                            <i class="fas fa-download me-2"></i>Mevcut CV'yi İndir
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+
+
+                            <div class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
+                                @Html.ActionLink("İptal", "Index", "Tbl_AboutMe", new { area = "Admin" }, new { @class = "btn btn-outline-secondary px-4" })
+                                <button type="submit" class="btn btn-primary px-4"><i class="fas fa-save me-2"></i> Kaydet</button>
+                            </div>
+                        </div>
                         }
                     </div>
                 </div>

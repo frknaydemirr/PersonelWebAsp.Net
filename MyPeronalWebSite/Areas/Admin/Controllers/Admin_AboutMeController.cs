@@ -83,6 +83,7 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Edit(Tbl_AboutMe tbl_AboutMe, HttpPostedFileBase ImageURL = null, HttpPostedFileBase CvPDF = null)
         {
             try
