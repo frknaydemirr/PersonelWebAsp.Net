@@ -129,112 +129,117 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
 
         // GET: Admin/Admin_Project/Edit/5
         // GET: Admin/Admin_Project/Edit/5
+        // GET: Admin/Admin_Project/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tbl_Projects tbl_Projects = db.Tbl_Projects.Find(id);
-            if (tbl_Projects == null)
+
+            Tbl_Projects project = db.Tbl_Projects.Find(id);
+            if (project == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
-            return View(tbl_Projects);
+
+            ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", project.LanguageID);
+            return View(project);
         }
 
         // POST: Admin/Admin_Project/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit(Tbl_Projects tbl_Projects, HttpPostedFileBase ProjectImg = null)
+        public ActionResult Edit(Tbl_Projects model, HttpPostedFileBase ProjectImg = null)
         {
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+
             try
             {
-                // Model state kontrolü
+                // ModelState'teki resim alanını temizle (gereksiz hatalar için)
+                ModelState.Remove("ProjectImg");
+
                 if (!ModelState.IsValid)
                 {
-                    ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
-                    ViewBag.ErrorMessage = "Lütfen gerekli alanları doğru şekilde doldurun.";
-                    return View(tbl_Projects);
+                    ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", model.LanguageID);
+                    return View(model);
                 }
 
-                // HTML tag'larını temizleme
-                tbl_Projects.ProjectDescription = StripHtmlTags(tbl_Projects.ProjectDescription);
-                tbl_Projects.ProjectEntryDescription = StripHtmlTags(tbl_Projects.ProjectEntryDescription);
+                var existingProject = db.Tbl_Projects.Find(model.ID);
+                if (existingProject == null)
+                {
+                    return HttpNotFound();
+                }
 
-                // Resim güncelleme işlemi
+                // HTML temizleme (varsa)
+                existingProject.ProjectDescription = StripHtmlTags(model.ProjectDescription);
+                existingProject.ProjectEntryDescription = StripHtmlTags(model.ProjectEntryDescription);
+
+                // Alan güncellemeleri
+                existingProject.ProjectTitle = model.ProjectTitle;
+                existingProject.ProjectEntryTitle = model.ProjectEntryTitle;
+                existingProject.LanguageID = model.LanguageID;
+                existingProject.GithubURL = model.GithubURL;
+                existingProject.isActive = model.isActive ?? false; // nullable bool kontrolü
+
+                // Resim güncelleme
                 if (ProjectImg != null && ProjectImg.ContentLength > 0)
                 {
                     var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
                     var extension = Path.GetExtension(ProjectImg.FileName).ToLower();
 
-                    // Format kontrolü
                     if (!allowedExtensions.Contains(extension))
                     {
-                        ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
-                        ViewBag.ErrorMessage = "Sadece JPG, JPEG, PNG, GIF veya WEBP formatında resimler yükleyebilirsiniz";
-                        return View(tbl_Projects);
+                        ViewBag.ErrorMessage = "Sadece JPG, JPEG, PNG, GIF veya WEBP formatında resimler yükleyebilirsiniz.";
+                        ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", model.LanguageID);
+                        return View(model);
                     }
 
-                    // Boyut kontrolü (5MB - Create ile aynı olmalı)
                     if (ProjectImg.ContentLength > 5 * 1024 * 1024)
                     {
-                        ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
-                        ViewBag.ErrorMessage = "Resim boyutu 5MB'tan büyük olamaz";
-                        return View(tbl_Projects);
+                        ViewBag.ErrorMessage = "Resim boyutu 5MB'tan büyük olamaz.";
+                        ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", model.LanguageID);
+                        return View(model);
                     }
 
-                    // Klasör kontrolü ve kaydetme
                     var uploadPath = Server.MapPath("~/Uploads/Projects");
                     if (!Directory.Exists(uploadPath))
-                    {
                         Directory.CreateDirectory(uploadPath);
-                    }
 
-                    var fileName = Guid.NewGuid().ToString() + extension;
+                    var fileName = Guid.NewGuid() + extension;
                     var filePath = Path.Combine(uploadPath, fileName);
                     ProjectImg.SaveAs(filePath);
 
-                    // Eski resmi sil (varsa)
-                    var currentEntity = db.Tbl_Projects.AsNoTracking().FirstOrDefault(p => p.ID == tbl_Projects.ID);
-                    if (currentEntity != null && !string.IsNullOrEmpty(currentEntity.ProjectImg))
+                    // Eski resmi sil
+                    if (!string.IsNullOrEmpty(existingProject.ProjectImg))
                     {
-                        var oldFilePath = Server.MapPath(currentEntity.ProjectImg);
+                        var oldFilePath = Server.MapPath(existingProject.ProjectImg);
                         if (System.IO.File.Exists(oldFilePath))
-                        {
                             System.IO.File.Delete(oldFilePath);
-                        }
                     }
 
-                    tbl_Projects.ProjectImg = "/Uploads/Projects/" + fileName;
-                }
-                else
-                {
-                    // Resim değişmemişse mevcut URL'yi koru
-                    var currentEntity = db.Tbl_Projects.AsNoTracking().FirstOrDefault(p => p.ID == tbl_Projects.ID);
-                    if (currentEntity != null)
-                    {
-                        tbl_Projects.ProjectImg = currentEntity.ProjectImg;
-                    }
+                    existingProject.ProjectImg = "/Uploads/Projects/" + fileName;
                 }
 
-                // Veritabanını güncelle
-                db.Entry(tbl_Projects).State = EntityState.Modified;
+                db.Entry(existingProject).State = EntityState.Modified;
                 db.SaveChanges();
 
-                // Başarı mesajı
                 TempData["SuccessMessage"] = "Proje başarıyla güncellendi.";
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Projects.LanguageID);
+                ViewBag.DilId = new SelectList(db.Tbl_Language, "ID", "Title", model.LanguageID);
                 ViewBag.ErrorMessage = "Güncelleme sırasında bir hata oluştu: " + ex.Message;
-                return View(tbl_Projects);
+                return View(model);
             }
         }
+
+
 
         // HTML tag'larını temizleyen yardımcı metod
         private string StripHtmlTags(string html)

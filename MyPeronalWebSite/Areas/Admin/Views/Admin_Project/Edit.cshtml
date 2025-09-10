@@ -1,453 +1,128 @@
 ﻿@model MyPeronalWebSite.Models.VT.Tbl_Projects
-
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Proje Düzenle";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Proje Düzenle</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
 
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- SweetAlert2 -->
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+<div class="container mt-4">
+    <div class="card shadow border-0">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0"><i class="fas fa-project-diagram me-2"></i>Proje Düzenle</h4>
+            @Html.ActionLink("Geri Dön", "Index", null, new { @class = "btn btn-sm btn-outline-light" })
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("Edit", "Admin_Project", FormMethod.Post, new { enctype = "multipart/form-data", id = "projectForm" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.ID)
+                @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
 
-    <style>
-        /* CSS kodunuz aynı kalacak */
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        .container-fluid {
-            padding-right: var(--bs-gutter-x, 1.5rem);
-            padding-left: var(--bs-gutter-x, 1.5rem);
-        }
-
-        .card {
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            border: none;
-            overflow: hidden;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .card-header {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            color: white;
-            border-radius: 0 !important;
-            padding: 1rem 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-
-        .card-body {
-            padding: 1.5rem;
-        }
-
-        .form-control, .form-select {
-            height: 50px;
-            padding: 10px 15px;
-            font-size: 16px;
-            border-radius: 8px;
-        }
-
-        .form-floating label {
-            padding: 1rem 1.5rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            border: none;
-            padding: 12px 30px;
-            font-weight: 600;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-
-        .btn-outline-light {
-            border-color: rgba(255,255,255,0.3);
-            color: white;
-        }
-
-        /* Resim Önizleme Stilleri */
-        .image-container {
-            position: relative;
-            max-width: 100%;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        #currentImage, #imagePreview {
-            max-width: 100%;
-            max-height: 300px;
-            width: auto;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            display: block;
-            margin: 0 auto;
-            object-fit: contain;
-        }
-
-        #imagePreview {
-            display: none;
-        }
-
-        /* Dosya Yükleme Stili */
-        .file-upload-wrapper {
-            margin-top: 15px;
-        }
-
-        .file-upload-label {
-            display: block;
-            padding: 15px;
-            border: 2px dashed #dee2e6;
-            border-radius: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            background-color: #f8f9fa;
-        }
-
-            .file-upload-label:hover {
-                border-color: #2575fc;
-                background-color: rgba(37, 117, 252, 0.05);
-            }
-
-        /* CKEditor Stilleri */
-        .editor-container {
-            margin-top: 15px;
-        }
-
-        .ck-editor__editable {
-            min-height: 200px;
-            max-height: 500px;
-            overflow-y: auto;
-        }
-
-        /* Responsive Düzenlemeler */
-        @@media (max-width: 768px) {
-            .card-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-                .card-header .btn {
-                    margin-top: 10px;
-                    align-self: flex-end;
-                }
-
-            .card-body {
-                padding: 1rem;
-            }
-
-            .form-control, .form-select {
-                height: 45px;
-                font-size: 14px;
-            }
-
-            .btn {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-
-            .d-flex.justify-content-end.gap-3 {
-                flex-direction: column;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="content-wrapper">
-        <!-- Content Header -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Proje Düzenle</h1>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Dil</label>
+                        @Html.DropDownList("LanguageID", null, "Dil seçin...", new { @class = "form-select" })
                     </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Projeler</li>
-                        </ol>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Başlık</label>
+                        @Html.TextBoxFor(m => m.ProjectTitle, new { @class = "form-control", placeholder = "Proje Başlığı" })
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid px-4">
-                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Giriş Başlığı</label>
+                        @Html.TextBoxFor(m => m.ProjectEntryTitle, new { @class = "form-control", placeholder = "Proje Giriş Başlığı" })
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Github URL</label>
+                        @Html.TextBoxFor(m => m.GithubURL, new { @class = "form-control", type = "url", placeholder = "https://github.com/..." })
+                    </div>
                     <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title mb-0"><i class="fas fa-project-diagram me-2"></i>PROJE DÜZENLE</h3>
-                                <div>
-                                    @Html.ActionLink("Listeye Dön", "Index", null, new { @class = "btn btn-sm btn-outline-light" })
-                                </div>
-                            </div>
-
-                            <div class="card-body">
-                                @using (Html.BeginForm("Edit", "Admin_Project", FormMethod.Post, new { enctype = "multipart/form-data", id = "projectForm" }))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
-                                    @Html.HiddenFor(model => model.ID)
-
-                                    <div class="row g-3">
-                                        <!-- ID -->
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                @Html.LabelFor(model => model.ID, htmlAttributes: new { @class = "form-label fw-bold mb-2" })
-                                                @Html.TextBoxFor(model => model.ID, new { @class = "form-control bg-light", @readonly = "readonly" })
-                                            </div>
-                                        </div>
-
-                                        <!-- Dil -->
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                @Html.LabelFor(model => model.LanguageID, "Dil", htmlAttributes: new { @class = "form-label fw-bold mb-2" })
-                                                @Html.DropDownList("LanguageID", null, "Dil seçin...", new { @class = "form-select", required = "required" })
-                                                @Html.ValidationMessageFor(model => model.LanguageID, "", new { @class = "text-danger small" })
-                                            </div>
-                                        </div>
-
-                                        <!-- Başlıklar ve URL -->
-                                        <div class="col-md-6">
-                                            <div class="form-floating mb-3">
-                                                @Html.EditorFor(model => model.ProjectTitle, new { htmlAttributes = new { @class = "form-control", placeholder = " ", required = "required" } })
-                                                @Html.LabelFor(model => model.ProjectTitle)
-                                                @Html.ValidationMessageFor(model => model.ProjectTitle, "", new { @class = "text-danger small" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-floating mb-3">
-                                                @Html.EditorFor(model => model.ProjectEntryTitle, new { htmlAttributes = new { @class = "form-control", placeholder = " " } })
-                                                @Html.LabelFor(model => model.ProjectEntryTitle)
-                                                @Html.ValidationMessageFor(model => model.ProjectEntryTitle, "", new { @class = "text-danger small" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-floating mb-3">
-                                                @Html.EditorFor(model => model.GithubURL, new { htmlAttributes = new { @class = "form-control", placeholder = " ", type = "url" } })
-                                                @Html.LabelFor(model => model.GithubURL)
-                                                @Html.ValidationMessageFor(model => model.GithubURL, "", new { @class = "text-danger small" })
-                                            </div>
-                                        </div>
-
-                                        <!-- Açıklamalar -->
-                                        <div class="col-12">
-                                            <div class="mb-3">
-                                                @Html.LabelFor(model => model.ProjectDescription, htmlAttributes: new { @class = "form-label fw-bold mb-2" })
-                                                @Html.TextAreaFor(model => model.ProjectDescription, new { @class = "form-control", id = "editorDescription", rows = "6", placeholder = "Proje açıklaması giriniz..." })
-                                                @Html.ValidationMessageFor(model => model.ProjectDescription, "", new { @class = "text-danger small" })
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="mb-3">
-                                                @Html.LabelFor(model => model.ProjectEntryDescription, htmlAttributes: new { @class = "form-label fw-bold mb-2" })
-                                                @Html.TextAreaFor(model => model.ProjectEntryDescription, new { @class = "form-control", id = "editorEntryDescription", rows = "4", placeholder = "Proje giriş açıklaması giriniz..." })
-                                                @Html.ValidationMessageFor(model => model.ProjectEntryDescription, "", new { @class = "text-danger small" })
-                                            </div>
-                                        </div>
-
-                                        <!-- Resim Yükleme -->
-                                        <div class="col-12">
-                                            <div class="mb-3">
-                                                <label class="form-label fw-bold mb-2">Proje Resmi</label>
-                                                <div class="image-container">
-                                                    @if (!string.IsNullOrEmpty(Model.ProjectImg))
-                                                    {
-                                                        <img id="currentImage" src="@Model.ProjectImg" alt="Mevcut Resim" class="img-thumbnail" style="max-width: 300px;" />
-                                                    }
-                                                    <img id="imagePreview" src="#" alt="Yeni Resim Önizleme" style="display:none; max-width: 300px;" class="img-thumbnail" />
-                                                </div>
-                                                <div class="file-upload-wrapper mt-3">
-                                                    <label for="ProjectImg" class="file-upload-label">
-                                                        <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
-                                                        <div class="mb-2">Resmi değiştirmek için tıklayın</div>
-                                                        <span class="badge bg-primary px-3 py-2">Resim Seç (Max 5MB)</span>
-                                                        <div class="form-text text-muted mt-2">Önerilen boyut: 800x600 px</div>
-                                                    </label>
-                                                    <input type="file" name="ProjectImg" id="ProjectImg" class="d-none" accept="image/*" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Aktiflik -->
-                                        <div class="col-md-6">
-                                            <div class="form-check form-switch mb-3 mt-4 pt-2">
-                                                @Html.EditorFor(model => model.isActive, new { htmlAttributes = new { @class = "form-check-input", role = "switch", id = "flexSwitchCheckChecked" } })
-                                                @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "form-check-label fw-bold", @for = "flexSwitchCheckChecked" })
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
-                                        @Html.ActionLink("İptal", "Index", null, new { @class = "btn btn-outline-secondary px-4" })
-                                        <button type="submit" class="btn btn-primary px-4" id="submitButton">
-                                            <i class="fas fa-save me-2"></i> Kaydet
-                                        </button>
-                                    </div>
-                                }
-                            </div>
+                        <label class="form-label fw-bold">Proje Açıklaması</label>
+                        @Html.TextAreaFor(m => m.ProjectDescription, new { @class = "form-control", rows = "5", id = "editorDescription" })
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-bold">Giriş Açıklaması</label>
+                        @Html.TextAreaFor(m => m.ProjectEntryDescription, new { @class = "form-control", rows = "4", id = "editorEntryDescription" })
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-bold">Proje Resmi</label>
+                        <div class="mb-2">
+                            @if (!string.IsNullOrEmpty(Model.ProjectImg))
+                            {
+                                <img src="@Model.ProjectImg" alt="Mevcut Resim" class="img-thumbnail mb-2" style="max-width: 250px;" id="currentImage" />
+                            }
+                            <img src="#" class="img-thumbnail mb-2" id="imagePreview" style="max-width: 250px; display:none;" />
                         </div>
+                        <input type="file" name="ProjectImg" id="ProjectImg" class="form-control" accept="image/*" />
+                        <small class="text-muted">Maksimum boyut: 5MB</small>
+                    </div>
+                    <div class="col-md-6 form-check form-switch mt-3">
+                        @Html.CheckBox("isActive", Model.isActive ?? false, new { @class = "form-check-input", role = "switch", id = "isActiveSwitch" })
+                        <label for="isActiveSwitch" class="form-check-label">Aktif</label>
                     </div>
                 </div>
-            </div>
-        </section>
+
+                <div class="mt-4 d-flex justify-content-end gap-2">
+                    @Html.ActionLink("İptal", "Index", null, new { @class = "btn btn-outline-secondary" })
+                    <button type="submit" class="btn btn-primary" id="submitButton">
+                        <i class="fas fa-save me-1"></i> Kaydet
+                    </button>
+                </div>
+            }
+        </div>
     </div>
+</div>
 
-    <!-- JS -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="~/Areas/Admin/Content/tinymce/js/tinymce/tinymce.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/Areas/Admin/Content/tinymce/js/tinymce/tinymce.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            // TinyMCE Editor'ü başlat
-            tinymce.init({
-                selector: '#editorDescription, #editorEntryDescription',
-                menubar: false,
-                plugins: 'lists link image charmap preview code fullscreen',
-                toolbar: 'undo redo | formatselect | bold italic underline strikethrough | \
-                          alignleft aligncenter alignright alignjustify | \
-                          bullist numlist outdent indent | link image charmap | \
-                          preview fullscreen code | removeformat',
-                height: 300,
-                image_caption: true,
-                quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
-                branding: false,
-                contextmenu: 'link image inserttable | cell row column deletetable',
-                license_key: 'gpl',
-                setup: function (editor) {
-                    editor.on('change', function () {
-                        editor.save();
-                    });
-                }
-            });
+<script>
+$(function () {
+    // TinyMCE
+    tinymce.init({
+        selector: '#editorDescription, #editorEntryDescription',
+        menubar: false,
+        plugins: 'lists link image preview code fullscreen',
+        toolbar: 'undo redo | bold italic | bullist numlist | link image | preview fullscreen code',
+        height: 250,
+        setup: function (ed) {
+            ed.on('change', function () { ed.save(); });
+        }
+    });
 
-            // Resim önizleme - BOYUTU 5MB YAP
-            $('#ProjectImg').change(function (event) {
-                const file = event.target.files[0];
-                const preview = $('#imagePreview');
-                const currentImage = $('#currentImage');
+    // Resim Önizleme
+    $('#ProjectImg').on('change', function (e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        if (file.size > 5 * 1024 * 1024) {
+            Swal.fire('Hata', 'Resim boyutu 5MB\'dan büyük olamaz.', 'error');
+            $(this).val('');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = e => {
+            $('#imagePreview').attr('src', e.target.result).show();
+            $('#currentImage').hide();
+        };
+        reader.readAsDataURL(file);
+    });
 
-                if (file) {
-                    // Dosya boyutu kontrolü (max 5MB - controller ile aynı olmalı)
-                    if (file.size > 5 * 1024 * 1024) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Hata',
-                            text: 'Dosya boyutu 5MB\'dan büyük olamaz!'
-                        });
-                        $(this).val('');
-                        return;
-                    }
-
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        preview.attr('src', e.target.result).show();
-                        if (currentImage.length > 0) currentImage.hide();
-                    }
-                    reader.readAsDataURL(file);
-                } else {
-                    preview.hide();
-                    if (currentImage.length > 0) currentImage.show();
-                }
-            });
-
-            // Form gönderim kontrolü - AJAX ile gönderim
-            $('#projectForm').on('submit', function (e) {
-                e.preventDefault(); // Normal form gönderimini engelle
-
-                // TinyMCE editör içeriklerini kaydet
-                if (typeof tinymce !== 'undefined') {
-                    tinymce.triggerSave();
-                }
-
-                // Form verilerini topla
-                var formData = new FormData(this);
-
-                // AJAX ile formu gönder
-                $.ajax({
-                    url: $(this).attr('action'),
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    beforeSend: function () {
-                        // Yükleniyor göster
-                        $('#submitButton').prop('disabled', true).html('<i class="fas fa-spinner fa-spin me-2"></i> Kaydediliyor...');
-                    },
-                    success: function (response) {
-                        if (response.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Başarılı',
-                                text: response.message
-                            }).then(() => {
-                                window.location.href = '@Url.Action("Index", "Admin_Project")';
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Hata',
-                                text: response.message
-                            });
-                            $('#submitButton').prop('disabled', false).html('<i class="fas fa-save me-2"></i> Kaydet');
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Hata',
-                            text: 'Bir hata oluştu: ' + error
-                        });
-                        $('#submitButton').prop('disabled', false).html('<i class="fas fa-save me-2"></i> Kaydet');
-                    }
-                });
-            });
-
-            // Hata mesajlarını göster
-            @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
-            {
-                <text>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Hata',
-                    text: '@Html.Raw(ViewBag.ErrorMessage)'
-                });
-                </text>
-            }
-
-            @if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
-            {
-                <text>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Başarılı',
-                    text: '@TempData["SuccessMessage"]'
-                }).then(() => {
-                    window.location.href = '@Url.Action("Index", "Admin_Project")';
-                });
-                </text>
-            }
-        });
-    </script>
-</body>
-</html>
+    @* Hata ve başarı mesajları *@
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <text>
+        Swal.fire('Hata', '@Html.Raw(ViewBag.ErrorMessage)', 'error');
+        </text>
+    }
+    @if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+    {
+        <text>
+        Swal.fire('Başarılı', '@TempData["SuccessMessage"]', 'success');
+        </text>
+    }
+});
+</script>

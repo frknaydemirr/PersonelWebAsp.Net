@@ -37,13 +37,22 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
             }
             return View(tbl_Technologies);
         }
+        public ActionResult Create()
+        {
+            ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title");
+            return View();
+        }
 
+        // POST: Admin/Admin_Technologies/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Tbl_Technologies tbl_Technologies, HttpPostedFileBase techImage)
         {
             try
             {
+                // Model state'i temizle (file input için)
+                ModelState.Remove("techImage");
+
                 // Dosya kontrolü
                 if (techImage == null || techImage.ContentLength == 0)
                 {
@@ -52,17 +61,18 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
                     return View(tbl_Technologies);
                 }
 
-                // Dosya işlemleri
-                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+                // Dosya uzantısı kontrolü
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg" };
                 var fileExtension = Path.GetExtension(techImage.FileName).ToLower();
 
                 if (!allowedExtensions.Contains(fileExtension))
                 {
-                    ModelState.AddModelError("techImage", "Sadece JPG, JPEG, PNG, GIF veya WebP formatları kabul edilir");
+                    ModelState.AddModelError("techImage", "Sadece JPG, JPEG, PNG, GIF, WebP veya SVG formatları kabul edilir");
                     ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Technologies.LanguageID);
                     return View(tbl_Technologies);
                 }
 
+                // Dosya boyutu kontrolü (max 2MB)
                 if (techImage.ContentLength > 2 * 1024 * 1024)
                 {
                     ModelState.AddModelError("techImage", "Dosya boyutu 2MB'dan büyük olamaz");
@@ -70,31 +80,52 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
                     return View(tbl_Technologies);
                 }
 
-                // Dosyayı kaydet
-                string fileName = Guid.NewGuid().ToString() + fileExtension;
-                string path = Path.Combine(Server.MapPath("~/Content/Images/Technologies"), fileName);
-
-                Directory.CreateDirectory(Path.GetDirectoryName(path));
-                techImage.SaveAs(path);
-                tbl_Technologies.ImageURL = "/Content/Images/Technologies/" + fileName;
-
-                // VERİTABANI İŞLEMİ - Doğrulama olmadan
-                using (var transaction = db.Database.BeginTransaction())
+                // Model state geçerli mi kontrol et
+                if (ModelState.IsValid)
                 {
-                    try
-                    {
-                        db.Tbl_Technologies.Add(tbl_Technologies);
-                        db.SaveChanges();
-                        transaction.Commit();
+                    // Dosyayı kaydet
+                    string fileName = Guid.NewGuid().ToString() + fileExtension;
+                    string directoryPath = Server.MapPath("~/Content/Images/Technologies");
+                    string path = Path.Combine(directoryPath, fileName);
 
-                        TempData["SuccessMessage"] = "Teknoloji başarıyla eklendi";
-                        return RedirectToAction("Index");
-                    }
-                    catch
+                    // Klasör yoksa oluştur
+                    if (!Directory.Exists(directoryPath))
                     {
-                        transaction.Rollback();
-                        throw;
+                        Directory.CreateDirectory(directoryPath);
                     }
+
+                    techImage.SaveAs(path);
+                    tbl_Technologies.ImageURL = "/Content/Images/Technologies/" + fileName;
+
+                    // Veritabanı işlemi
+                    using (var transaction = db.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            db.Tbl_Technologies.Add(tbl_Technologies);
+                            db.SaveChanges();
+                            transaction.Commit();
+
+                            TempData["SuccessMessage"] = "Teknoloji başarıyla eklendi";
+                            return RedirectToAction("Index");
+                        }
+                        catch (Exception dbEx)
+                        {
+                            transaction.Rollback();
+                            // Dosyayı sil (geri alma)
+                            if (System.IO.File.Exists(path))
+                            {
+                                System.IO.File.Delete(path);
+                            }
+                            ViewBag.ErrorMessage = "Veritabanı hatası: " + dbEx.Message;
+                        }
+                    }
+                }
+                else
+                {
+                    // Model state hatalarını göster
+                    var errors = ModelState.Values.SelectMany(v => v.Errors);
+                    ViewBag.ErrorMessage = "Form doğrulama hataları: " + string.Join(", ", errors.Select(e => e.ErrorMessage));
                 }
             }
             catch (Exception ex)
@@ -102,6 +133,7 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
                 ViewBag.ErrorMessage = "Bir hata oluştu: " + ex.Message;
             }
 
+            // Hata durumunda view'i tekrar yükle
             ViewBag.LanguageID = new SelectList(db.Tbl_Language, "ID", "Title", tbl_Technologies.LanguageID);
             return View(tbl_Technologies);
         }
