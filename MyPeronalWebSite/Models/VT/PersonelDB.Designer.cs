@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\furka\Desktop\YEDEK\Desktop\WebFurkan\MyPeronalWebSite\MyPeronalWebSite\Models\VT\PersonelDB.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Dell\Source\Repos\PersonelWebAsp.Net\MyPeronalWebSite\Models\VT\PersonelDB.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

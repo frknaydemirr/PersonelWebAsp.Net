@@ -25,6 +25,7 @@ namespace MyPeronalWebSite.Models.VT
             this.Tbl_Projects1 = new HashSet<Tbl_Projects>();
             this.Tbl_Resource = new HashSet<Tbl_Resource>();
             this.Tbl_Technologies = new HashSet<Tbl_Technologies>();
+            this.Tbl_CurrentProject = new HashSet<Tbl_CurrentProject>();
         }
     
         public int ID { get; set; }
@@ -49,5 +50,7 @@ namespace MyPeronalWebSite.Models.VT
         public virtual ICollection<Tbl_Resource> Tbl_Resource { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_Technologies> Tbl_Technologies { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_CurrentProject> Tbl_CurrentProject { get; set; }
     }
 }

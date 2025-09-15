@@ -43,6 +43,19 @@
           <Property Name="Subcejt" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="Tbl_CurrentProject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LanguageID" Type="int" Nullable="false" />
+          <Property Name="ProjectTitle" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ImageURL" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ProjectDescription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ProjectEntryTitle" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ProjectEntryDescription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="GithubURL" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="Tbl_Language">
           <Key>
             <PropertyRef Name="ID" />
@@ -154,6 +167,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tbl_CurrentProject_Tbl_Language">
+          <End Role="Tbl_Language" Type="Self.Tbl_Language" Multiplicity="1" />
+          <End Role="Tbl_CurrentProject" Type="Self.Tbl_CurrentProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Language">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_CurrentProject">
+              <PropertyRef Name="LanguageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Tbl_Navbar_Tbl_Language">
           <End Role="Tbl_Language" Type="Self.Tbl_Language" Multiplicity="1" />
           <End Role="Tbl_Navbar" Type="Self.Tbl_Navbar" Multiplicity="*" />
@@ -218,6 +243,7 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_AboutMe" EntityType="Self.Tbl_AboutMe" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Contact" EntityType="Self.Tbl_Contact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_CurrentProject" EntityType="Self.Tbl_CurrentProject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Language" EntityType="Self.Tbl_Language" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Navbar" EntityType="Self.Tbl_Navbar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_ProjectDetails" EntityType="Self.Tbl_ProjectDetails" Schema="dbo" store:Type="Tables" />
@@ -233,6 +259,10 @@
           <AssociationSet Name="FK_Tbl_Contact_Tbl_Language" Association="Self.FK_Tbl_Contact_Tbl_Language">
             <End Role="Tbl_Language" EntitySet="Tbl_Language" />
             <End Role="Tbl_Contact" EntitySet="Tbl_Contact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_CurrentProject_Tbl_Language" Association="Self.FK_Tbl_CurrentProject_Tbl_Language">
+            <End Role="Tbl_Language" EntitySet="Tbl_Language" />
+            <End Role="Tbl_CurrentProject" EntitySet="Tbl_CurrentProject" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_Navbar_Tbl_Language" Association="Self.FK_Tbl_Navbar_Tbl_Language">
             <End Role="Tbl_Language" EntitySet="Tbl_Language" />
@@ -316,6 +346,7 @@
           <NavigationProperty Name="Tbl_Projects1" Relationship="Self.FK_Tbl_Projects_Tbl_Language1" FromRole="Tbl_Language" ToRole="Tbl_Projects" />
           <NavigationProperty Name="Tbl_Resource" Relationship="Self.FK_Tbl_Resource_Tbl_Language" FromRole="Tbl_Language" ToRole="Tbl_Resource" />
           <NavigationProperty Name="Tbl_Technologies" Relationship="Self.FK_Tbl_Technologies_Tbl_Language" FromRole="Tbl_Language" ToRole="Tbl_Technologies" />
+          <NavigationProperty Name="Tbl_CurrentProject" Relationship="PersonelWebDbModel.FK_Tbl_CurrentProject_Tbl_Language" FromRole="Tbl_Language" ToRole="Tbl_CurrentProject" />
         </EntityType>
         <EntityType Name="Tbl_Navbar">
           <Key>
@@ -549,6 +580,11 @@
             <End Role="Tbl_ProjectDetails" EntitySet="Tbl_ProjectDetails" />
           </AssociationSet>
           <EntitySet Name="Tbl_Skills" EntityType="PersonelWebDbModel.Tbl_Skills" />
+          <EntitySet Name="Tbl_CurrentProject" EntityType="PersonelWebDbModel.Tbl_CurrentProject" />
+          <AssociationSet Name="FK_Tbl_CurrentProject_Tbl_Language" Association="PersonelWebDbModel.FK_Tbl_CurrentProject_Tbl_Language">
+            <End Role="Tbl_Language" EntitySet="Tbl_Language" />
+            <End Role="Tbl_CurrentProject" EntitySet="Tbl_CurrentProject" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Tbl_Skills">
           <Key>
@@ -559,6 +595,32 @@
           <Property Name="LanguageID" Type="Int32" Nullable="false" />
           <Property Name="Icon" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Tbl_CurrentProject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LanguageID" Type="Int32" Nullable="false" />
+          <Property Name="ProjectTitle" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageURL" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectEntryTitle" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectEntryDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GithubURL" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tbl_Language" Relationship="PersonelWebDbModel.FK_Tbl_CurrentProject_Tbl_Language" FromRole="Tbl_CurrentProject" ToRole="Tbl_Language" />
+        </EntityType>
+        <Association Name="FK_Tbl_CurrentProject_Tbl_Language">
+          <End Type="PersonelWebDbModel.Tbl_Language" Role="Tbl_Language" Multiplicity="1" />
+          <End Type="PersonelWebDbModel.Tbl_CurrentProject" Role="Tbl_CurrentProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Language">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_CurrentProject">
+              <PropertyRef Name="LanguageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -697,6 +759,20 @@
                 <ScalarProperty Name="Icon" ColumnName="Icon" />
                 <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
                 <ScalarProperty Name="WhichSkills" ColumnName="WhichSkills" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_CurrentProject">
+            <EntityTypeMapping TypeName="PersonelWebDbModel.Tbl_CurrentProject">
+              <MappingFragment StoreEntitySet="Tbl_CurrentProject">
+                <ScalarProperty Name="GithubURL" ColumnName="GithubURL" />
+                <ScalarProperty Name="ProjectEntryDescription" ColumnName="ProjectEntryDescription" />
+                <ScalarProperty Name="ProjectEntryTitle" ColumnName="ProjectEntryTitle" />
+                <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="ProjectTitle" ColumnName="ProjectTitle" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

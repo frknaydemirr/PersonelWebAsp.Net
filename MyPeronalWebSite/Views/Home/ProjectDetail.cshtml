@@ -19,27 +19,11 @@
 
 
                     </div>
-                    <div class="close-menu">
-                        <button class="close-button tmp-round-action-btn">
-                            <i class="fa-sharp fa-light fa-xmark"></i>
-                        </button>
-                    </div>
+
                 </div>
-                @{
 
-                    var currentUrl = Context.Request.Path.ToString();
-                    var menuItems = Model.Navbar ?? new List<MyPeronalWebSite.Models.VT.Tbl_Navbar>();
-                }
 
-                <ul class="tmp-mainmenu">
-                    @foreach (var item in menuItems)
-                    {
-                        var isActive = currentUrl == item.URL ? "current" : "";
-                        <li class="@isActive">
-                            <a href="@item.URL">@item.Title</a>
-                        </li>
-                    }
-                </ul>
+
 
 
                 <div class="social-wrapper mt--40">
@@ -64,9 +48,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-inner text-center">
-                        <h1 class="title split-collab">@Model.Resources.FirstOrDefault(x => x.NavigationName == "ProjeDetay").Value</h1>
+
                         <ul class="page-list">
-                            <li class="tmp-breadcrumb-item"><a href=""> @Model.Resources.FirstOrDefault(x => x.NavigationName == "ProjeDetayAnaSayfa").Value</a></li>
+                            <li class="tmp-breadcrumb-item"><a href="/">@Model.Resources.FirstOrDefault(x => x.NavigationName == "AnaSayfaProjectDetay").Value</a></li>
                             <li class="icon"><i class="fa-solid fa-angle-right"></i></li>
                             <li class="tmp-breadcrumb-item active"> @Model.Resources.FirstOrDefault(x => x.NavigationName == "ProjeDetay").Value</li>
                         </ul>

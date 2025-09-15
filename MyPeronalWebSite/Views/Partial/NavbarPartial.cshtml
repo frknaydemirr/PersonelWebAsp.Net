@@ -86,25 +86,32 @@
 
                 }
 
+
+
                 <div class="header-content">
-                  
+                    @{
+                        var currentAction = ViewContext.RouteData.Values["action"]?.ToString()?.ToLower();
+                    }
 
-                    <nav class="tmp-mainmenu-nav d-none d-xl-block">
-                        <ul class="tmp-mainmenu">
-                            @foreach (var item in menuItems)
-                            {
-                                var isActive = currentUrl == item.URL ? "current" : "";
+                    @if (currentAction != "projectdetail")
+                    {
+                        <nav class="tmp-mainmenu-nav d-none d-xl-block">
+                            <ul class="tmp-mainmenu">
+                                @foreach (var item in menuItems)
+                                {
+                                    var isActive = currentUrl == item.URL ? "current" : "";
+                                    var isAnchor = item.URL.StartsWith("#");
+                                    var link = isAnchor ? item.URL : Url.Content(item.URL);
 
-                                // ID ile çalışan bir yapı (#hakkimizda gibi)
-                                var isAnchor = item.URL.StartsWith("#");
-                                var link = isAnchor ? item.URL : Url.Content(item.URL);
+                                    <li class="@isActive">
+                                        <a href="@link">@item.Title</a>
+                                    </li>
+                                }
+                            </ul>
+                        </nav>
+                    }
 
-                                <li class="@isActive">
-                                    <a href="@link">@item.Title</a>
-                                </li>
-                            }
-                        </ul>
-                    </nav>
+
 
                     <div class="tmp-header-right">
                         <div class="social-share-wrapper d-none d-md-block">

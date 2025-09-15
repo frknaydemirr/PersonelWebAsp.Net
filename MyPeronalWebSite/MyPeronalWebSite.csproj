@@ -2592,6 +2592,9 @@
     <Compile Include="Models\VT\Tbl_Contact.cs">
       <DependentUpon>PersonelDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VT\Tbl_CurrentProject.cs">
+      <DependentUpon>PersonelDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VT\Tbl_Language.cs">
       <DependentUpon>PersonelDB.tt</DependentUpon>
     </Compile>
