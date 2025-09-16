@@ -40,36 +40,45 @@ namespace MyPeronalWebSite.Controllers
 
         private void MetaBilgiler(int langId)
         {
-            string url2 = Request.Url.AbsolutePath.ToString();  // Tam URL'yi al
-            string url = HttpUtility.UrlDecode(url2); // URL'deki karakterleri düzenle
+            string url = Request.Url.AbsolutePath.ToLower(); // Örneğin "/anasayfa", "/project-details/some-title-3"
 
-            // Anasayfa için özel kontrol
-            if (url == "/" || url.ToLower() == "/anasayfa" || url.ToLower() == "/home")
+            // Varsayılan meta değerler (sayfa bulunamazsa gösterilecek)
+            string defaultTitle = "Varsayılan Başlık";
+            string defaultKeyword = "Varsayılan Keyword";
+            string defaultDescription = "Varsayılan Açıklama";
+
+            Tbl_Navbar navbar = null;
+
+            if (url == "/" || url == "/anasayfa" || url == "/home")
             {
-                var navbar = db.Tbl_Navbar.FirstOrDefault(x => x.LanguageID == langId && x.Turn == true && (x.URL == "/Anasayfa" || x.URL == "/Home"));
-                if (navbar != null)
-                {
-                    ViewBag.Title = navbar.MetaTitle;
-                    ViewBag.Keyword = navbar.MetaKeyword;
-                    ViewBag.Description = navbar.MetaDescription;
-                }
+                navbar = db.Tbl_Navbar.FirstOrDefault(x =>
+                    x.LanguageID == langId &&
+                    x.Turn == true &&  // Turn bool değil int ise 1 olarak kontrol
+                    (x.URL.ToLower() == "/anasayfa" || x.URL.ToLower() == "/home"));
             }
             else
             {
-                var navbar = db.Tbl_Navbar.FirstOrDefault(x =>
+                navbar = db.Tbl_Navbar.FirstOrDefault(x =>
                     x.LanguageID == langId &&
                     x.Turn == true &&
-                    (x.URL.ToLower().Contains(url.ToLower()) || (x.SeoUrl != null && x.SeoUrl.ToLower().Contains(url.ToLower())))
+                    (x.URL.ToLower() == url || (x.SeoUrl != null && x.SeoUrl.ToLower() == url))
                 );
+            }
 
-                if (navbar != null)
-                {
-                    ViewBag.Title = navbar.MetaTitle;
-                    ViewBag.Keyword = navbar.MetaKeyword;
-                    ViewBag.Description = navbar.MetaDescription;
-                }
+            if (navbar != null)
+            {
+                ViewBag.Title = navbar.MetaTitle ?? defaultTitle;
+                ViewBag.Keyword = navbar.MetaKeyword ?? defaultKeyword;
+                ViewBag.Description = navbar.MetaDescription ?? defaultDescription;
+            }
+            else
+            {
+                ViewBag.Title = defaultTitle;
+                ViewBag.Keyword = defaultKeyword;
+                ViewBag.Description = defaultDescription;
             }
         }
+
 
 
 
