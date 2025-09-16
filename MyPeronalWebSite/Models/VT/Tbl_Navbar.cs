@@ -22,8 +22,8 @@ namespace MyPeronalWebSite.Models.VT
         public bool Turn { get; set; }
         public string MetaTitle { get; set; }
         public string MetaDescription { get; set; }
-        public string MetaKeywords { get; set; }
-        public string SeoURL { get; set; }
+        public string MetaKeyword { get; set; }
+        public string SeoUrl { get; set; }
     
         public virtual Tbl_Language Tbl_Language { get; set; }
     }

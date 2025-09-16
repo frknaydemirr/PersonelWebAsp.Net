@@ -33,9 +33,44 @@ namespace MyPeronalWebSite.Controllers
             vm.Tbl_Projects = db.Tbl_Projects.Where(x => x.LanguageID == langId).ToList();
             vm.Tbl_Skills = db.Tbl_Skills.Where(x => x.LanguageID == langId).ToList();
             vm.Tbl_Navbar = db.Tbl_Navbar.Where(x => x.LanguageID == langId).ToList();
-
+            MetaBilgiler(langId);
             return View(vm);
         }
+
+
+        private void MetaBilgiler(int langId)
+        {
+            string url2 = Request.Url.AbsolutePath.ToString();  // Tam URL'yi al
+            string url = HttpUtility.UrlDecode(url2); // URL'deki karakterleri düzenle
+
+            // Anasayfa için özel kontrol
+            if (url == "/" || url.ToLower() == "/anasayfa" || url.ToLower() == "/home")
+            {
+                var navbar = db.Tbl_Navbar.FirstOrDefault(x => x.LanguageID == langId && x.Turn == true && (x.URL == "/Anasayfa" || x.URL == "/Home"));
+                if (navbar != null)
+                {
+                    ViewBag.Title = navbar.MetaTitle;
+                    ViewBag.Keyword = navbar.MetaKeyword;
+                    ViewBag.Description = navbar.MetaDescription;
+                }
+            }
+            else
+            {
+                var navbar = db.Tbl_Navbar.FirstOrDefault(x =>
+                    x.LanguageID == langId &&
+                    x.Turn == true &&
+                    (x.URL.ToLower().Contains(url.ToLower()) || (x.SeoUrl != null && x.SeoUrl.ToLower().Contains(url.ToLower())))
+                );
+
+                if (navbar != null)
+                {
+                    ViewBag.Title = navbar.MetaTitle;
+                    ViewBag.Keyword = navbar.MetaKeyword;
+                    ViewBag.Description = navbar.MetaDescription;
+                }
+            }
+        }
+
 
 
         [Route("project-details/{title}-{id:int}")]
@@ -64,7 +99,7 @@ namespace MyPeronalWebSite.Controllers
 
 
             };
-
+            MetaBilgiler(langId);
             return View(vm);
         }
 

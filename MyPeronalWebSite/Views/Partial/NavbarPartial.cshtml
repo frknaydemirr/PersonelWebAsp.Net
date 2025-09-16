@@ -91,25 +91,48 @@
                 <div class="header-content">
                     @{
                         var currentAction = ViewContext.RouteData.Values["action"]?.ToString()?.ToLower();
+                        var currentController = ViewContext.RouteData.Values["controller"]?.ToString()?.ToLower();
+                        var CurrentUrl = Context.Request.Path.ToString().ToLower();
                     }
 
-                    @if (currentAction != "projectdetail")
-                    {
-                        <nav class="tmp-mainmenu-nav d-none d-xl-block">
-                            <ul class="tmp-mainmenu">
-                                @foreach (var item in menuItems)
+                    <nav class="tmp-mainmenu-nav d-none d-xl-block">
+                        <ul class="tmp-mainmenu">
+                            @foreach (var item in Model.Tbl_Navbar)
+                            {
+                                var itemUrl = (item.URL?.ToLower() ?? "").Trim();
+
+                                string link;
+                                string isActive = "";
+
+                                // Eğer ProjectDetail sayfasındaysak tüm linkleri anasayfaya yönlendir
+                                if (currentAction == "projectdetail")
                                 {
-                                    var isActive = currentUrl == item.URL ? "current" : "";
-                                    var isAnchor = item.URL.StartsWith("#");
-                                    var link = isAnchor ? item.URL : Url.Content(item.URL);
-
-                                    <li class="@isActive">
-                                        <a href="@link">@item.Title</a>
-                                    </li>
+                                    link = Url.Content("~/");
+                                    isActive = "";
                                 }
-                            </ul>
-                        </nav>
-                    }
+                                else
+                                {
+                                    var isAnchor = !string.IsNullOrEmpty(itemUrl) && itemUrl.StartsWith("#");
+                                    link = isAnchor ? item.URL : Url.Content(item.URL);
+
+                                    // Active class kontrolü
+                                    var currentPath = CurrentUrl.Trim('/');
+                                    var itemPath = itemUrl.Trim('/');
+
+                                    isActive = (currentPath == itemPath ||
+                                               (itemPath == "" && currentPath == "") ||
+                                               (currentPath.Contains(itemPath) && itemPath != "")) ? "current" : "";
+                                }
+
+                                <li class="@isActive">
+                                    <a href="@link">@item.Title</a>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+
+
+
 
 
 

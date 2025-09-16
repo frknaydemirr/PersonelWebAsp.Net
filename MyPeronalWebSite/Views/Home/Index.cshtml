@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 @model MyPeronalWebSite.Models.ViewModel.IndexViewModel
 @using MyPeronalWebSite.Helper
 @{
@@ -119,8 +119,8 @@
 
 
             </div>
-            <h2 class="texts-one up-down-2">WEB DESIGN</h2>
-            <h2 class="texts-two up-down">WEB DESIGN</h2>
+            <h2 class="texts-one up-down-2"> @Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "WebTasarım").Value</h2>
+            <h2 class="texts-two up-down">@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "WebTasarım").Value</h2>
         </div>
     </div>
 </div>
@@ -188,48 +188,9 @@
 
 
 
-<div class="our-supported-company-area tmp-section-gap">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-                <h3 class="tech-title">
-                    @Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Teknoloji").Value
-                </h3>
-                <div class="support-company-logo tmp-scroll-trigger tmp-fade-in animation-order-1">
-                    @foreach (var item in Model.Tbl_Technologies)
-                    {
-                        <img class="tech-logo" src="@item.ImageURL" alt="Reeni - Personal Portfolio HTML Template" />
-                    }
-                </div>
-            </div>
 
-
-        </div>
-    </div>
-</div>
 <style>
-    .tech-title {
-        font-size: 22px;
-        font-weight: 600;
-        margin-bottom: 15px;
-        color: #fff; /* koyu temada beyaz yazı */
-        text-align: center; /* ortalı başlık */
-        letter-spacing: 1px;
-        letter-spacing: 1px;
-    }
 
-    .support-company-logo {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center; /* logolar ortalansın */
-        gap: 12px; /* logolar arası boşluk */
-    }
-
-    .tech-logo {
-        width: 70px;
-        height: 70px;
-        object-fit: cover;
-    }
 
     .img-box.v2 {
         width: 100%;
@@ -243,7 +204,7 @@
 
 <section class="blog-and-news-are tmp-section-gap" id="Projects">
     <div class="container">
-        <div class="section-head mb--50" >
+        <div class="section-head mb--50">
             <div class="section-sub-title center-title tmp-scroll-trigger tmp-fade-in animation-order-1">
                 <span class="subtitle"> @Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Bitmiş Proje").Value </span>
             </div>
@@ -382,7 +343,7 @@
 
 <section class="get-in-touch-area tmp-section-gapBottom" id="GetinTouch">
     <div class="container">
-        <div class="contact-get-in-touch-wrap" >
+        <div class="contact-get-in-touch-wrap">
             <div class="get-in-touch-wrapper tmponhover" style="--x: 460px; --y: 415px;">
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-5">
@@ -1740,4 +1701,3 @@
         e.preventDefault();
     });
 </script>
-

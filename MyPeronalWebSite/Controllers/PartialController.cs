@@ -18,6 +18,7 @@ namespace MyPeronalWebSite.Controllers
         public PartialViewResult NavbarPartial()
         {
 
+
             var dil = Request.Cookies["lang"]?.Value ?? "tr";
             int langId = db.Tbl_Language.FirstOrDefault(x => x.ShortTitle == dil)?.ID ?? 1;
             NavbarViewModel vm = new NavbarViewModel();

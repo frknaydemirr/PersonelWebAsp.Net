@@ -76,10 +76,10 @@
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="LanguageID" Type="int" Nullable="false" />
           <Property Name="Turn" Type="bit" Nullable="false" />
-          <Property Name="MetaTitle" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="MetaDescription" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="MetaKeywords" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="SeoURL" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MetaTitle" Type="nvarchar(max)" />
+          <Property Name="MetaDescription" Type="nvarchar(max)" />
+          <Property Name="MetaKeyword" Type="nvarchar(max)" />
+          <Property Name="SeoUrl" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Tbl_ProjectDetails">
           <Key>
@@ -358,11 +358,11 @@
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="LanguageID" Type="Int32" Nullable="false" />
           <Property Name="Turn" Type="Boolean" Nullable="false" />
-          <Property Name="MetaTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MetaDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MetaKeywords" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SeoURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MetaTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MetaDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Tbl_Language" Relationship="Self.FK_Tbl_Navbar_Tbl_Language" FromRole="Tbl_Navbar" ToRole="Tbl_Language" />
+          <Property Name="MetaKeyword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SeoUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Tbl_ProjectDetails">
           <Key>
@@ -682,6 +682,8 @@
           <EntitySetMapping Name="Tbl_Navbar">
             <EntityTypeMapping TypeName="PersonelWebDbModel.Tbl_Navbar">
               <MappingFragment StoreEntitySet="Tbl_Navbar">
+                <ScalarProperty Name="SeoUrl" ColumnName="SeoUrl" />
+                <ScalarProperty Name="MetaKeyword" ColumnName="MetaKeyword" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="URL" ColumnName="URL" />
@@ -690,9 +692,7 @@
                 <ScalarProperty Name="Turn" ColumnName="Turn" />
                 <ScalarProperty Name="MetaTitle" ColumnName="MetaTitle" />
                 <ScalarProperty Name="MetaDescription" ColumnName="MetaDescription" />
-                <ScalarProperty Name="MetaKeywords" ColumnName="MetaKeywords" />
-                <ScalarProperty Name="SeoURL" ColumnName="SeoURL" />
-              </MappingFragment>
+                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tbl_ProjectDetails">
