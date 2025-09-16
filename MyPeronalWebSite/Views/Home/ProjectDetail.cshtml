@@ -11,1571 +11,1568 @@
 
 
 
-    <div class="d-block d-xl-none">
-        <div class="tmp-popup-mobile-menu">
-            <div class="inner">
-                <div class="header-top">
-                    <div class="logo">
+<div class="d-block d-xl-none">
+    <div class="tmp-popup-mobile-menu">
+        <div class="inner">
+            <div class="header-top">
+                <div class="logo">
 
-
-                    </div>
 
                 </div>
 
+            </div>
 
 
 
 
-                <div class="social-wrapper mt--40">
 
-                    <div class="social-link">
-                        <a href="#"><i class="fa-brands fa-github"></i></a>
-                        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            <div class="social-wrapper mt--40">
 
-                    </div>
+                <div class="social-link">
+                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+
                 </div>
-                <!-- social area end -->
+            </div>
+            <!-- social area end -->
 
 
 
+        </div>
+    </div>
+</div>
+
+<!-- Breadcrumb Area Start -->
+<div class="breadcrumb-area breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-inner text-center">
+
+                    <ul class="page-list">
+                        <li class="tmp-breadcrumb-item"><a href="/">@Model.Resources.FirstOrDefault(x => x.NavigationName == "AnaSayfaProjectDetay").Value</a></li>
+                        <li class="icon"><i class="fa-solid fa-angle-right"></i></li>
+                        <li class="tmp-breadcrumb-item active"> @Model.Resources.FirstOrDefault(x => x.NavigationName == "ProjeDetay").Value</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
+</div>
+<!-- Breadcrumb Area End -->
 
-    <!-- Breadcrumb Area Start -->
-    <div class="breadcrumb-area breadcrumb-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb-inner text-center">
 
-                        <ul class="page-list">
-                            <li class="tmp-breadcrumb-item"><a href="/">@Model.Resources.FirstOrDefault(x => x.NavigationName == "AnaSayfaProjectDetay").Value</a></li>
-                            <li class="icon"><i class="fa-solid fa-angle-right"></i></li>
-                            <li class="tmp-breadcrumb-item active"> @Model.Resources.FirstOrDefault(x => x.NavigationName == "ProjeDetay").Value</li>
-                        </ul>
-                    </div>
+<div class="project-details-area-wrapper tmp-section-gap">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="project-details-thumnail-wrap">
+                    <img src="@Model.Project.ProjectImg" alt="thumbnail">
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- Breadcrumb Area End -->
 
+            <div class="col-lg-8">
+                <div class="project-details-content-wrap">
+                    <h2 class="title">@Model.Project.ProjectEntryTitle</h2>
+                    <p class="docs">
+                        @Model.Project.ProjectEntryDescription
+                    </p>
+                    <p class="docs">
+                        @Model.Project.ProjectDescription
+                    </p>
 
-    <div class="project-details-area-wrapper tmp-section-gap">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-lg-12">
-                    <div class="project-details-thumnail-wrap">
-                        <img src="@Model.Project.ProjectImg" alt="thumbnail">
-                    </div>
-                </div>
-
-                <div class="col-lg-8">
-                    <div class="project-details-content-wrap">
-                        <h2 class="title">@Model.Project.ProjectEntryTitle</h2>
+                    @* ID 4 veya 5 için link *@
+                    @if (Model.Project.ID == 4 || Model.Project.ID == 5)
+                    {
                         <p class="docs">
-                            @Model.Project.ProjectEntryDescription
+                            <strong>@Model.Resources.FirstOrDefault(x => x.NavigationName == "WebSite").Value</strong> <a href="https://www.ispartaisitme.com" target="_blank" style="color:#00aaff;">ispartaisitme.com</a>
                         </p>
+                    }
+
+                    @* ID 10 veya 11 için link *@
+                    @if (Model.Project.ID == 10 || Model.Project.ID == 11)
+                    {
                         <p class="docs">
-                            @Model.Project.ProjectDescription
+                            <strong>@Model.Resources.FirstOrDefault(x => x.NavigationName == "WebSite").Value</strong> <a href="http://webqrmenu.com" target="_blank" style="color: #00aaff;">webqrmenu.com</a>
                         </p>
-
-                        @* ID 4 veya 5 için link *@
-                        @if (Model.Project.ID == 4 || Model.Project.ID == 5)
-                        {
-                            <p class="docs">
-                                <strong>@Model.Resources.FirstOrDefault(x => x.NavigationName == "WebSite").Value</strong> <a href="https://www.ispartaisitme.com" target="_blank" style="color:#00aaff;">ispartaisitme.com</a>
-                            </p>
-                        }
-
-                        @* ID 10 veya 11 için link *@
-                        @if (Model.Project.ID == 10 || Model.Project.ID == 11)
-                        {
-                            <p class="docs">
-                                <strong>@Model.Resources.FirstOrDefault(x => x.NavigationName == "WebSite").Value</strong> <a href="http://webqrmenu.com" target="_blank" style="color: #00aaff;">webqrmenu.com</a>
-                            </p>
-                        }
+                    }
 
 
 
 
-                        <div class="project-details-swiper-btn">
-                            <div class="github-redirect-btn">
-                                <a href="@Model.Project.GithubURL" target="_blank" class="github-btn">
-                                    <span class="github-icon">
-                                        <svg viewBox="0 0 24 24" width="24" height="24">
-                                            <path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                                        </svg>
-                                    </span>
-                                    <span class="github-text">@Model.Resources.FirstOrDefault(x => x.NavigationName == "Github").Value</span>
-                                    <span class="github-arrow">
-                                        <svg viewBox="0 0 24 24" width="16" height="16">
-                                            <path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-                                        </svg>
-                                    </span>
-                                    <span class="github-hover-effect"></span>
-                                </a>
-                            </div>
+                    <div class="project-details-swiper-btn">
+                        <div class="github-redirect-btn">
+                            <a href="@Model.Project.GithubURL" target="_blank" class="github-btn">
+                                <span class="github-icon">
+                                    <svg viewBox="0 0 24 24" width="24" height="24">
+                                        <path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                                    </svg>
+                                </span>
+                                <span class="github-text">@Model.Resources.FirstOrDefault(x => x.NavigationName == "Github").Value</span>
+                                <span class="github-arrow">
+                                    <svg viewBox="0 0 24 24" width="16" height="16">
+                                        <path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                                    </svg>
+                                </span>
+                                <span class="github-hover-effect"></span>
+                            </a>
                         </div>
-
                     </div>
+
                 </div>
-              
-                <style>
-                    github-redirect-btn {
-                        text-align: center;
-                        margin-top: 40px;
-                    }
+            </div>
 
-                    .github-btn {
-                        display: inline-flex;
-                        align-items: center;
-                        justify-content: center;
-                        position: relative;
-                        background: linear-gradient(135deg, #6e5494 0%, #4078c0 100%);
+            <style>
+                github-redirect-btn {
+                    text-align: center;
+                    margin-top: 40px;
+                }
+
+                .github-btn {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    background: linear-gradient(135deg, #6e5494 0%, #4078c0 100%);
+                    color: white;
+                    padding: 16px 32px;
+                    border-radius: 50px;
+                    font-weight: 600;
+                    text-decoration: none;
+                    overflow: hidden;
+                    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                    box-shadow: 0 10px 30px rgba(106, 84, 148, 0.3);
+                    border: 2px solid transparent;
+                    gap: 12px;
+                }
+
+                    .github-btn:hover {
+                        transform: translateY(-5px) scale(1.03);
+                        box-shadow: 0 15px 35px rgba(106, 84, 148, 0.4);
                         color: white;
-                        padding: 16px 32px;
-                        border-radius: 50px;
-                        font-weight: 600;
-                        text-decoration: none;
-                        overflow: hidden;
-                        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                    }
+
+                    .github-btn:active {
+                        transform: translateY(-2px) scale(1.01);
+                    }
+
+                .github-hover-effect {
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                    transition: left 0.7s ease;
+                }
+
+                .github-btn:hover .github-hover-effect {
+                    left: 100%;
+                }
+
+                .github-icon, .github-arrow {
+                    transition: transform 0.3s ease;
+                }
+
+                .github-btn:hover .github-icon {
+                    transform: rotate(360deg);
+                }
+
+                .github-btn:hover .github-arrow {
+                    transform: translateX(4px);
+                }
+
+                .github-text {
+                    font-size: 16px;
+                    letter-spacing: 0.5px;
+                }
+
+                /* Butonun yanıp sönme efekti */
+                @@keyframes pulse {
+                    0% {
                         box-shadow: 0 10px 30px rgba(106, 84, 148, 0.3);
-                        border: 2px solid transparent;
-                        gap: 12px;
                     }
 
-                        .github-btn:hover {
-                            transform: translateY(-5px) scale(1.03);
-                            box-shadow: 0 15px 35px rgba(106, 84, 148, 0.4);
-                            color: white;
-                        }
-
-                        .github-btn:active {
-                            transform: translateY(-2px) scale(1.01);
-                        }
-
-                    .github-hover-effect {
-                        position: absolute;
-                        top: 0;
-                        left: -100%;
-                        width: 100%;
-                        height: 100%;
-                        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-                        transition: left 0.7s ease;
+                    50% {
+                        box-shadow: 0 10px 30px rgba(106, 84, 148, 0.6);
                     }
 
-                    .github-btn:hover .github-hover-effect {
-                        left: 100%;
+                    100% {
+                        box-shadow: 0 10px 30px rgba(106, 84, 148, 0.3);
                     }
+                }
 
-                    .github-icon, .github-arrow {
-                        transition: transform 0.3s ease;
-                    }
+                .github-btn {
+                    animation: pulse 3s infinite;
+                }
 
-                    .github-btn:hover .github-icon {
-                        transform: rotate(360deg);
-                    }
-
-                    .github-btn:hover .github-arrow {
-                        transform: translateX(4px);
+                /* Mobil uyumluluk */
+                @@media (max-width: 768px) {
+                    .github-btn {
+                        padding: 14px 24px;
+                        font-size: 14px;
                     }
 
                     .github-text {
-                        font-size: 16px;
-                        letter-spacing: 0.5px;
+                        font-size: 14px;
                     }
-
-                    /* Butonun yanıp sönme efekti */
-                    @@keyframes pulse {
-                        0% {
-                            box-shadow: 0 10px 30px rgba(106, 84, 148, 0.3);
-                        }
-
-                        50% {
-                            box-shadow: 0 10px 30px rgba(106, 84, 148, 0.6);
-                        }
-
-                        100% {
-                            box-shadow: 0 10px 30px rgba(106, 84, 148, 0.3);
-                        }
-                    }
-
-                    .github-btn {
-                        animation: pulse 3s infinite;
-                    }
-
-                    /* Mobil uyumluluk */
-                    @@media (max-width: 768px) {
-                        .github-btn {
-                            padding: 14px 24px;
-                            font-size: 14px;
-                        }
-
-                        .github-text {
-                            font-size: 14px;
-                        }
-                    }
-                </style>
-                <!-- Tpm Get In touch start -->
-                <section class="get-in-touch-area tmp-section-gapBottom">
-                    <div class="container">
-                        <div class="contact-get-in-touch-wrap" id="get-in-touch">
-                            <div class="get-in-touch-wrapper tmponhover" style="--x: 460px; --y: 415px;">
-                                <div class="row g-5 align-items-center">
-                                    <div class="col-lg-5">
-                                        <div class="section-head text-align-left">
-                                            <div class="section-sub-title tmp-scroll-trigger tmp-fade-in animation-order-1">
-                                                <span class="subtitle">@Model.Resources.FirstOrDefault(x => x.NavigationName == "IletisimeGecDetay").Value</span>
-                                            </div>
-                                            <h2 class="title split-collab tmp-scroll-trigger tmp-fade-in animation-order-2">
-                                                @Model.Resources.FirstOrDefault(x => x.NavigationName == "İletisimTabloDetay").Value
-                                            </h2>
+                }
+            </style>
+            <!-- Tpm Get In touch start -->
+            <section class="get-in-touch-area tmp-section-gapBottom">
+                <div class="container">
+                    <div class="contact-get-in-touch-wrap" id="get-in-touch">
+                        <div class="get-in-touch-wrapper tmponhover" style="--x: 460px; --y: 415px;">
+                            <div class="row g-5 align-items-center">
+                                <div class="col-lg-5">
+                                    <div class="section-head text-align-left">
+                                        <div class="section-sub-title tmp-scroll-trigger tmp-fade-in animation-order-1">
+                                            <span class="subtitle">@Model.Resources.FirstOrDefault(x => x.NavigationName == "IletisimeGecDetay").Value</span>
                                         </div>
+                                        <h2 class="title split-collab tmp-scroll-trigger tmp-fade-in animation-order-2">
+                                            @Model.Resources.FirstOrDefault(x => x.NavigationName == "İletisimTabloDetay").Value
+                                        </h2>
                                     </div>
-                                    <div class="col-lg-7">
-                                        <div class="contact-inner">
-                                            <div class="contact-form">
-                                                <div id="form-messages" class="error"></div>
+                                </div>
+                                <div class="col-lg-7">
+                                    <div class="contact-inner">
+                                        <div class="contact-form">
+                                            <div id="form-messages" class="error"></div>
 
-                                                <!-- action değiştirildi -->
-                                                <form class="tmp-dynamic-form" id="contact-form" method="POST" action="#">
-                                                    <div class="contact-form-wrapper row">
+                                            <form class="tmp-dynamic-form" id="contact-form" method="POST" action="#">
+                                                <div class="contact-form-wrapper row">
 
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group">
-                                                                <input class="input-field" name="name" id="contact-name"
-                                                                       placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "İsimDetay").Value"
-                                                                       type="text" required="">
-                                                            </div>
+                                                    <!-- Ad -->
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <input class="input-field" name="name" id="contact-name"
+                                                                   placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "İsimDetay").Value"
+                                                                   type="text" required>
                                                         </div>
-
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group">
-                                                                <!-- name eklendi -->
-                                                                <input class="input-field" id="contact-phone" name="phoneNumber"
-                                                                       placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "TelefonDetay").Value"
-                                                                       type="tel" required="">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group">
-                                                                <input class="input-field" id="contact-email" name="email"
-                                                                       placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "EmailDetay").Value"
-                                                                       type="email" required="">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group">
-                                                                <input class="input-field" type="text" id="subject" name="subject"
-                                                                       placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "KonuDetay").Value">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg-12">
-                                                            <div class="form-group">
-                                                                <textarea class="input-field"
-                                                                          placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "MesajDetay").Value"
-                                                                          name="message" id="contact-message" required=""></textarea>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg-12">
-                                                            <div class="tmp-button-here">
-                                                                <!-- type değiştirildi -->
-                                                                <button class="tmp-btn hover-icon-reverse radius-round w-100"
-                                                                        type="submit" id="gonder" name="gonder">
-                                                                    <span class="icon-reverse-wrapper">
-                                                                        <span class="btn-text">
-                                                                            @Model.Resources.FirstOrDefault(x => x.NavigationName == "GonderDetay").Value
-                                                                        </span>
-                                                                        <span class="btn-icon"><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
-                                                                        <span class="btn-icon"><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
-                                                                    </span>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-
                                                     </div>
-                                                </form>
-                                            </div>
+
+                                                    <!-- Telefon -->
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <input class="input-field" id="contact-phone" name="phoneNumber"
+                                                                   placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "TelefonDetay").Value"
+                                                                   type="tel" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Email -->
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <input class="input-field" id="contact-email" name="email"
+                                                                   placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "EmailDetay").Value"
+                                                                   type="email" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Konu -->
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <input class="input-field" type="text" id="subject" name="subject"
+                                                                   placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "KonuDetay").Value">
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Mesaj -->
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <textarea class="input-field"
+                                                                      placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "MesajDetay").Value"
+                                                                      name="message" id="contact-message" required></textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Gönder Butonu -->
+                                                    <div class="col-lg-12">
+                                                        <div class="tmp-button-here">
+                                                            <button class="tmp-btn hover-icon-reverse radius-round w-100"
+                                                                    type="button" id="gonder" name="gonder">
+                                                                <span class="icon-reverse-wrapper">
+                                                                    <span class="btn-text">
+                                                                        @Model.Resources.FirstOrDefault(x => x.NavigationName == "GonderDetay").Value
+                                                                    </span>
+                                                                    <span class="btn-icon"><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
+                                                                    <span class="btn-icon"><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
+                                                                </span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <!-- Tpm Get In touch End -->
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Start Footer Area  -->
-    <footer class="footer-area footer-style-one-wrapper  tmp-section-gap">
-        <div class="container">
-            <div class="footer-main footer-style-one">
-                <div class="row g-5">
-                    <div class="col-lg-5 col-md-6">
-                        <div class="single-footer-wrapper border-right mr--20">
-
-                            <p class="description"><span>@Model.Resources.FirstOrDefault(x => x.NavigationName == "İletisimSloganDetay").Value</span> </p>
-                            <form action="#" class="newsletter-form-1 mt--40">
-                                <input type="email" placeholder="Email Adress">
-                                <span class="form-icon"><i class="fa-regular fa-envelope"></i></span>
-                            </form>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-3 col-md-6">
-                        <div class="single-footer-wrapper contact-wrap">
-                            <h5 class="ft-title">@Model.Resources.FirstOrDefault(x => x.NavigationName == "FooterİletisimDetay").Value </h5>
-                            <ul class="ft-link tmp-link-animation">
-                                <li><span class="ft-icon"><i class="fa-solid fa-envelope"></i></span><a href="#">furkanaydemir12@hotmail.com</a></li>
-                                <li>
-                                    <span class="ft-icon"><i class="fa-solid fa-location-dot"></i></span>Etimesgut/Ankara
-                                </li>
-                                <li><span class="ft-icon"><i class="fa-solid fa-phone"></i></span><a href="#">05071740165</a></li>
-                            </ul>
-                            <div class="social-link footer">
-                                <a href="https://github.com/frknaydemirr"><i class="fa-brands fa-github"></i></a>
-                                <a href="https://www.linkedin.com/in/furkanaydemir13/"><i class="fa-brands fa-linkedin-in"></i></a>
 
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
+            <!-- Tpm Get In touch End -->
         </div>
 
-    </footer>
-    <div class="copyright-area-one">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="main-wrapper">
-                        <p class="copy-right-para">
-                            @Model.Resources.FirstOrDefault(x => x.NavigationName == "YapanDetay").Value
-                            <script>
-                                document.write(new Date().getFullYear())
-                            </script>
-                        </p>
-                        
+    </div>
+</div>
+
+<!-- Start Footer Area  -->
+<footer class="footer-area footer-style-one-wrapper  tmp-section-gap">
+    <div class="container">
+        <div class="footer-main footer-style-one">
+            <div class="row g-5">
+                <div class="col-lg-5 col-md-6">
+                    <div class="single-footer-wrapper border-right mr--20">
+
+                        <p class="description"><span>@Model.Resources.FirstOrDefault(x => x.NavigationName == "İletisimSloganDetay").Value</span> </p>
+                        <form action="#" class="newsletter-form-1 mt--40">
+                            <input type="email" placeholder="Email Adress">
+                            <span class="form-icon"><i class="fa-regular fa-envelope"></i></span>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="single-footer-wrapper contact-wrap">
+                        <h5 class="ft-title">@Model.Resources.FirstOrDefault(x => x.NavigationName == "FooterİletisimDetay").Value </h5>
+                        <ul class="ft-link tmp-link-animation">
+                            <li><span class="ft-icon"><i class="fa-solid fa-envelope"></i></span><a href="#">furkanaydemir12@hotmail.com</a></li>
+                            <li>
+                                <span class="ft-icon"><i class="fa-solid fa-location-dot"></i></span>Etimesgut/Ankara
+                            </li>
+                            <li><span class="ft-icon"><i class="fa-solid fa-phone"></i></span><a href="#">05071740165</a></li>
+                        </ul>
+                        <div class="social-link footer">
+                            <a href="https://github.com/frknaydemirr" target="_blank"><i class="fa-brands fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/furkanaydemir13/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Footer Area  -->
-    <!-- ready chatting option via email -->
-    <div class="ready-chatting-option tmp-ready-chat">
-        <input type="checkbox" id="click">
-        <label for="click">
-            <i class="fab fa-facebook-messenger"></i>
-            <i class="fas fa-times"></i>
-        </label>
-        <div class="wrapper">
-            <div class="head-text">
-                Let's chat with me? - Online
-            </div>
-            <div class="chat-box">
-                <div class="desc-text">
-                    Please fill out the form below to start chatting with me directly.
-                </div>
-                <form class="tmp-dynamic-form" action="#">
-                    <div class="field">
-                        <input class="input-field" name="name" placeholder="Your Name" type="text" required>
-                    </div>
-                    <div class="field">
-                        <input class="input-field" name="email" placeholder="Your Email" type="email" required>
-                    </div>
-                    <div class="field textarea">
-                        <textarea class="input-field" placeholder="Your Message" name="message" required></textarea>
-                    </div>
-                    <div class="field">
-                        <button name="submit" type="submit">Send Message</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- ready chatting option via email end -->
-    <!-- progress area start -->
-    <div class="scrollToTop" style="display: block;">
-        <div class="arrowUp">
-            <i class="fa-light fa-arrow-up"></i>
-        </div>
-        <div class="water" style="transform: translate(0px, 87%);">
-            <svg viewBox="0 0 560 20" class="water_wave water_wave_back">
-                <use xlink:href="#wave"></use>
-            </svg>
-            <svg viewBox="0 0 560 20" class="water_wave water_wave_front">
-                <use xlink:href="#wave"></use>
-            </svg>
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 560 20" style="display: none;">
-                <symbol id="wave">
-                    <path d="M420,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C514,6.5,518,4.7,528.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H420z" fill="#"></path>
-                    <path d="M420,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C326,6.5,322,4.7,311.5,2.7C304.3,1.4,293.6-0.1,280,0c0,0,0,0,0,0v20H420z" fill="#"></path>
-                    <path d="M140,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C234,6.5,238,4.7,248.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H140z" fill="#"></path>
-                    <path d="M140,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C46,6.5,42,4.7,31.5,2.7C24.3,1.4,13.6-0.1,0,0c0,0,0,0,0,0l0,20H140z" fill="#"></path>
-                </symbol>
-            </svg>
 
-        </div>
-    </div>
-    <!-- progress area end -->
-    <!-- <div class="tmp-right-demo">
-        <button class="demo-button">
-            <p class="mb--0">48</p>
-            <span class="text">Demos</span>
-        </button>
-    </div> -->
-
-
-
-
-
-    <div class="demo-modal-area">
-        <div class="wrapper">
-            <div class="tmp-modal-inner">
-                <div class="close-icon">
-                    <button class="demo-close-btn"><span><i class="fa-sharp fa-light fa-xmark"></i></span></button>
-                </div>
-                <div class="demo-top text-center">
-                    <h4 class="title">Reeni</h4>
-                    <p class="subtitle">
-                        A personal portfolio website is your digital resume—a place to showcase your work,
-                        skills, and achievements.
+</footer>
+<div class="copyright-area-one">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-wrapper">
+                    <p class="copy-right-para">
+                        @Model.Resources.FirstOrDefault(x => x.NavigationName == "YapanDetay").Value
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>
                     </p>
+
                 </div>
-                <ul class="popuptab-area nav nav-tabs" id="popuptab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active demo-dark" id="demodark-tab" data-bs-toggle="tab" href="#demodark" role="tab" aria-controls="demodark" aria-selected="true">Dark Demo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link demo-light" id="demolight-tab" data-bs-toggle="tab" href="#demolight" role="tab" aria-controls="demolight" aria-selected="false">Light Demo</a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="popuptabContent">
-                    <div class="tab-pane show active" id="demodark" role="tabpanel" aria-labelledby="demodark-tab">
-                        <div class="content">
-                            <div class="row">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Footer Area  -->
+<!-- ready chatting option via email -->
+<!-- ready chatting option via email end -->
+<!-- progress area start -->
+<div class="scrollToTop" style="display: block;">
+    <div class="arrowUp">
+        <i class="fa-light fa-arrow-up"></i>
+    </div>
+    <div class="water" style="transform: translate(0px, 87%);">
+        <svg viewBox="0 0 560 20" class="water_wave water_wave_back">
+            <use xlink:href="#wave"></use>
+        </svg>
+        <svg viewBox="0 0 560 20" class="water_wave water_wave_front">
+            <use xlink:href="#wave"></use>
+        </svg>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 560 20" style="display: none;">
+            <symbol id="wave">
+                <path d="M420,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C514,6.5,518,4.7,528.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H420z" fill="#"></path>
+                <path d="M420,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C326,6.5,322,4.7,311.5,2.7C304.3,1.4,293.6-0.1,280,0c0,0,0,0,0,0v20H420z" fill="#"></path>
+                <path d="M140,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C234,6.5,238,4.7,248.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H140z" fill="#"></path>
+                <path d="M140,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C46,6.5,42,4.7,31.5,2.7C24.3,1.4,13.6-0.1,0,0c0,0,0,0,0,0l0,20H140z" fill="#"></path>
+            </symbol>
+        </svg>
 
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index.html">
-                                                    <img class="w-100" src="assets/images/demo/home-1.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index.html">Main Demo</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-02.html">
-                                                    <img class="w-100" src="assets/images/demo/home-2.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-02.html">Demo 02</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-03.html">
-                                                    <img class="w-100" src="assets/images/demo/home-3.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-03.html">Demo 03</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-04.html">
-                                                    <img class="w-100" src="assets/images/demo/home-4.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-04.html">Demo 04</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-05.html">
-                                                    <img class="w-100" src="assets/images/demo/home-5.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-05.html">Demo 05</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-06.html">
-                                                    <img class="w-100" src="assets/images/demo/home-6.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-06.html">Demo 06</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-07.html">
-                                                    <img class="w-100" src="assets/images/demo/home-7.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-07.html">Demo 07</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-08.html">
-                                                    <img class="w-100" src="assets/images/demo/home-8.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-08.html">Demo 08</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-09.html">
-                                                    <img class="w-100" src="assets/images/demo/home-9.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-09.html">Demo 09</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-10.html">
-                                                    <img class="w-100" src="assets/images/demo/home-10.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-10.html">Demo 10</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-11.html">
-                                                    <img class="w-100" src="assets/images/demo/home-11.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-11.html">Demo 11</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-12.html">
-                                                    <img class="w-100" src="assets/images/demo/home-12.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-12.html">Demo 12</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-13.html">
-                                                    <img class="w-100" src="assets/images/demo/home-13.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-13.html">Demo 13</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-14.html">
-                                                    <img class="w-100" src="assets/images/demo/home-14.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-14.html">Demo 14</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-15.html">
-                                                    <img class="w-100" src="assets/images/demo/home-15.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-15.html">Demo 15</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-16.html">
-                                                    <img class="w-100" src="assets/images/demo/home-16.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-16.html">Demo 16</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-17.html">
-                                                    <img class="w-100" src="assets/images/demo/home-17.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-17.html">Demo 17</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-18.html">
-                                                    <img class="w-100" src="assets/images/demo/home-18.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-18.html">Demo 18</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-19.html">
-                                                    <img class="w-100" src="assets/images/demo/home-19.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-19.html">Demo 19</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-20.html">
-                                                    <img class="w-100" src="assets/images/demo/home-20.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-20.html">Demo 20</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-21.html">
-                                                    <img class="w-100" src="assets/images/demo/home-21.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-21.html">Demo 21</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-22.html">
-                                                    <img class="w-100" src="assets/images/demo/home-22.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-22.html">Demo 22</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="#">
-                                                    <img class="w-100" src="assets/images/demo/coming-soon.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="#">Demo 23</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="#">
-                                                    <img class="w-100" src="assets/images/demo/coming-soon.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="#">Demo 24</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
+    </div>
+</div>
+<!-- progress area end -->
+<!-- <div class="tmp-right-demo">
+    <button class="demo-button">
+        <p class="mb--0">48</p>
+        <span class="text">Demos</span>
+    </button>
+</div> -->
 
 
 
+
+
+<div class="demo-modal-area">
+    <div class="wrapper">
+        <div class="tmp-modal-inner">
+            <div class="close-icon">
+                <button class="demo-close-btn"><span><i class="fa-sharp fa-light fa-xmark"></i></span></button>
+            </div>
+            <div class="demo-top text-center">
+                <h4 class="title">Reeni</h4>
+                <p class="subtitle">
+                    A personal portfolio website is your digital resume—a place to showcase your work,
+                    skills, and achievements.
+                </p>
+            </div>
+            <ul class="popuptab-area nav nav-tabs" id="popuptab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active demo-dark" id="demodark-tab" data-bs-toggle="tab" href="#demodark" role="tab" aria-controls="demodark" aria-selected="true">Dark Demo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link demo-light" id="demolight-tab" data-bs-toggle="tab" href="#demolight" role="tab" aria-controls="demolight" aria-selected="false">Light Demo</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="popuptabContent">
+                <div class="tab-pane show active" id="demodark" role="tabpanel" aria-labelledby="demodark-tab">
+                    <div class="content">
+                        <div class="row">
+
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index.html">
+                                                <img class="w-100" src="assets/images/demo/home-1.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index.html">Main Demo</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-02.html">
+                                                <img class="w-100" src="assets/images/demo/home-2.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-02.html">Demo 02</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-03.html">
+                                                <img class="w-100" src="assets/images/demo/home-3.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-03.html">Demo 03</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-04.html">
+                                                <img class="w-100" src="assets/images/demo/home-4.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-04.html">Demo 04</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-05.html">
+                                                <img class="w-100" src="assets/images/demo/home-5.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-05.html">Demo 05</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-06.html">
+                                                <img class="w-100" src="assets/images/demo/home-6.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-06.html">Demo 06</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-07.html">
+                                                <img class="w-100" src="assets/images/demo/home-7.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-07.html">Demo 07</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-08.html">
+                                                <img class="w-100" src="assets/images/demo/home-8.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-08.html">Demo 08</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-09.html">
+                                                <img class="w-100" src="assets/images/demo/home-9.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-09.html">Demo 09</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-10.html">
+                                                <img class="w-100" src="assets/images/demo/home-10.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-10.html">Demo 10</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-11.html">
+                                                <img class="w-100" src="assets/images/demo/home-11.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-11.html">Demo 11</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-12.html">
+                                                <img class="w-100" src="assets/images/demo/home-12.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-12.html">Demo 12</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-13.html">
+                                                <img class="w-100" src="assets/images/demo/home-13.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-13.html">Demo 13</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-14.html">
+                                                <img class="w-100" src="assets/images/demo/home-14.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-14.html">Demo 14</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-15.html">
+                                                <img class="w-100" src="assets/images/demo/home-15.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-15.html">Demo 15</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-16.html">
+                                                <img class="w-100" src="assets/images/demo/home-16.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-16.html">Demo 16</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-17.html">
+                                                <img class="w-100" src="assets/images/demo/home-17.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-17.html">Demo 17</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-18.html">
+                                                <img class="w-100" src="assets/images/demo/home-18.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-18.html">Demo 18</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-19.html">
+                                                <img class="w-100" src="assets/images/demo/home-19.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-19.html">Demo 19</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-20.html">
+                                                <img class="w-100" src="assets/images/demo/home-20.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-20.html">Demo 20</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-21.html">
+                                                <img class="w-100" src="assets/images/demo/home-21.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-21.html">Demo 21</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-22.html">
+                                                <img class="w-100" src="assets/images/demo/home-22.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-22.html">Demo 22</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="#">
+                                                <img class="w-100" src="assets/images/demo/coming-soon.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="#">Demo 23</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="#">
+                                                <img class="w-100" src="assets/images/demo/coming-soon.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="#">Demo 24</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+
+
+
                         </div>
                     </div>
+                </div>
 
 
-                    <div class="tab-pane" id="demolight" role="tabpanel" aria-labelledby="demolight-tab">
-                        <div class="content">
-                            <div class="row">
+                <div class="tab-pane" id="demolight" role="tabpanel" aria-labelledby="demolight-tab">
+                    <div class="content">
+                        <div class="row">
 
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-1-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-1-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
                                                     </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-white.html">Main Demo</a></h3>
-                                            </div>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-white.html">Main Demo</a></h3>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-02-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-2-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-02-white.html">Demo 02</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-03-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-3-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-03-white.html">Demo 03</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-04-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-4-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-04-white.html">Demo 04</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-05-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-5-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-05-white.html">Demo 05</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-06-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-6-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-06-white.html">Demo 06</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-07-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-7-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-07-white.html">Demo 07</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-08-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-8-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-08-white.html">Demo 08</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-09-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-9-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-09-white.html">Demo 09</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-10-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-10-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-10-white.html">Demo 10</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-11-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-11-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-11-white.html">Demo 11</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-12-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-12-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-12-white.html">Demo 12</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-13-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-13-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-13-white.html">Demo 13</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-14-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-14-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-14-white.html">Demo 14</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-15-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-15-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-15-white.html">Demo 15</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-16-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-16-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-16-white.html">Demo 16</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-17-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-17-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-17-white.html">Demo 17</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-18-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-18-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-18-white.html">Demo 18</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-19-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-19-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-19-white.html">Demo 19</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-20-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-20-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-20-white.html">Demo 20</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-21-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-21-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-21-white.html">Demo 21</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="index-22-white.html">
-                                                    <img class="w-100" src="assets/images/demo/home-22-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="index-22-white.html">Demo 22</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="#">
-                                                    <img class="w-100" src="assets/images/demo/coming-soon-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="#">Demo 23</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-                                <!-- Start Single Content  -->
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="single-demo">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="#">
-                                                    <img class="w-100" src="assets/images/demo/coming-soon-white.png" alt="Personal Portfolio">
-                                                    <span class="overlay-content">
-                                                        <span class="overlay-text">
-                                                            View Demo <i class="feather-external-link"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="inner">
-                                                <h3 class="title"><a href="#">Demo 24</a></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Content  -->
-
                             </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-02-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-2-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-02-white.html">Demo 02</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-03-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-3-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-03-white.html">Demo 03</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-04-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-4-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-04-white.html">Demo 04</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-05-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-5-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-05-white.html">Demo 05</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-06-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-6-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-06-white.html">Demo 06</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-07-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-7-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-07-white.html">Demo 07</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-08-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-8-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-08-white.html">Demo 08</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-09-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-9-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-09-white.html">Demo 09</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-10-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-10-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-10-white.html">Demo 10</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-11-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-11-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-11-white.html">Demo 11</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-12-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-12-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-12-white.html">Demo 12</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-13-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-13-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-13-white.html">Demo 13</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-14-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-14-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-14-white.html">Demo 14</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-15-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-15-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-15-white.html">Demo 15</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-16-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-16-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-16-white.html">Demo 16</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-17-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-17-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-17-white.html">Demo 17</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-18-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-18-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-18-white.html">Demo 18</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-19-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-19-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-19-white.html">Demo 19</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-20-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-20-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-20-white.html">Demo 20</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-21-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-21-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-21-white.html">Demo 21</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="index-22-white.html">
+                                                <img class="w-100" src="assets/images/demo/home-22-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="index-22-white.html">Demo 22</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="#">
+                                                <img class="w-100" src="assets/images/demo/coming-soon-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="#">Demo 23</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+                            <!-- Start Single Content  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="#">
+                                                <img class="w-100" src="assets/images/demo/coming-soon-white.png" alt="Personal Portfolio">
+                                                <span class="overlay-content">
+                                                    <span class="overlay-text">
+                                                        View Demo <i class="feather-external-link"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="inner">
+                                            <h3 class="title"><a href="#">Demo 24</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content  -->
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
 
 
 
-    <script>
+<script>
    var currentDilId =@ViewBag.DilId
-    </script>
+</script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script type="text/javascript">
-    $(document).ready(function () {
-        $("#gonder").click(function (e) {
-            debugger
-            e.preventDefault();
+<script type="text/javascript">
+$(document).ready(function () {
 
-            var name = $("#contact-name").val().trim();
-            var phoneNumber = $("#contact-phone").val().trim();
-            var email = $("#contact-email").val().trim();
-            var subject = $("#subject").val().trim();
-            var message = $("#contact-message").val().trim();
+    // Razor değişkenlerini JS'e aktar
+    var emailRegex = new RegExp('@Html.Raw(@"^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$")', 'i');
+    var phoneRegex = new RegExp('@Html.Raw(@"^[0-9]{10,15}$")');
 
-            // Zorunlu alan kontrolü
-            if (!name || !email || !message) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Hata!',
-                    text: 'Lütfen zorunlu alanları (Ad, Email, Mesaj) doldurunuz.'
-                });
-                return;
-            }
+    $("#gonder").click(function (e) {
+        e.preventDefault();
 
-            $.ajax({
-                url: '@Url.Action("SendMessage", "Home")',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    name: name,
-                    email: email,
-                    phoneNumber: phoneNumber,
-                    subject: subject,
-                    message: message,
-                    langId: currentDilId
-                },
-                success: function (data) {
-                    if (data.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Gönderildi!',
-                            text: 'Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapılacaktır.',
-                            confirmButtonText: 'Tamam'
-                        });
+        var name = $("#contact-name").val().trim();
+        var phoneNumber = $("#contact-phone").val().trim();
+        var email = $("#contact-email").val().trim();
+        var subject = $("#subject").val().trim();
+        var message = $("#contact-message").val().trim();
 
-                        // Formu temizle
-                        $("#contact-form")[0].reset();
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Hata!',
-                            text: data.message
-                        });
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("AJAX hata:", error);
+        // Zorunlu alan kontrolü
+        if (!name || !email || !message) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Hata!',
+                text: 'Lütfen zorunlu alanları (Ad, Email, Mesaj) doldurunuz.'
+            });
+            return;
+        }
+
+        // Email regex kontrolü
+        if (!emailRegex.test(email)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Hata!',
+                text: 'Lütfen geçerli bir email adresi giriniz.'
+            });
+            return;
+        }
+
+        // Telefon regex kontrolü (opsiyonel)
+        if (phoneNumber && !phoneRegex.test(phoneNumber)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Hata!',
+                text: 'Lütfen geçerli bir telefon numarası giriniz (10-15 rakam).'
+            });
+            return;
+        }
+
+        // Ajax ile form gönderimi
+        $.ajax({
+            url: '@Url.Action("SendMessage", "Home")',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                name: name,
+                email: email,
+                phoneNumber: phoneNumber,
+                subject: subject,
+                message: message,
+                langId: currentDilId
+            },
+            success: function (data) {
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Gönderildi!',
+                        text: 'Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapılacaktır.',
+                        confirmButtonText: 'Tamam'
+                    });
+                    $("#contact-form")[0].reset();
+                } else {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Bir hata oluştu!',
-                        text: 'Lütfen tekrar deneyin.'
+                        title: 'Hata!',
+                        text: data.message
                     });
                 }
-            });
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX hata:", error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Bir hata oluştu!',
+                    text: 'Lütfen tekrar deneyin.'
+                });
+            }
         });
     });
 
-    // Formun kendi submit olayını engelle
+    // Formun submit olayını engelle
     $("#contact-form").submit(function (e) {
         e.preventDefault();
     });
-    </script>
+
+});
+</script>
 
 
 

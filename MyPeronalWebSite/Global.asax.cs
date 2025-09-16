@@ -19,5 +19,15 @@ namespace MyPeronalWebSite
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
         }
+
+        protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
+        {
+            if (HttpContext.Current.User != null)
+            {
+                System.Threading.Thread.CurrentPrincipal = HttpContext.Current.User;
+            }
+        }
     }
 }
+
+   

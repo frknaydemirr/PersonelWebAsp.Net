@@ -1,7 +1,7 @@
 ﻿﻿
 @model MyPeronalWebSite.Models.ViewModel.IndexViewModel
 @using MyPeronalWebSite.Helper
-@{ 
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -52,9 +52,9 @@
             <div class="social-wrapper mt--40">
 
                 <div class="social-link">
-                    <a href="@Model.Tbl_AboutMe.LinkedlnURL"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://www.linkedin.com/in/furkanaydemir13/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
 
-                    <a href="@Model.Tbl_AboutMe.GithubURL"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://github.com/frknaydemirr" target="_blank"><i class="fa-brands fa-github"></i></a>
                 </div>
             </div>
             <!-- social area end -->
@@ -104,8 +104,8 @@
                             <h2 class="find-me-on-title"> @Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Bulmak").Value</h2>
                             <div class="social-link banner">
 
-                                <a href="@Model.Tbl_AboutMe.LinkedlnURL"><i class="fa-brands fa-linkedin-in"></i></a>
-                                <a href="@Model.Tbl_AboutMe.GithubURL"><i class="fa-brands fa-github"></i></a>
+                                <a href="@Model.Tbl_AboutMe.LinkedlnURL" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+                                <a href="@Model.Tbl_AboutMe.GithubURL" target="_blank"><i class="fa-brands fa-github"></i></a>
 
                             </div>
                         </div>
@@ -137,7 +137,7 @@
 
                             <i class="@item.Icon"></i>
                         </div>
-                        <h4 class="service-title"><a href="service-details.html">@item.WhichSkills</a></h4>
+                        <h4 class="service-title"><a href="">@item.WhichSkills</a></h4>
 
                     </div>
                 </div>
@@ -190,13 +190,29 @@
 
 <style>
 
-
     .img-box.v2 {
         width: 100%;
-        height: 250px; /* parent’ın yüksekliği varsa, resim tamamen kaplar */
+        height: 250px;
         overflow: hidden;
-        display: flex; /* hizalama için */
+        display: flex;
     }
+
+        .img-box.v2 a {
+            display: block; /* linki blok yap */
+            padding: 0;
+            margin: 0;
+            line-height: 0; /* satır boşluğunu kaldır */
+            text-decoration: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .img-box.v2 img {
+            width: 100%; /* resim tam genişlikte */
+            height: 100%; /* resim tam yükseklikte */
+            object-fit: cover; /* taşma durumunda kırp */
+            display: block; /* inline boşlukları kaldır */
+        }
 </style>
 
 
@@ -222,7 +238,7 @@
                            id = item.ID
                        })">
                                     <img class="hidden-on-mobile" src="@item.ProjectImg" alt="@item.ProjectTitle" />
-                                </a>
+
                             </div>
                         </div>
                         <div class="portfolio-card-content-wrap">
@@ -355,40 +371,47 @@
                             </h2>
                         </div>
                     </div>
+                    @{
+                        var phonePattern = "^[0-9]{10,15}$";
+                        var emailPattern = @"^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$";
+                    }
+
                     <div class="col-lg-7">
                         <div class="contact-inner">
                             <div class="contact-form">
                                 <div id="form-messages" class="error"></div>
 
-                                <!-- action değiştirildi -->
                                 <form class="tmp-dynamic-form" id="contact-form" method="POST" action="#">
                                     <div class="contact-form-wrapper row">
 
+                                        <!-- Ad -->
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <input class="input-field" name="name" id="contact-name"
                                                        placeholder="@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "İsim").Value"
-                                                       type="text" required="">
+                                                       type="text" required>
                                             </div>
                                         </div>
 
+                                        <!-- Telefon -->
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <!-- name eklendi -->
                                                 <input class="input-field" id="contact-phone" name="phoneNumber"
                                                        placeholder="@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Telefon").Value"
-                                                       type="tel" required="">
+                                                       type="tel">
                                             </div>
                                         </div>
 
+                                        <!-- Email -->
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <input class="input-field" id="contact-email" name="email"
                                                        placeholder="@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Email").Value"
-                                                       type="email" required="">
+                                                       type="email" required>
                                             </div>
                                         </div>
 
+                                        <!-- Konu -->
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <input class="input-field" type="text" id="subject" name="subject"
@@ -396,19 +419,21 @@
                                             </div>
                                         </div>
 
+                                        <!-- Mesaj -->
                                         <div class="col-lg-12">
+                                            
                                             <div class="form-group">
                                                 <textarea class="input-field"
                                                           placeholder="@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Mesaj").Value"
-                                                          name="message" id="contact-message" required=""></textarea>
+                                                          name="message" id="contact-message" required></textarea>
                                             </div>
                                         </div>
 
+                                        <!-- Gönder Butonu -->
                                         <div class="col-lg-12">
                                             <div class="tmp-button-here">
-                                                <!-- type değiştirildi -->
                                                 <button class="tmp-btn hover-icon-reverse radius-round w-100"
-                                                        type="submit" id="gonder" name="gonder">
+                                                        type="button" id="gonder" name="gonder">
                                                     <span class="icon-reverse-wrapper">
                                                         <span class="btn-text">
                                                             @Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "Gonder").Value
@@ -425,6 +450,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -455,7 +481,9 @@
                         <ul class="ft-link tmp-link-animation">
                             <li>
                                 <span class="ft-icon"><i class="fa-solid fa-envelope"></i></span>
-                                <a href="mailto:@Model.Tbl_AboutMe.EmailAdress">@Model.Tbl_AboutMe.EmailAdress</a>
+                                <a href="mailto:@(Model.Tbl_AboutMe.EmailAdress?.Trim())">
+                                    @(Model.Tbl_AboutMe.EmailAdress)
+                                </a>
                             </li>
 
                             <li>
@@ -465,9 +493,9 @@
                         </ul>
                         <div class="social-link footer">
 
-                            <a href="@Model.Tbl_AboutMe.LinkedlnURL"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="@Model.Tbl_AboutMe.LinkedlnURL" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
 
-                            <a href="@Model.Tbl_AboutMe.GithubURL"><i class="fa-brands fa-github"></i></a>
+                            <a href="@Model.Tbl_AboutMe.GithubURL" target="_blank"><i class="fa-brands fa-github"></i></a>
 
 
                         </div>
@@ -497,41 +525,7 @@
         </div>
     </div>
 </div>
-<!-- End Footer Area  -->
-<!-- ready chatting option via email -->
-<div class="ready-chatting-option tmp-ready-chat">
-    <input type="checkbox" id="click">
-    <label for="click">
-        <i class="fab fa-facebook-messenger"></i>
-        <i class="fas fa-times"></i>
-    </label>
-    <div class="wrapper">
-        <div class="head-text">
-            Let's chat with me? - Online
-        </div>
-        <div class="chat-box">
-            <div class="desc-text">
-                Please fill out the form below to start chatting with me directly.
-            </div>
-            <form class="tmp-dynamic-form" action="#">
-                <div class="field">
-                    <input class="input-field" name="name" placeholder="Your Name" type="text" required>
-                </div>
-                <div class="field">
-                    <input class="input-field" name="email" placeholder="Your Email" type="email" required>
-                </div>
-                <div class="field textarea">
-                    <textarea class="input-field" placeholder="Your Message" name="message" required></textarea>
-                </div>
-                <div class="field">
-                    <button name="submit" type="submit">Send Message</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- ready chatting option via email end -->
-<!-- progress area start -->
+
 <div class="scrollToTop" style="display: block;">
     <div class="arrowUp">
         <i class="fa-light fa-arrow-up"></i>
@@ -1627,76 +1621,102 @@
    var currentDilId =@ViewBag.DilId
 </script>
 
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        $("#gonder").click(function (e) {
-            debugger
-            e.preventDefault();
+$(document).ready(function () {
 
-            var name = $("#contact-name").val().trim();
-            var phoneNumber = $("#contact-phone").val().trim();
-            var email = $("#contact-email").val().trim();
-            var subject = $("#subject").val().trim();
-            var message = $("#contact-message").val().trim();
+    // Razor değişkenlerini JS'e aktar
+    var emailRegex = new RegExp('@Html.Raw(@"^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$")', 'i');
+    var phoneRegex = new RegExp('@Html.Raw(@"^[0-9]{10,15}$")');
 
-            // Zorunlu alan kontrolü
-            if (!name || !email || !message) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Hata!',
-                    text: 'Lütfen zorunlu alanları (Ad, Email, Mesaj) doldurunuz.'
-                });
-                return;
-            }
+    $("#gonder").click(function (e) {
+        e.preventDefault();
 
-            $.ajax({
-                url: '@Url.Action("SendMessage", "Home")',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    name: name,
-                    email: email,
-                    phoneNumber: phoneNumber,
-                    subject: subject,
-                    message: message,
-                    langId: currentDilId
-                },
-                success: function (data) {
-                    if (data.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Gönderildi!',
-                            text: 'Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapılacaktır.',
-                            confirmButtonText: 'Tamam'
-                        });
+        var name = $("#contact-name").val().trim();
+        var phoneNumber = $("#contact-phone").val().trim();
+        var email = $("#contact-email").val().trim();
+        var subject = $("#subject").val().trim();
+        var message = $("#contact-message").val().trim();
 
-                        // Formu temizle
-                        $("#contact-form")[0].reset();
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Hata!',
-                            text: data.message
-                        });
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("AJAX hata:", error);
+        // Zorunlu alan kontrolü
+        if (!name || !email || !message) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Hata!',
+                text: 'Lütfen zorunlu alanları (Ad, Email, Mesaj) doldurunuz.'
+            });
+            return;
+        }
+
+        // Email regex kontrolü
+        if (!emailRegex.test(email)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Hata!',
+                text: 'Lütfen geçerli bir email adresi giriniz.'
+            });
+            return;
+        }
+
+        // Telefon regex kontrolü (opsiyonel)
+        if (phoneNumber && !phoneRegex.test(phoneNumber)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Hata!',
+                text: 'Lütfen geçerli bir telefon numarası giriniz (10-15 rakam).'
+            });
+            return;
+        }
+
+        // Ajax ile form gönderimi
+        $.ajax({
+            url: '@Url.Action("SendMessage", "Home")',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                name: name,
+                email: email,
+                phoneNumber: phoneNumber,
+                subject: subject,
+                message: message,
+                langId: currentDilId
+            },
+            success: function (data) {
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Gönderildi!',
+                        text: 'Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapılacaktır.',
+                        confirmButtonText: 'Tamam'
+                    });
+                    $("#contact-form")[0].reset();
+                } else {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Bir hata oluştu!',
-                        text: 'Lütfen tekrar deneyin.'
+                        title: 'Hata!',
+                        text: data.message
                     });
                 }
-            });
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX hata:", error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Bir hata oluştu!',
+                    text: 'Lütfen tekrar deneyin.'
+                });
+            }
         });
     });
 
-    // Formun kendi submit olayını engelle
+    // Formun submit olayını engelle
     $("#contact-form").submit(function (e) {
         e.preventDefault();
     });
+
+});
 </script>
+

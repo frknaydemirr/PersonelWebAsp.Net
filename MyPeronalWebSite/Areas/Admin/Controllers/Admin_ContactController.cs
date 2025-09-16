@@ -10,6 +10,7 @@ using MyPeronalWebSite.Models.VT;
 
 namespace MyPeronalWebSite.Areas.Admin.Controllers
 {
+    [Authorize]
     public class Admin_ContactController : Controller
     {
         private PersonelWebDbEntities db = new PersonelWebDbEntities();

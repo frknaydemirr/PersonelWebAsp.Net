@@ -10,6 +10,7 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
     {
         // GET: Admin/Admin
 
+        [Authorize]
         public ActionResult Index()
         {
             return View();

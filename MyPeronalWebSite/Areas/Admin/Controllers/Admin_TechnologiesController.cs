@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace MyPeronalWebSite.Areas.Admin.Controllers
 {
+    [Authorize]
     public class Admin_TechnologiesController : Controller
     {
         private PersonelWebDbEntities db = new PersonelWebDbEntities();

@@ -2534,6 +2534,7 @@
     <Content Include="Areas\Admin\Content\tinymce\js\tinymce\license.md" />
     <Content Include="Areas\Admin\Views\Admin_AboutMe\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Admin_AboutMe\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -2552,6 +2553,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\Admin_AboutMeController.cs" />
     <Compile Include="Areas\Admin\Controllers\Admin_ContactController.cs" />
