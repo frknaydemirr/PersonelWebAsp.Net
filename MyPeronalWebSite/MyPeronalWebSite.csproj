@@ -56,8 +56,8 @@
       <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -2117,27 +2117,57 @@
     <Content Include="Areas\Admin\Content\tinymce\js\tinymce\tinymce.min.js" />
     <Content Include="Areas\Admin\Views\Shared\data.html" />
     <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
+    <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.rtl.min.css" />
+    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
     <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
     <Content Include="Content\bootstrap-reboot.rtl.css" />
+    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
     <Content Include="Content\bootstrap-reboot.rtl.min.css" />
+    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
     <Content Include="Content\bootstrap-utilities.css" />
+    <Content Include="Content\bootstrap-utilities.css.map" />
     <Content Include="Content\bootstrap-utilities.min.css" />
+    <Content Include="Content\bootstrap-utilities.min.css.map" />
     <Content Include="Content\bootstrap-utilities.rtl.css" />
+    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
     <Content Include="Content\bootstrap-utilities.rtl.min.css" />
+    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.rtl.css" />
+    <Content Include="Content\bootstrap.rtl.css.map" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\bootstrap.rtl.min.css.map" />
     <Content Include="Content\css\plugins\odometer.css" />
     <Content Include="Content\css\plugins\swiper.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\vendor\animate.min.css" />
     <Content Include="Content\css\vendor\bootstrap.min.css" />
     <Content Include="Content\css\vendor\fontawesome.css" />
+    <Content Include="Content\fonts\fa-brands-400.ttf" />
+    <Content Include="Content\fonts\fa-brands-400.woff2" />
+    <Content Include="Content\fonts\fa-duotone-900.ttf" />
+    <Content Include="Content\fonts\fa-duotone-900.woff2" />
+    <Content Include="Content\fonts\fa-light-300.ttf" />
+    <Content Include="Content\fonts\fa-light-300.woff2" />
+    <Content Include="Content\fonts\fa-regular-400.ttf" />
+    <Content Include="Content\fonts\fa-regular-400.woff2" />
+    <Content Include="Content\fonts\fa-solid-900.ttf" />
+    <Content Include="Content\fonts\fa-solid-900.woff2" />
+    <Content Include="Content\fonts\fa-thin-100.ttf" />
+    <Content Include="Content\fonts\fa-thin-100.woff2" />
+    <Content Include="Content\fonts\fa-v4compatibility.ttf" />
+    <Content Include="Content\fonts\fa-v4compatibility.woff2" />
     <Content Include="Content\images\about\logo-1.svg" />
     <Content Include="Content\images\about\logo-2.svg" />
     <Content Include="Content\images\banner\banner-background-02.jpg" />
@@ -2169,6 +2199,12 @@
     <Content Include="Content\images\banner\portfolio-image-1.jpg" />
     <Content Include="Content\images\banner\portfolio-image.jpg" />
     <Content Include="Content\images\banner\right-bg-text-para-doc.png" />
+    <Content Include="Content\images\bg\01.webp" />
+    <Content Include="Content\images\bg\02.webp" />
+    <Content Include="Content\images\bg\03.webp" />
+    <Content Include="Content\images\bg\04.webp" />
+    <Content Include="Content\images\bg\05.webp" />
+    <Content Include="Content\images\bg\06.webp" />
     <Content Include="Content\images\bg\bg-image-1.jpg" />
     <Content Include="Content\images\bg\bg-image-10.jpg" />
     <Content Include="Content\images\bg\bg-image-11.jpg" />
@@ -2231,6 +2267,7 @@
     <Content Include="Content\images\blog\single-post-card-img-2.png" />
     <Content Include="Content\images\blog\single-post-card-img-3.png" />
     <Content Include="Content\images\breadcrumb\breadcum-bg.png" />
+    <Content Include="Content\images\contact\01.webp" />
     <Content Include="Content\images\custom-line\custom-line.png" />
     <Content Include="Content\images\cv.html" />
     <Content Include="Content\images\demo\coming-soon-white.png" />
@@ -2279,10 +2316,13 @@
     <Content Include="Content\images\demo\home-8.png" />
     <Content Include="Content\images\demo\home-9-white.png" />
     <Content Include="Content\images\demo\home-9.png" />
+    <Content Include="Content\images\experiences\01.webp" />
+    <Content Include="Content\images\experiences\02.webp" />
     <Content Include="Content\images\experiences\expert-img-two.jpg" />
     <Content Include="Content\images\experiences\expert-img.jpg" />
     <Content Include="Content\images\favicon.svg" />
     <Content Include="Content\images\footer\footer-bg-img.png" />
+    <Content Include="Content\images\icons\cursor-x.webp" />
     <Content Include="Content\images\icons\icon-01.png" />
     <Content Include="Content\images\icons\icon-02.png" />
     <Content Include="Content\images\icons\icon-03.png" />
@@ -2328,6 +2368,14 @@
     <Content Include="Content\images\our-supported-company\company-logo-6.svg" />
     <Content Include="Content\images\our-supported-company\company-logo-7.svg" />
     <Content Include="Content\images\our-supported-company\company-logo-8.svg" />
+    <Content Include="Content\images\portfolio\01.webp" />
+    <Content Include="Content\images\portfolio\02.webp" />
+    <Content Include="Content\images\portfolio\03.webp" />
+    <Content Include="Content\images\portfolio\04.webp" />
+    <Content Include="Content\images\portfolio\05.webp" />
+    <Content Include="Content\images\portfolio\06.webp" />
+    <Content Include="Content\images\portfolio\07.webp" />
+    <Content Include="Content\images\portfolio\08.webp" />
     <Content Include="Content\images\portfolio\portfolio-01.jpg" />
     <Content Include="Content\images\portfolio\portfolio-02.jpg" />
     <Content Include="Content\images\portfolio\portfolio-03.jpg" />
@@ -2349,6 +2397,10 @@
     <Content Include="Content\images\skill\react.png" />
     <Content Include="Content\images\skill\webflow.png" />
     <Content Include="Content\images\skill\wordpress.png" />
+    <Content Include="Content\images\Technologies\08f661bf-5ad0-4c49-843f-2b1691db0b26.jpg" />
+    <Content Include="Content\images\Technologies\49387bf0-cf83-40d3-b78e-97446f49fe1e.png" />
+    <Content Include="Content\images\Technologies\5a045a65-ea59-4888-bec2-1505320da382.png" />
+    <Content Include="Content\images\Technologies\e2dd31af-bc1b-4212-837a-71fa01057355.jpg" />
     <Content Include="Content\images\testimonial\bg-image-1png.png" />
     <Content Include="Content\images\testimonial\bg-image-2.png" />
     <Content Include="Content\images\testimonial\client-img-1.jpg" />
@@ -2419,22 +2471,6 @@
     <Content Include="Scripts\bootstrap.esm.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <Content Include="Content\bootstrap.rtl.min.css.map" />
-    <Content Include="Content\bootstrap.rtl.css.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
-    <Content Include="Content\bootstrap-utilities.min.css.map" />
-    <Content Include="Content\bootstrap-utilities.css.map" />
-    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-grid.rtl.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
@@ -2625,38 +2661,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <Content Include="Content\fonts\fa-brands-400.ttf" />
-    <Content Include="Content\fonts\fa-brands-400.woff2" />
-    <Content Include="Content\fonts\fa-duotone-900.ttf" />
-    <Content Include="Content\fonts\fa-duotone-900.woff2" />
-    <Content Include="Content\fonts\fa-light-300.ttf" />
-    <Content Include="Content\fonts\fa-light-300.woff2" />
-    <Content Include="Content\fonts\fa-regular-400.ttf" />
-    <Content Include="Content\fonts\fa-regular-400.woff2" />
-    <Content Include="Content\fonts\fa-solid-900.ttf" />
-    <Content Include="Content\fonts\fa-solid-900.woff2" />
-    <Content Include="Content\fonts\fa-thin-100.ttf" />
-    <Content Include="Content\fonts\fa-thin-100.woff2" />
-    <Content Include="Content\fonts\fa-v4compatibility.ttf" />
-    <Content Include="Content\fonts\fa-v4compatibility.woff2" />
-    <Content Include="Content\images\bg\01.webp" />
-    <Content Include="Content\images\bg\02.webp" />
-    <Content Include="Content\images\bg\03.webp" />
-    <Content Include="Content\images\bg\04.webp" />
-    <Content Include="Content\images\bg\05.webp" />
-    <Content Include="Content\images\bg\06.webp" />
-    <Content Include="Content\images\contact\01.webp" />
-    <Content Include="Content\images\experiences\01.webp" />
-    <Content Include="Content\images\experiences\02.webp" />
-    <Content Include="Content\images\icons\cursor-x.webp" />
-    <Content Include="Content\images\portfolio\01.webp" />
-    <Content Include="Content\images\portfolio\02.webp" />
-    <Content Include="Content\images\portfolio\03.webp" />
-    <Content Include="Content\images\portfolio\04.webp" />
-    <Content Include="Content\images\portfolio\05.webp" />
-    <Content Include="Content\images\portfolio\06.webp" />
-    <Content Include="Content\images\portfolio\07.webp" />
-    <Content Include="Content\images\portfolio\08.webp" />
     <EntityDeploy Include="Models\VT\PersonelDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>PersonelDB.Designer.cs</LastGenOutput>

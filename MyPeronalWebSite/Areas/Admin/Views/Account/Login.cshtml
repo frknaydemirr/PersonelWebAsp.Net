@@ -2,153 +2,41 @@
 @{
     Layout = null;
 }
-
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Isparta İşitme - Yönetim Paneli</title>
-
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="/Areas/Admin/Content/plugins/fontawesome-free/css/all.min.css">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="/Areas/Admin/Content/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- AdminLTE CSS -->
-    <link rel="stylesheet" href="/Areas/Admin/Content/dist/css/adminlte.min2167.css?v=3.2.0">
-
-    <style>
-        body {
-            background-color: #f8f9fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        .login-box {
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .login-card {
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border: none;
-        }
-
-        .login-card-header {
-            background-color: transparent;
-            border-bottom: none;
-            padding: 2rem 1.5rem 1rem;
-        }
-
-        .login-card-body {
-            padding: 2rem;
-        }
-
-        .login-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: #333;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .form-control {
-            border-radius: 4px;
-            padding: 0.75rem;
-            height: auto;
-        }
-
-        .btn-login {
-            background-color: #007bff;
-            border: none;
-            padding: 0.75rem;
-            font-weight: 500;
-            width: 100%;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-            .btn-login:hover {
-                background-color: #0056b3;
-            }
-
-        .login-links {
-            margin-top: 1.5rem;
-            text-align: center;
-        }
-
-        .form-label {
-            font-weight: 500;
-            color: #555;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .input-group-text {
-            background-color: #f8f9fa;
-        }
-    </style>
-</head>
-
-<body class="hold-transition">
-    <div class="login-box">
-        <div class="card login-card">
-            <div class="card-header login-card-header">
-                <h1 class="login-title">Isparta İşitme <br>Yönetim Paneli</h1>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center">Giriş Yap</h3>
             </div>
-            <div class="card-body login-card-body">
-                @using (Html.BeginForm("Login", "Account", new { area = "Admin" }, FormMethod.Post))
+            <div class="card-body">
+                @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
                 {
                     @Html.AntiForgeryToken()
 
-                    <!-- UserName -->
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.UserName, new { @class = "form-label" })
-                        <div class="input-group">
-                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Kullanıcı Adı" })
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-user"></span>
-                                </div>
-                            </div>
+                   if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger">
+                            @ViewBag.Error
                         </div>
-                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                    }
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserName, "Kullanıcı Adı", new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = "Kullanıcı adınızı girin" })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                     </div>
 
-                    <!-- Password -->
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "form-label" })
-                        <div class="input-group">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Şifre" })
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
-                                </div>
-                            </div>
-                        </div>
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.Password, "Şifre", new { @class = "control-label" })
+                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Şifrenizi girin" })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                     </div>
 
-                    <!-- Login Button -->
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-login">Giriş Yap</button>
+                        <button type="submit" class="btn btn-primary btn-block">Giriş Yap</button>
                     </div>
                 }
             </div>
         </div>
     </div>
-
-    <!-- jQuery -->
-    <script src="/Areas/Admin/Content/plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="/Areas/Admin/Content/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="/Areas/Admin/Content/dist/js/adminlte.min2167.js?v=3.2.0"></script>
-</body>
-</html>
+</div>

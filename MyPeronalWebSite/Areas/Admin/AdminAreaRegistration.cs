@@ -12,8 +12,15 @@ namespace MyPeronalWebSite.Areas.Admin
             }
         }
 
-        public override void RegisterArea(AreaRegistrationContext context) 
+        public override void RegisterArea(AreaRegistrationContext context)
         {
+            // "/Admin" yazıldığında "/Admin/Admin/Index"e yönlendirme
+            context.MapRoute(
+                "Admin_Home",
+                "Admin",
+                new { controller = "Admin", action = "Index" }
+            );
+
             context.MapRoute(
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",

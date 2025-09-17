@@ -42,20 +42,34 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Admin/Admin_User/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Password,UserName")] Tbl_User tbl_User)
+        public ActionResult Create([Bind(Include = "ID,UserName,Password")] Tbl_User tbl_User)
         {
             if (ModelState.IsValid)
             {
-                db.Tbl_User.Add(tbl_User);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                // Şifreyi hashle
+                tbl_User.Password = HashPassword(tbl_User.Password);
+
+                try
+                {
+                    db.Tbl_User.Add(tbl_User);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+                {
+                    foreach (var eve in ex.EntityValidationErrors)
+                    {
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            ModelState.AddModelError(ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                }
             }
 
+            // ModelState geçerli değilse veya hata varsa formu geri döndür
             return View(tbl_User);
         }
 
@@ -128,7 +142,15 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
         }
 
 
-
+        private string HashPassword(string password)
+        {
+            using (var sha256 = System.Security.Cryptography.SHA256.Create())
+            {
+                var bytes = System.Text.Encoding.UTF8.GetBytes(password);
+                var hashBytes = sha256.ComputeHash(bytes);
+                return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+            }
+        }
 
 
 

@@ -24,6 +24,10 @@ namespace MyPeronalWebSite.App_Start
             bundles.Add(new StyleBundle("~/content/css").Include(
                       "~/content/bootstrap.css",
                       "~/content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+          "~/Content/bootstrap.css",
+          "~/Content/site.css"));
         }
     }
 }
