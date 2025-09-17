@@ -11,17 +11,11 @@ namespace MyPeronalWebSite.Models.VT
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Tbl_User
     {
         public int ID { get; set; }
-
-
-        [Required(ErrorMessage = "Password  zorunludur.")]
         public string Password { get; set; }
-
-        [Required(ErrorMessage = "Kullanýcý adý zorunludur.")]
         public string UserName { get; set; }
     }
 }

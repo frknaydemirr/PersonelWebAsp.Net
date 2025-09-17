@@ -1,42 +1,451 @@
-﻿@model MyPeronalWebSite.Models.VT.Tbl_User
-@{
-    Layout = null;
-}
-<div class="row justify-content-center">
-    <div class="col-md-6">
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap | Kişisel Web Sitesi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --primary-light: #4895ef;
+            --primary-ultralight: #eef2ff;
+            --secondary-color: #3a0ca3;
+            --accent-color: #7209b7;
+            --light-color: #ffffff;
+            --dark-color: #2d3748;
+            --success-color: #4cc9f0;
+            --error-color: #e63946;
+            --gray-light: #f8fafc;
+            --gray: #64748b;
+            --gray-dark: #334155;
+            --border-radius: 20px;
+            --border-radius-sm: 12px;
+            --box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--light-color);
+            padding: 20px;
+            color: var(--dark-color);
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 480px;
+            padding: 20px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo h2 {
+            color: var(--primary-color);
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .logo p {
+            color: var(--gray);
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .card {
+            background: var(--light-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transform: translateY(0);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            padding: 28px 32px 10px;
+            text-align: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .card-header h3 {
+            color: var(--dark-color);
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: -0.5px;
+        }
+
+        .card-body {
+            padding: 32px;
+        }
+
+        .alert {
+            padding: 14px 18px;
+            border-radius: var(--border-radius-sm);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            background-color: #fff5f5;
+            color: var(--error-color);
+            border: 1px solid #fed7d7;
+            font-size: 0.95rem;
+        }
+
+        .alert i {
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--dark-color);
+            font-size: 0.95rem;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 1.1rem;
+            z-index: 1;
+            transition: var(--transition);
+        }
+
+        .input-with-icon input {
+            width: 100%;
+            padding: 16px 20px 16px 50px;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: var(--gray-light);
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+
+        .input-with-icon input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background-color: var(--light-color);
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.12);
+        }
+
+        .input-with-icon input:focus + i {
+            color: var(--primary-color);
+        }
+
+        .text-danger {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: var(--error-color);
+            opacity: 0;
+            height: 0;
+            transition: var(--transition);
+        }
+
+        input:invalid:not(:placeholder-shown) ~ .text-danger {
+            opacity: 1;
+            height: auto;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.25);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 28px 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: #e2e8f0;
+        }
+
+        .divider span {
+            padding: 0 15px;
+        }
+
+        .additional-links {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.95rem;
+            color: var(--gray);
+        }
+
+        .additional-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+            margin: 0 8px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .additional-links a:hover {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        /* Social login buttons */
+        .social-login {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--border-radius-sm);
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .social-btn:hover {
+            border-color: var(--primary-light);
+            background: var(--primary-ultralight);
+        }
+
+        .social-btn i {
+            font-size: 1.2rem;
+        }
+
+        .google i {
+            color: #DB4437;
+        }
+
+        .facebook i {
+            color: #4267B2;
+        }
+
+        /* Responsive tasarım */
+        @@media (max-width: 520px) {
+            .login-container {
+                padding: 10px;
+            }
+
+            .card-body {
+                padding: 24px;
+            }
+
+            .card-header {
+                padding: 24px 24px 10px;
+            }
+
+            .logo h2 {
+                font-size: 2rem;
+            }
+
+            .social-login {
+                flex-direction: column;
+            }
+        }
+
+        /* Animasyonlar */
+        @@keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        /* Checkbox için özel stil */
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            font-size: 0.95rem;
+        }
+
+        .remember-me input {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <h2>Kişisel Web Sitesi</h2>
+            <p>Hesabınıza giriş yapın</p>
+        </div>
+
         <div class="card">
             <div class="card-header">
-                <h3 class="text-center">Giriş Yap</h3>
+                <h3>Giriş Yap</h3>
             </div>
             <div class="card-body">
+                <!-- Hata mesajı gösterimi -->
+                <div class="alert alert-danger" style="display: @(ViewBag.Error != null ? "flex" : "none");">
+                    <i class="fas fa-exclamation-circle"></i> @ViewBag.Error
+                </div>
+
                 @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
                 {
                     @Html.AntiForgeryToken()
 
-                   if (ViewBag.Error != null)
-                    {
-                        <div class="alert alert-danger">
-                            @ViewBag.Error
+                    <div class="form-group">
+                        <label for="UserName">Kullanıcı Adı</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="UserName" name="UserName" placeholder="Kullanıcı adınızı girin" required>
                         </div>
-                    }
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.UserName, "Kullanıcı Adı", new { @class = "control-label" })
-                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = "Kullanıcı adınızı girin" })
-                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                        <span class="text-danger">Kullanıcı adı gereklidir</span>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Password, "Şifre", new { @class = "control-label" })
-                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Şifrenizi girin" })
-                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        <label for="Password">Şifre</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="Password" name="Password" placeholder="Şifrenizi girin" required>
+                        </div>
+                        <span class="text-danger">Şifre gereklidir</span>
                     </div>
 
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">Giriş Yap</button>
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                        <label for="rememberMe">Beni hatırla</label>
                     </div>
+
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Giriş Yap
+                    </button>
                 }
+
+                <div class="divider">
+                    <span>veya</span>
+                </div>
+
+                <div class="social-login">
+                    <button class="social-btn google">
+                        <i class="fab fa-google"></i>
+                    </button>
+                    <button class="social-btn facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </button>
+                </div>
+
+                <div class="additional-links">
+                    <a href="#"><i class="fas fa-key"></i> Şifremi Unuttum</a>
+                    <a href="#"><i class="fas fa-user-plus"></i> Yeni Hesap Oluştur</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function (e) {
+            let isValid = true;
+            const userName = document.getElementById('UserName');
+            const password = document.getElementById('Password');
+
+            if (!userName.value.trim()) {
+                userName.style.borderColor = 'var(--error-color)';
+                isValid = false;
+            }
+
+            if (!password.value.trim()) {
+                password.style.borderColor = 'var(--error-color)';
+                isValid = false;
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', function () {
+                this.style.borderColor = '#e2e8f0';
+            });
+        });
+
+        // Sosyal medya butonları için
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                alert('Sosyal medya ile giriş özelliği aktif değil');
+            });
+        });
+    </script>
+</body>
+</html>

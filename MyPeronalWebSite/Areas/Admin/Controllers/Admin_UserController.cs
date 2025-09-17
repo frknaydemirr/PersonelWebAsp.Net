@@ -44,7 +44,7 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,UserName,Password")] Tbl_User tbl_User)
+        public ActionResult Create([Bind(Include = "UserName,Password")] Tbl_User tbl_User)
         {
             if (ModelState.IsValid)
             {

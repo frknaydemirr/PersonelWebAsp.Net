@@ -13,15 +13,16 @@ namespace MyPeronalWebSite
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            // Attribute routing'i aktif et
-            routes.MapMvcAttributeRoutes();
+            // Static dosyaları MVC routing’den çıkart
+            routes.IgnoreRoute("Content/{*pathInfo}");
+            routes.IgnoreRoute("Scripts/{*pathInfo}");
 
-            // Default route (her zaman en sona bırakılır)
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }
+
     }
 }

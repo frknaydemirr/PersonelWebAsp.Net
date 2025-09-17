@@ -27,8 +27,10 @@ namespace MyPeronalWebSite.Areas.Admin.Controllers
                 return View(tbl_User);
 
             var hashedPassword = HashPassword(tbl_User.Password);
+            var user = db.Tbl_User.FirstOrDefault(u => u.UserName == tbl_User.UserName && u.Password == hashedPassword);
 
-            var user = db.Tbl_User.FirstOrDefault(u => u.UserName == tbl_User.UserName && u.Password == tbl_User.Password);
+
+
 
             if (user != null)
             {
