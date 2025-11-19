@@ -28,6 +28,8 @@
         <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_Skills" Width="1.5" PointX="3.5" PointY="0.625" />
         <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_CurrentProject" Width="1.5" PointX="3" PointY="30.75" />
         <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_CurrentProject_Tbl_Language" />
+        <EntityTypeShape EntityType="PersonelWebDbModel.Tbl_Blog" Width="1.5" PointX="3" PointY="17.875" />
+        <AssociationConnector Association="PersonelWebDbModel.FK_Tbl_Blog_Tbl_Language" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

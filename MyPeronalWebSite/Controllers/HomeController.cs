@@ -37,6 +37,55 @@ namespace MyPeronalWebSite.Controllers
             return View(vm);
         }
 
+        public ActionResult Blog()
+        {
+            var dil = Request.Cookies["lang"]?.Value ?? "tr";
+            int dilId = DilId(dil);
+            ViewBag.DilId = dilId;
+
+            int langId = db.Tbl_Language.FirstOrDefault(x => x.ShortTitle == dil)?.ID ?? 1;
+            var navbarItems = db.Tbl_Navbar
+            .Where(x => x.Tbl_Language.ShortTitle.ToLower() == dil.ToLower())
+            .ToList();
+            var Blog = db.Tbl_Blog.Where(x => x.LanguageID == langId).ToList();
+            BlogViewModel vm = new BlogViewModel
+            {
+                Tbl_Blog = Blog,
+                Resources = db.Tbl_Resource.Where(x => x.LanguageID == langId && x.Page == "ProjectDetail").ToList(),
+                Tbl_Navbar = navbarItems
+
+
+            };
+            MetaBilgiler(langId);
+            return View(vm);
+        }
+
+
+        public ActionResult BlogDetail()
+        {
+            var dil = Request.Cookies["lang"]?.Value ?? "tr";
+            int dilId = DilId(dil);
+            ViewBag.DilId = dilId;
+
+            int langId = db.Tbl_Language.FirstOrDefault(x => x.ShortTitle == dil)?.ID ?? 1;
+            var navbarItems = db.Tbl_Navbar
+            .Where(x => x.Tbl_Language.ShortTitle.ToLower() == dil.ToLower())
+            .ToList();
+            var Blog = db.Tbl_Blog.Where(x => x.LanguageID == langId).ToList();
+            BlogViewModel vm = new BlogViewModel
+            {
+                Tbl_Blog = Blog,
+                Resources = db.Tbl_Resource.Where(x => x.LanguageID == langId && x.Page == "ProjectDetail").ToList(),
+                Tbl_Navbar = navbarItems
+
+
+            };
+            MetaBilgiler(langId);
+            return View(vm);
+        }
+
+
+
 
         private void MetaBilgiler(int langId)
         {

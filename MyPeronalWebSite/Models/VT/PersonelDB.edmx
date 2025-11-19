@@ -31,6 +31,18 @@
           <Property Name="Adress" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Cv" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Tbl_Blog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="LanguageID" Type="int" Nullable="false" />
+          <Property Name="ImageURL" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MediumURL" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Tbl_Contact">
           <Key>
             <PropertyRef Name="ID" />
@@ -155,6 +167,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tbl_Blog_Tbl_Language">
+          <End Role="Tbl_Language" Type="Self.Tbl_Language" Multiplicity="1" />
+          <End Role="Tbl_Blog" Type="Self.Tbl_Blog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Language">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Blog">
+              <PropertyRef Name="LanguageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Tbl_Contact_Tbl_Language">
           <End Role="Tbl_Language" Type="Self.Tbl_Language" Multiplicity="1" />
           <End Role="Tbl_Contact" Type="Self.Tbl_Contact" Multiplicity="*" />
@@ -242,6 +266,7 @@
         <EntityContainer Name="PersonelWebDbModelStoreContainer">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_AboutMe" EntityType="Self.Tbl_AboutMe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Blog" EntityType="Self.Tbl_Blog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Contact" EntityType="Self.Tbl_Contact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_CurrentProject" EntityType="Self.Tbl_CurrentProject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Language" EntityType="Self.Tbl_Language" Schema="dbo" store:Type="Tables" />
@@ -255,6 +280,10 @@
           <AssociationSet Name="FK_Tbl_AboutMe_Tbl_Language" Association="Self.FK_Tbl_AboutMe_Tbl_Language">
             <End Role="Tbl_Language" EntitySet="Tbl_Language" />
             <End Role="Tbl_AboutMe" EntitySet="Tbl_AboutMe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Blog_Tbl_Language" Association="Self.FK_Tbl_Blog_Tbl_Language">
+            <End Role="Tbl_Language" EntitySet="Tbl_Language" />
+            <End Role="Tbl_Blog" EntitySet="Tbl_Blog" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_Contact_Tbl_Language" Association="Self.FK_Tbl_Contact_Tbl_Language">
             <End Role="Tbl_Language" EntitySet="Tbl_Language" />
@@ -347,6 +376,7 @@
           <NavigationProperty Name="Tbl_Resource" Relationship="Self.FK_Tbl_Resource_Tbl_Language" FromRole="Tbl_Language" ToRole="Tbl_Resource" />
           <NavigationProperty Name="Tbl_Technologies" Relationship="Self.FK_Tbl_Technologies_Tbl_Language" FromRole="Tbl_Language" ToRole="Tbl_Technologies" />
           <NavigationProperty Name="Tbl_CurrentProject" Relationship="PersonelWebDbModel.FK_Tbl_CurrentProject_Tbl_Language" FromRole="Tbl_Language" ToRole="Tbl_CurrentProject" />
+          <NavigationProperty Name="Tbl_Blog" Relationship="PersonelWebDbModel.FK_Tbl_Blog_Tbl_Language" FromRole="Tbl_Language" ToRole="Tbl_Blog" />
         </EntityType>
         <EntityType Name="Tbl_Navbar">
           <Key>
@@ -585,6 +615,11 @@
             <End Role="Tbl_Language" EntitySet="Tbl_Language" />
             <End Role="Tbl_CurrentProject" EntitySet="Tbl_CurrentProject" />
           </AssociationSet>
+          <EntitySet Name="Tbl_Blog" EntityType="PersonelWebDbModel.Tbl_Blog" />
+          <AssociationSet Name="FK_Tbl_Blog_Tbl_Language" Association="PersonelWebDbModel.FK_Tbl_Blog_Tbl_Language">
+            <End Role="Tbl_Language" EntitySet="Tbl_Language" />
+            <End Role="Tbl_Blog" EntitySet="Tbl_Blog" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Tbl_Skills">
           <Key>
@@ -617,6 +652,31 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Tbl_CurrentProject">
+              <PropertyRef Name="LanguageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Tbl_Blog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="LanguageID" Type="Int32" Nullable="false" />
+          <Property Name="ImageURL" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MediumURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tbl_Language" Relationship="PersonelWebDbModel.FK_Tbl_Blog_Tbl_Language" FromRole="Tbl_Blog" ToRole="Tbl_Language" />
+        </EntityType>
+        <Association Name="FK_Tbl_Blog_Tbl_Language">
+          <End Type="PersonelWebDbModel.Tbl_Language" Role="Tbl_Language" Multiplicity="1" />
+          <End Type="PersonelWebDbModel.Tbl_Blog" Role="Tbl_Blog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Language">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Blog">
               <PropertyRef Name="LanguageID" />
             </Dependent>
           </ReferentialConstraint>
@@ -773,6 +833,19 @@
                 <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
                 <ScalarProperty Name="ProjectTitle" ColumnName="ProjectTitle" />
                 <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Blog">
+            <EntityTypeMapping TypeName="PersonelWebDbModel.Tbl_Blog">
+              <MappingFragment StoreEntitySet="Tbl_Blog">
+                <ScalarProperty Name="MediumURL" ColumnName="MediumURL" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

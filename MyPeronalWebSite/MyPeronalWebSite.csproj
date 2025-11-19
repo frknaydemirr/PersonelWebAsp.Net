@@ -2603,6 +2603,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\UrlHelperClass.cs" />
+    <Compile Include="Models\ViewModel\BlogViewModel.cs" />
     <Compile Include="Models\ViewModel\IndexViewModel.cs" />
     <Compile Include="Models\ViewModel\NavbarViewModel.cs" />
     <Compile Include="Models\ViewModel\ProjectDetailViewModel.cs" />
@@ -2625,6 +2626,9 @@
       <DependentUpon>PersonelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VT\Tbl_AboutMe.cs">
+      <DependentUpon>PersonelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VT\Tbl_Blog.cs">
       <DependentUpon>PersonelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VT\Tbl_Contact.cs">
@@ -2677,6 +2681,7 @@
     <Content Include="Views\Partial\NavbarPartial.cshtml" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.1.min.map" />
+    <Content Include="Views\Home\Blog.cshtml" />
     <Content Include="Views\Home\BlogDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
