@@ -211,3 +211,6 @@ Mikroservislerde çok tercih edilir.
 ✔ Her mimarinin örnek C# kod yapısını çıkartayım
 ✔ Projende kullanman için hangi mimarinin uygun olduğunu söyleyeyim
 ✔ Clean Architecture veya Microservice için sıfırdan proje iskeleti oluşturayım
+
+OLAP OLTP Temel Farklar Ve Nelerdir 
+- detaylı bilgi örnek ve akış
