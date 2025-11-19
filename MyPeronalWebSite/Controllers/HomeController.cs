@@ -54,7 +54,7 @@ namespace MyPeronalWebSite.Controllers
                 navbar = db.Tbl_Navbar.FirstOrDefault(x =>
                     x.LanguageID == langId &&
                     x.Turn == true &&  // Turn bool değil int ise 1 olarak kontrol
-                    (x.URL.ToLower() == "/anasayfa" || x.URL.ToLower() == "/home"));
+                    (x.URL.ToLower() == "/anasayfa" || x.URL.ToLower() == "/home" || x.URL.ToLower() == "/"));
             }
             else
             {
