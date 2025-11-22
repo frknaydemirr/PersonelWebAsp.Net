@@ -64,6 +64,107 @@
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<div class="section-head mb--60">
+    <div class="section-sub-title center-title tmp-scroll-trigger tmp-fade-in animation-order-1">
+        <span class="subtitle">@Model.Resources.FirstOrDefault(x => x.NavigationName == "BlogBaslıkBlog").Value</span>
+    </div>
+
+
+</div>
+<section class="makale-bolumu-konteyner">
+    <div class="makale-listesi">
+
+
+        @foreach (var blog in Model.Tbl_Blog)
+        {
+           
+                <article class="makale-karti">
+                    <div class="makale-sol">
+                        <div class="makale-ust-bilgi">
+                            <p class="yazar-rolu">
+                                <i class="far fa-calendar"></i>
+                                @(blog.Date?.ToString("dd.MM.yyyy") ?? "Tarihsiz")
+                            </p>
+
+                        </div>
+                        <h3 class="makale-baslik">
+                            <a href="@Url.Action("BlogDetail", "Home", new {
+                    title = blog.Title?.Replace(" ", "-").ToLower() ?? "blog",
+                    id = blog.ID
+                })">
+                                @blog.Title
+                            </a>
+                        </h3>
+                        <p class="makale-ozet">
+                            @if (!string.IsNullOrEmpty(blog.Description))
+                            {
+                                // HTML tag'lerini temizle
+                                var plainText = System.Text.RegularExpressions.Regex.Replace(blog.Description, "<.*?>", string.Empty);
+                                @(plainText.Length > 200 ? plainText.Substring(0, 200) + "..." : plainText)
+                            }
+                            else
+                            {
+                                <text>Açıklama bulunmuyor.</text>
+                            }
+                        </p>
+                    </div>
+                    <div class="makale-sag">
+                        @if (!string.IsNullOrEmpty(blog.ImageURL))
+                        {
+                            <img class="makale-gorsel" src="@blog.ImageURL" alt="@blog.Title">
+                        }
+                        else
+                        {
+                            <img class="makale-gorsel" src="https://picsum.photos/id/1/400/300" alt="@blog.Title">
+                        }
+                    </div>
+                </article>
+            }
+
+            @if (!Model.Tbl_Blog.Any())
+            {
+                <div class="bos-liste">
+                    <p>Henüz blog yazısı bulunmamaktadır.</p>
+                </div>
+            }
+        }
+
+
+    </div>
+
+    <aside class="top-hikayeler">
+        <div class="top-hikayeler-baslik">
+            <h4>@Model.Resources.FirstOrDefault(x => x.NavigationName == "BloglarAnaBlog").Value</h4>
+            <a href="#">  @Model.Resources.FirstOrDefault(x => x.NavigationName == "DahaFazlaBlogBlog").Value <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <ul class="hikaye-listesi">
+            @for (int i = 0; i < Math.Min(5, Model.Tbl_Blog.Count); i++)
+            {
+                var blog = Model.Tbl_Blog[i];
+                <li>
+                    <span class="sira-numarasi">@(i + 1)</span>
+                    <div class="hikaye-icerik">
+                        <p class="hikaye-baslik">
+                            <a href="@Url.Action("BlogDetail", "Home", new {
+                        title = blog.Title?.Replace(" ", "-").ToLower() ?? "blog",
+                        id = blog.ID
+                    })">
+                                @blog.Title
+                            </a>
+                        </p>
+                        <p class="hikaye-yazar">
+                            <i class="far fa-user"></i>
+                            @(blog.Date?.ToString("dd.MM.yyyy") ?? "Tarihsiz")
+                        </p>
+                    </div>
+                </li>
+            }
+        </ul>
+
+        
+    </aside>
+</section>
+
 <style>
     /* Değişkenler */
     :root {
@@ -99,7 +200,6 @@
         font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         line-height: 1.6;
         color: var(--dark-color);
-        /*   //background-color: #fafafa;*/
         padding: 0;
         margin: 0;
     }
@@ -143,31 +243,31 @@
         overflow: hidden;
     }
 
-        .makale-karti::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--gradient-primary);
-            transform: scaleY(0);
-            transition: var(--transition);
-        }
+    .makale-karti::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--gradient-primary);
+        transform: scaleY(0);
+        transition: var(--transition);
+    }
 
-        .makale-karti:hover::before {
-            transform: scaleY(1);
-        }
+    .makale-karti:hover::before {
+        transform: scaleY(1);
+    }
 
-        .makale-karti:hover {
-            box-shadow: var(--box-shadow);
-            transform: translateY(-5px);
-        }
+    .makale-karti:hover {
+        box-shadow: var(--box-shadow);
+        transform: translateY(-5px);
+    }
 
-        .makale-karti:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-        }
+    .makale-karti:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
 
     .makale-sol {
         flex-grow: 1;
@@ -190,10 +290,10 @@
         align-items: center;
     }
 
-        .yazar-rolu i {
-            margin-right: 6px;
-            color: var(--primary-color);
-        }
+    .yazar-rolu i {
+        margin-right: 6px;
+        color: var(--primary-color);
+    }
 
     .makale-kategori {
         background: var(--gradient-primary);
@@ -214,21 +314,21 @@
         position: relative;
     }
 
-        .makale-baslik a {
-            color: var(--dark-color);
-            text-decoration: none;
-            transition: var(--transition);
-            background: linear-gradient(to right, var(--primary-color), var(--primary-color));
-            background-size: 0% 3px;
-            background-repeat: no-repeat;
-            background-position: left bottom;
-            padding-bottom: 5px;
-        }
+    .makale-baslik a {
+        color: var(--dark-color);
+        text-decoration: none;
+        transition: var(--transition);
+        background: linear-gradient(to right, var(--primary-color), var(--primary-color));
+        background-size: 0% 3px;
+        background-repeat: no-repeat;
+        background-position: left bottom;
+        padding-bottom: 5px;
+    }
 
-            .makale-baslik a:hover {
-                color: var(--primary-color);
-                background-size: 100% 3px;
-            }
+    .makale-baslik a:hover {
+        color: var(--primary-color);
+        background-size: 100% 3px;
+    }
 
     .makale-ozet {
         color: var(--gray-color);
@@ -279,10 +379,10 @@
         font-weight: 500;
     }
 
-        .okuma-suresi i, .yorum-sayisi i {
-            margin-right: 6px;
-            color: var(--primary-color);
-        }
+    .okuma-suresi i, .yorum-sayisi i {
+        margin-right: 6px;
+        color: var(--primary-color);
+    }
 
     .makale-sag {
         flex-shrink: 0;
@@ -314,46 +414,46 @@
         position: relative;
     }
 
-        .top-hikayeler-baslik::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 60px;
-            height: 2px;
-            background: var(--gradient-accent);
-        }
+    .top-hikayeler-baslik::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 60px;
+        height: 2px;
+        background: var(--gradient-accent);
+    }
 
-        .top-hikayeler-baslik h4 {
-            font-size: 1.3rem;
-            color: var(--dark-color);
-            margin: 0;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-        }
+    .top-hikayeler-baslik h4 {
+        font-size: 1.3rem;
+        color: var(--dark-color);
+        margin: 0;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+    }
 
-        .top-hikayeler-baslik a {
-            font-size: 0.9rem;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-        }
+    .top-hikayeler-baslik a {
+        font-size: 0.9rem;
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+    }
 
-            .top-hikayeler-baslik a:hover {
-                color: var(--secondary-color);
-            }
+    .top-hikayeler-baslik a:hover {
+        color: var(--secondary-color);
+    }
 
-            .top-hikayeler-baslik a i {
-                margin-left: 5px;
-                transition: var(--transition);
-            }
+    .top-hikayeler-baslik a i {
+        margin-left: 5px;
+        transition: var(--transition);
+    }
 
-            .top-hikayeler-baslik a:hover i {
-                transform: translateX(3px);
-            }
+    .top-hikayeler-baslik a:hover i {
+        transform: translateX(3px);
+    }
 
     .hikaye-listesi {
         list-style: none;
@@ -361,40 +461,40 @@
         margin: 0 0 40px 0;
     }
 
-        .hikaye-listesi li {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 22px;
-            padding: 18px;
-            border-radius: var(--border-radius-sm);
-            transition: var(--transition);
-            background-color: white;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-            position: relative;
-            overflow: hidden;
-        }
+    .hikaye-listesi li {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 22px;
+        padding: 18px;
+        border-radius: var(--border-radius-sm);
+        transition: var(--transition);
+        background-color: white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        position: relative;
+        overflow: hidden;
+    }
 
-            .hikaye-listesi li::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 3px;
-                height: 100%;
-                background: var(--gradient-primary);
-                transform: scaleY(0);
-                transition: var(--transition);
-            }
+    .hikaye-listesi li::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background: var(--gradient-primary);
+        transform: scaleY(0);
+        transition: var(--transition);
+    }
 
-            .hikaye-listesi li:hover::before {
-                transform: scaleY(1);
-            }
+    .hikaye-listesi li:hover::before {
+        transform: scaleY(1);
+    }
 
-            .hikaye-listesi li:hover {
-                background-color: var(--light-color);
-                transform: translateX(5px);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            }
+    .hikaye-listesi li:hover {
+        background-color: var(--light-color);
+        transform: translateX(5px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
 
     .sira-numarasi {
         font-size: 1.8rem;
@@ -434,9 +534,9 @@
         flex-grow: 1;
     }
 
-        .hikaye-icerik p {
-            margin: 0;
-        }
+    .hikaye-icerik p {
+        margin: 0;
+    }
 
     .hikaye-baslik a {
         font-weight: 700;
@@ -447,9 +547,9 @@
         display: block;
     }
 
-        .hikaye-baslik a:hover {
-            color: var(--primary-color);
-        }
+    .hikaye-baslik a:hover {
+        color: var(--primary-color);
+    }
 
     .hikaye-yazar {
         font-size: 0.85rem;
@@ -459,81 +559,10 @@
         align-items: center;
     }
 
-        .hikaye-yazar i {
-            margin-right: 5px;
-            font-size: 12px;
-        }
-
-    /* Bülten Üyelik Bölümü */
-    .bulten-uye {
-        background: var(--gradient-primary);
-        padding: 30px 25px;
-        border-radius: var(--border-radius);
-        margin-top: 40px;
-        color: white;
-        text-align: center;
-        box-shadow: var(--box-shadow);
+    .hikaye-yazar i {
+        margin-right: 5px;
+        font-size: 12px;
     }
-
-        .bulten-uye h4 {
-            margin-top: 0;
-            margin-bottom: 12px;
-            color: white;
-            font-weight: 700;
-            font-size: 1.4rem;
-        }
-
-        .bulten-uye p {
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 0.95rem;
-            margin-bottom: 22px;
-            line-height: 1.6;
-        }
-
-    .bulten-form {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-        .bulten-form input {
-            padding: 14px 18px;
-            border: none;
-            border-radius: var(--border-radius-sm);
-            font-size: 0.95rem;
-            transition: var(--transition);
-            background-color: rgba(255, 255, 255, 0.9);
-        }
-
-            .bulten-form input:focus {
-                outline: none;
-                background-color: white;
-                box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
-            }
-
-        .bulten-form button {
-            background-color: white;
-            color: var(--primary-color);
-            border: none;
-            padding: 14px 18px;
-            border-radius: var(--border-radius-sm);
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-            .bulten-form button i {
-                margin-left: 8px;
-            }
-
-            .bulten-form button:hover {
-                background-color: var(--light-color);
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            }
 
     /* Sosyal Medya Bölümü */
     .sosyal-medya {
@@ -544,97 +573,144 @@
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
 
-        .sosyal-medya h4 {
-            font-size: 1.1rem;
-            margin-bottom: 18px;
-            color: var(--dark-color);
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-        }
+    .sosyal-medya h4 {
+        font-size: 1.1rem;
+        margin-bottom: 18px;
+        color: var(--dark-color);
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+    }
 
-            .sosyal-medya h4 i {
-                margin-right: 10px;
-                color: var(--primary-color);
-            }
+    .sosyal-medya h4 i {
+        margin-right: 10px;
+        color: var(--primary-color);
+    }
 
     .sosyal-medya-baglantilar {
         display: flex;
         justify-content: space-between;
     }
 
-        .sosyal-medya-baglantilar a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--light-color);
-            color: var(--gray-color);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-            .sosyal-medya-baglantilar a:hover {
-                transform: translateY(-3px);
-                color: white;
-            }
-
-            .sosyal-medya-baglantilar a:nth-child(1):hover {
-                background-color: #1877F2; /* Facebook */
-            }
-
-            .sosyal-medya-baglantilar a:nth-child(2):hover {
-                background-color: #1DA1F2; /* Twitter */
-            }
-
-            .sosyal-medya-baglantilar a:nth-child(3):hover {
-                background-color: #E4405F; /* Instagram */
-            }
-
-            .sosyal-medya-baglantilar a:nth-child(4):hover {
-                background-color: #0A66C2; /* LinkedIn */
-            }
-
-            .sosyal-medya-baglantilar a:nth-child(5):hover {
-                background-color: #FF0000; /* YouTube */
-            }
-
-    /* Mobil Cihazlar İçin Duyarlı Ayarlama */
-    @@media (max-width: 1024px) {
-        .makale-bolumu-konteyner {
-            gap: 30px;
-        }
-
-        .makale-listesi {
-            max-width: 65%;
-        }
+    .sosyal-medya-baglantilar a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--light-color);
+        color: var(--gray-color);
+        text-decoration: none;
+        transition: var(--transition);
     }
 
-    @@media (max-width: 768px) {
-        .makale-bolumu-konteyner {
-            flex-direction: column;
-            gap: 30px;
-            margin: 40px auto;
-        }
+    .sosyal-medya-baglantilar a:hover {
+        transform: translateY(-3px);
+        color: white;
+    }
 
-        .makale-listesi,
-        .top-hikayeler {
-            max-width: 100%;
-            width: 100%;
-            padding-right: 0;
-            border-right: none;
-        }
+    .sosyal-medya-baglantilar a:nth-child(1):hover {
+        background-color: #1877F2; /* Facebook */
+    }
 
+    .sosyal-medya-baglantilar a:nth-child(2):hover {
+        background-color: #1DA1F2; /* Twitter */
+    }
+
+    .sosyal-medya-baglantilar a:nth-child(3):hover {
+        background-color: #E4405F; /* Instagram */
+    }
+
+    .sosyal-medya-baglantilar a:nth-child(4):hover {
+        background-color: #0A66C2; /* LinkedIn */
+    }
+
+    .sosyal-medya-baglantilar a:nth-child(5):hover {
+        background-color: #FF0000; /* YouTube */
+    }
+
+    /* İki sütunlu düzen (768px ve üzeri için) */
+    @@media (min-width: 768px) {
         .makale-listesi {
-            border-bottom: 1px solid var(--light-gray);
-            padding-bottom: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
         }
 
         .makale-karti {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 0;
+            padding: 25px;
+            height: auto;
+            border-bottom: none;
+        }
+
+        .makale-sol {
+            padding-right: 0;
+            margin-bottom: 20px;
+        }
+
+        .makale-sag {
+            width: 100%;
+        }
+
+        .makale-gorsel {
+            width: 100%;
+            height: 200px;
+        }
+
+        .makale-baslik {
+            font-size: 1.4rem;
+        }
+    }
+
+    /* 992px altında aside'ın blogların altına inmesi */
+    @@media (max-width: 991px) {
+        .makale-bolumu-konteyner {
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .makale-listesi {
+            max-width: 100%;
+            width: 100%;
+            border-right: none;
+            padding-right: 0;
+            border-bottom: 1px solid var(--light-gray);
+            padding-bottom: 40px;
+        }
+
+        .top-hikayeler {
+            width: 100%;
+            padding-top: 0;
+        }
+
+        .hikaye-listesi {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .hikaye-listesi li {
+            margin-bottom: 0;
+        }
+    }
+
+    /* 768px altında tek sütun */
+    @@media (max-width: 767px) {
+        .makale-listesi {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .makale-karti {
+            display: flex;
             flex-direction: column-reverse;
             padding: 25px 20px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--light-gray);
         }
 
         .makale-sol {
@@ -647,17 +723,17 @@
             height: 200px;
         }
 
-        .makale-alt-bilgi {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 12px;
+        .hikaye-listesi {
+            grid-template-columns: 1fr;
+            gap: 15px;
         }
 
-        .top-hikayeler {
-            padding-top: 0;
+        .hikaye-listesi li {
+            margin-bottom: 0;
         }
     }
 
+    /* Küçük mobil cihazlar */
     @@media (max-width: 480px) {
         .makale-bolumu-konteyner {
             padding: 0 16px;
@@ -675,127 +751,17 @@
         .top-hikayeler {
             width: 100%;
         }
+
+        .sosyal-medya-baglantilar {
+            justify-content: space-around;
+        }
+
+        .sosyal-medya-baglantilar a {
+            width: 35px;
+            height: 35px;
+        }
     }
 </style>
-
-<section class="makale-bolumu-konteyner">
-    <div class="makale-listesi">
-        <article class="makale-karti">
-            <div class="makale-sol">
-                <div class="makale-ust-bilgi">
-                    <p class="yazar-rolu"><i class="far fa-calendar"></i> 16.11.2025</p>
-                    <span class="makale-kategori">Teknoloji</span>
-                </div>
-                <h3 class="makale-baslik"><a href="~/Views/Home/BlogDetail.cshtml">Only Holograms Left Alive</a></h3>
-                <p class="makale-ozet">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                    a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                </p>
-
-            </div>
-            <div class="makale-sag">
-                <img class="makale-gorsel" src="https://picsum.photos/id/1/400/300" alt="Makale Görseli">
-            </div>
-        </article>
-
-        <article class="makale-karti">
-            <div class="makale-sol">
-                <div class="makale-ust-bilgi">
-                    <p class="yazar-rolu"><i class="far fa-calendar"></i> 16.11.2025</p>
-                    <span class="makale-kategori">Tasarım</span>
-                </div>
-                <h3 class="makale-baslik"><a href="~/Views/Home/BlogDetail.cshtml">Minimalism in Digital Age</a></h3>
-                <p class="makale-ozet">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                    took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                    but also the leap into electronic typesetting, remaining essentially unchanged.
-                </p>
-
-            </div>
-            <div class="makale-sag">
-                <img class="makale-gorsel" src="https://picsum.photos/id/20/400/300" alt="Makale Görseli">
-            </div>
-        </article>
-
-        <article class="makale-karti">
-            <div class="makale-sol">
-                <div class="makale-ust-bilgi">
-                    <p class="yazar-rolu"><i class="far fa-calendar"></i> 15.11.2025</p>
-                    <span class="makale-kategori">Yapay Zeka</span>
-                </div>
-                <h3 class="makale-baslik"><a href="~/Views/Home/BlogDetail.cshtml">AI Revolution in Healthcare</a></h3>
-                <p class="makale-ozet">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                    a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                </p>
-            </div>
-            <div class="makale-sag">
-                <img class="makale-gorsel" src="https://picsum.photos/id/30/400/300" alt="Makale Görseli">
-            </div>
-        </article>
-    </div>
-
-    <aside class="top-hikayeler">
-        <div class="top-hikayeler-baslik">
-            <h4>TOP STORIES</h4>
-            <a href="#">SEE MORE <i class="fas fa-arrow-right"></i></a>
-        </div>
-        <ul class="hikaye-listesi">
-            <li>
-                <span class="sira-numarasi">1</span>
-                <div class="hikaye-icerik">
-                    <p class="hikaye-baslik"><a href="#">A Survival Guide for the Millennial E...</a></p>
-                    <p class="hikaye-yazar"><i class="far fa-user"></i> Leslie Bradshaw</p>
-                </div>
-            </li>
-            <li>
-                <span class="sira-numarasi">2</span>
-                <div class="hikaye-icerik">
-                    <p class="hikaye-baslik"><a href="#">Thoughts on Google+</a></p>
-                    <p class="hikaye-yazar"><i class="far fa-user"></i> Chris Messina™</p>
-                </div>
-            </li>
-            <li>
-                <span class="sira-numarasi">3</span>
-                <div class="hikaye-icerik">
-                    <p class="hikaye-baslik"><a href="#">Let's Talk About Ethics in Games Jo...</a></p>
-                    <p class="hikaye-yazar"><i class="far fa-user"></i> Zoe Quinn</p>
-                </div>
-            </li>
-            <li>
-                <span class="sira-numarasi">4</span>
-                <div class="hikaye-icerik">
-                    <p class="hikaye-baslik"><a href="#">The Future of Remote Work</a></p>
-                    <p class="hikaye-yazar"><i class="far fa-user"></i> Michael Chen</p>
-                </div>
-            </li>
-            <li>
-                <span class="sira-numarasi">5</span>
-                <div class="hikaye-icerik">
-                    <p class="hikaye-baslik"><a href="#">Sustainable Tech Solutions</a></p>
-                    <p class="hikaye-yazar"><i class="far fa-user"></i> Sarah Williams</p>
-                </div>
-            </li>
-        </ul>
-
-
-
-        <div class="sosyal-medya">
-            <h4><i class="fas fa-share-alt"></i> Bizi Takip Edin</h4>
-            <div class="sosyal-medya-baglantilar">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-            </div>
-        </div>
-    </aside>
-</section>
-
 
 
 

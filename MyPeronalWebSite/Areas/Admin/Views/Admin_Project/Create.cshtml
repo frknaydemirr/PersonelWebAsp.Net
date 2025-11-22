@@ -305,124 +305,118 @@
     <script src="~/Areas/Admin/Content/tinymce/js/tinymce/tinymce.min.js"></script>
 
     <script>
-    $(document).ready(function () {
-        // Resim önizleme
-        $('#ProjectImg').change(function (event) {
-            const file = event.target.files[0];
-            const preview = $('#imagePreview');
 
-            if (file) {
-                // Dosya boyutu kontrolü (max 5MB - controller ile aynı olmalı)
-                if (file.size > 5 * 1024 * 1024) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Hata',
-                        text: 'Dosya boyutu 5MB\'dan büyük olamaz!'
-                    });
-                    $(this).val('');
-                    preview.hide();
-                    return;
-                }
+$(document).ready(function () {
+    // Resim önizleme
+    $('#ProjectImg').change(function (event) {
+        const file = event.target.files[0];
+        const preview = $('#imagePreview');
 
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    preview.attr('src', e.target.result);
-                    preview.show();
-                }
-                reader.readAsDataURL(file);
-            } else {
+        if (file) {
+            // Dosya boyutu kontrolü (max 5MB - controller ile aynı olmalı)
+            if (file.size > 5 * 1024 * 1024) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Hata',
+                    text: 'Dosya boyutu 5MB\'dan büyük olamaz!'
+                });
+                $(this).val('');
                 preview.hide();
-            }
-        });
-
-        // TinyMCE Editor - Proje Açıklaması
-        tinymce.init({
-            selector: '#editorDescription',
-            menubar: false,
-            plugins: 'lists link image charmap preview code fullscreen',
-            toolbar: 'undo redo | formatselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image charmap | preview fullscreen code | removeformat',
-            height: 300,
-            image_caption: true,
-            quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
-            branding: false,
-            contextmenu: 'link image inserttable | cell row column deletetable',
-            license_key: 'gpl',
-            setup: function (editor) {
-                editor.on('change', function () {
-                    editor.save(); // Otomatik kaydet
-                });
-            }
-        });
-
-        // TinyMCE Editor - Proje Giriş Açıklaması
-        tinymce.init({
-            selector: '#editorEntryDescription',
-            menubar: false,
-            plugins: 'lists link image charmap preview code fullscreen',
-            toolbar: 'undo redo | formatselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image charmap | preview fullscreen code | removeformat',
-            height: 200,
-            image_caption: true,
-            quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
-            branding: false,
-            contextmenu: 'link image inserttable | cell row column deletetable',
-            license_key: 'gpl',
-            setup: function (editor) {
-                editor.on('change', function () {
-                    editor.save(); // Otomatik kaydet
-                });
-            }
-        });
-
-        // Form gönderim kontrolü - DÜZELTİLMİŞ VERSİYON
-        $('#projectForm').on('submit', function (e) {
-            // TinyMCE içeriklerini kaydet
-            if (typeof tinymce !== 'undefined') {
-                tinymce.triggerSave();
-
-                // HTML içeriği düz metne çevir (opsiyonel - <p> tag'larını kaldırmak için)
-                var descriptionEditor = tinymce.get('editorDescription');
-                var entryEditor = tinymce.get('editorEntryDescription');
-
-                if (descriptionEditor) {
-                    var plainDescription = descriptionEditor.getContent({ format: 'text' });
-                    $('#editorDescription').val(plainDescription);
-                }
-
-                if (entryEditor) {
-                    var plainEntry = entryEditor.getContent({ format: 'text' });
-                    $('#editorEntryDescription').val(plainEntry);
-                }
+                return;
             }
 
-            // Form submit işlemi devam etsin
-            return true;
-        });
-
-        // Hata mesajlarını göster
-        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
-        {
-            <text>
-            Swal.fire({
-                icon: 'error',
-                title: 'Hata',
-                text: '@Html.Raw(ViewBag.ErrorMessage)'
-            });
-            </text>
-        }
-
-        @if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
-        {
-            <text>
-            Swal.fire({
-                icon: 'success',
-                title: 'Başarılı',
-                text: '@TempData["SuccessMessage"]'
-            }).then(() => {
-                window.location.href = '@Url.Action("Index", "Admin_Project")';
-            });
-            </text>
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.attr('src', e.target.result);
+                preview.show();
+            }
+            reader.readAsDataURL(file);
+        } else {
+            preview.hide();
         }
     });
+
+    // TinyMCE Editor - Proje Açıklaması
+    tinymce.init({
+        selector: '#editorDescription',
+        menubar: false,
+        plugins: 'lists link image charmap preview code fullscreen',
+        toolbar: 'undo redo | formatselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image charmap | preview fullscreen code | removeformat',
+        height: 300,
+        image_caption: true,
+        quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
+        branding: false,
+        contextmenu: 'link image inserttable | cell row column deletetable',
+        license_key: 'gpl',
+        // ✅ DÜZELTME 1: Karakterlerin HTML varlık koduna çevrilmesini engeller.
+        entity_encoding: "raw",
+        setup: function (editor) {
+            editor.on('change', function () {
+                editor.save(); // Otomatik kaydet
+            });
+        }
+    });
+
+    // TinyMCE Editor - Proje Giriş Açıklaması
+    tinymce.init({
+        selector: '#editorEntryDescription',
+        menubar: false,
+        plugins: 'lists link image charmap preview code fullscreen',
+        toolbar: 'undo redo | formatselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image charmap | preview fullscreen code | removeformat',
+        height: 200,
+        image_caption: true,
+        quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
+        branding: false,
+        contextmenu: 'link image inserttable | cell row column deletetable',
+        license_key: 'gpl',
+        // ✅ DÜZELTME 1: Karakterlerin HTML varlık koduna çevrilmesini engeller.
+        entity_encoding: "raw",
+        setup: function (editor) {
+            editor.on('change', function () {
+                editor.save(); // Otomatik kaydet
+            });
+        }
+    });
+
+    // ✅ DÜZELTME 2: Form gönderim kontrolü - Hatalı düz metin çeviri kodu KALDIRILDI.
+    $('#projectForm').on('submit', function (e) {
+        // TinyMCE içeriklerini kaydet
+        if (typeof tinymce !== 'undefined') {
+            tinymce.triggerSave();
+            // Not: Artık burada içeriği format: 'text' olarak alıp düz metne çevirmiyoruz.
+            // tinymce.triggerSave(), içeriği HTML olarak textarea'ya yazar.
+        }
+
+        // Form submit işlemi devam etsin
+        return true;
+    });
+
+    // Hata mesajlarını göster
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <text>
+        Swal.fire({
+            icon: 'error',
+            title: 'Hata',
+            text: '@Html.Raw(ViewBag.ErrorMessage)'
+        });
+        </text>
+    }
+
+    @if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+    {
+        <text>
+        Swal.fire({
+            icon: 'success',
+            title: 'Başarılı',
+            text: '@TempData["SuccessMessage"]'
+        }).then(() => {
+            window.location.href = '@Url.Action("Index", "Admin_Project")';
+        });
+        </text>
+    }
+});
     </script>
+
 </body>
 </html>

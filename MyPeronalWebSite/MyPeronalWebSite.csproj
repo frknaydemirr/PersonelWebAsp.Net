@@ -2571,6 +2571,9 @@
     <Content Include="Areas\Admin\Views\Admin_AboutMe\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Admin_AboutMe\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin_Blog\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin_Blog\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin_Blog\Index.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -2592,6 +2595,7 @@
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\Admin_AboutMeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Admin_BlogController.cs" />
     <Compile Include="Areas\Admin\Controllers\Admin_ContactController.cs" />
     <Compile Include="Areas\Admin\Controllers\Admin_ProjectController.cs" />
     <Compile Include="Areas\Admin\Controllers\Admin_ProjectDetailsController.cs" />

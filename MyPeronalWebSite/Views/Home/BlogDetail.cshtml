@@ -1,7 +1,7 @@
 ﻿
 @model MyPeronalWebSite.Models.ViewModel.BlogViewModel
 @{
-    ViewBag.Title = "ProjectDetail";
+    ViewBag.Title = "BlogDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -48,7 +48,7 @@
                 <div class="breadcrumb-inner text-center">
 
                     <ul class="page-list">
-                        <li class="tmp-breadcrumb-item"><a href="/">@Model.Resources.FirstOrDefault(x => x.NavigationName == "AnaSayfaProjectDetay").Value</a></li>
+                        <li class="tmp-breadcrumb-item"><a href="/">@Model.Resources.FirstOrDefault(x => x.NavigationName == "AnaSayfaBlogDetayy").Value</a></li>
                         <li class="icon"><i class="fa-solid fa-angle-right"></i></li>
                         <li class="tmp-breadcrumb-item active">Blog</li>
                     </ul>
@@ -678,127 +678,173 @@
     }
 </style>
 
+
+<style>
+    .blog-button-container {
+        display: inline-block;
+        margin: 20px 0;
+    }
+
+    .blog-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 24px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        border: none;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .blog-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .blog-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+
+            .blog-button:hover::before {
+                left: 100%;
+            }
+
+        .blog-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .blog-button i {
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-button:hover i {
+            transform: scale(1.1);
+        }
+
+        /* Alternatif renk seçenekleri */
+        /* Mavi tonları */
+        .blog-button.blue {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        /* Yeşil tonları */
+        .blog-button.green {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        /* Turuncu tonları */
+        .blog-button.orange {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        /* Koyu tema */
+        .blog-button.dark {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+        }
+</style>
+
+
+<div class="section-head mb--60">
+    <div class="section-sub-title center-title tmp-scroll-trigger tmp-fade-in animation-order-1">
+        <span class="subtitle">@Model.Resources.FirstOrDefault(x => x.NavigationName == "BlogBaslıkBlog").Value</span>
+    </div>
+
+
+</div>
+
+
 <section class="makale-bolumu-konteyner">
     <div class="makale-listesi">
+        <!-- SADECE tıklanan blogu göster -->
         <article class="makale-karti">
             <div class="makale-sol">
                 <div class="makale-ust-bilgi">
-                    <p class="yazar-rolu"><i class="far fa-calendar"></i> 16.11.2025</p>
-                    <span class="makale-kategori">Teknoloji</span>
+                    <p class="yazar-rolu">
+                        <i class="far fa-calendar"></i>
+                        @(Model.Blog.Date?.ToString("dd.MM.yyyy") ?? "Tarihsiz")
+                    </p>
                 </div>
-                <h3 class="makale-baslik"><a href="~/Views/Home/BlogDetail.cshtml">Only Holograms Left Alive</a></h3>
-                <p class="makale-ozet">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                    a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                </p>
-
+                <h3 class="makale-baslik">@Model.Blog.Title</h3>
+                <div class="makale-ozet">
+                    @Html.Raw(Model.Blog.Description)
+                </div>
             </div>
             <div class="makale-sag">
-                <img class="makale-gorsel" src="https://picsum.photos/id/1/400/300" alt="Makale Görseli">
-            </div>
-        </article>
-
-        <article class="makale-karti">
-            <div class="makale-sol">
-                <div class="makale-ust-bilgi">
-                    <p class="yazar-rolu"><i class="far fa-calendar"></i> 16.11.2025</p>
-                    <span class="makale-kategori">Tasarım</span>
-                </div>
-                <h3 class="makale-baslik"><a href="~/Views/Home/BlogDetail.cshtml">Minimalism in Digital Age</a></h3>
-                <p class="makale-ozet">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                    took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                    but also the leap into electronic typesetting, remaining essentially unchanged.
-                </p>
-
-            </div>
-            <div class="makale-sag">
-                <img class="makale-gorsel" src="https://picsum.photos/id/20/400/300" alt="Makale Görseli">
-            </div>
-        </article>
-
-        <article class="makale-karti">
-            <div class="makale-sol">
-                <div class="makale-ust-bilgi">
-                    <p class="yazar-rolu"><i class="far fa-calendar"></i> 15.11.2025</p>
-                    <span class="makale-kategori">Yapay Zeka</span>
-                </div>
-                <h3 class="makale-baslik"><a href="~/Views/Home/BlogDetail.cshtml">AI Revolution in Healthcare</a></h3>
-                <p class="makale-ozet">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                    a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                </p>
-            </div>
-            <div class="makale-sag">
-                <img class="makale-gorsel" src="https://picsum.photos/id/30/400/300" alt="Makale Görseli">
+                @if (!string.IsNullOrEmpty(Model.Blog.ImageURL))
+                {
+                    <img class="makale-gorsel" src="@Model.Blog.ImageURL" alt="@Model.Blog.Title">
+                }
+                else
+                {
+                    <img class="makale-gorsel" src="https://picsum.photos/id/1/400/300" alt="@Model.Blog.Title">
+                }
             </div>
         </article>
     </div>
 
     <aside class="top-hikayeler">
         <div class="top-hikayeler-baslik">
-            <h4>TOP STORIES</h4>
-            <a href="#">SEE MORE <i class="fas fa-arrow-right"></i></a>
+            <h4>@Model.Resources.FirstOrDefault(x => x.NavigationName == "BloglarDetayBlog").Value</h4>
+            <a href="@Url.Action("Blog", "Home")">  @Model.Resources.FirstOrDefault(x => x.NavigationName == "DahaFazlaBlogBlog").Value <i class="fas fa-arrow-right"></i></a>
+            
         </div>
         <ul class="hikaye-listesi">
-            <li>
-                <span class="sira-numarasi">1</span>
-                <div class="hikaye-icerik">
-                    <p class="hikaye-baslik"><a href="#">A Survival Guide for the Millennial E...</a></p>
-                    <p class="hikaye-yazar"><i class="far fa-user"></i> Leslie Bradshaw</p>
-                </div>
-            </li>
-            <li>
-                <span class="sira-numarasi">2</span>
-                <div class="hikaye-icerik">
-                    <p class="hikaye-baslik"><a href="#">Thoughts on Google+</a></p>
-                    <p class="hikaye-yazar"><i class="far fa-user"></i> Chris Messina™</p>
-                </div>
-            </li>
-            <li>
-                <span class="sira-numarasi">3</span>
-                <div class="hikaye-icerik">
-                    <p class="hikaye-baslik"><a href="#">Let's Talk About Ethics in Games Jo...</a></p>
-                    <p class="hikaye-yazar"><i class="far fa-user"></i> Zoe Quinn</p>
-                </div>
-            </li>
-            <li>
-                <span class="sira-numarasi">4</span>
-                <div class="hikaye-icerik">
-                    <p class="hikaye-baslik"><a href="#">The Future of Remote Work</a></p>
-                    <p class="hikaye-yazar"><i class="far fa-user"></i> Michael Chen</p>
-                </div>
-            </li>
-            <li>
-                <span class="sira-numarasi">5</span>
-                <div class="hikaye-icerik">
-                    <p class="hikaye-baslik"><a href="#">Sustainable Tech Solutions</a></p>
-                    <p class="hikaye-yazar"><i class="far fa-user"></i> Sarah Williams</p>
-                </div>
-            </li>
+            @{
+                int sira = 1;
+                foreach (var otherBlog in Model.Tbl_Blog.Take(5))
+                {
+                    <li>
+                        <span class="sira-numarasi">@sira</span>
+                        <div class="hikaye-icerik">
+                            <p class="hikaye-baslik">
+                                <a href="@Url.Action("BlogDetail", "Home", new {
+                                    title = otherBlog.Title?.Replace(" ", "-").ToLower() ?? "blog",
+                                    id = otherBlog.ID
+                                })">
+                                    @if (!string.IsNullOrEmpty(otherBlog.Title))
+                                    {
+                                        @(otherBlog.Title.Length > 30 ? otherBlog.Title.Substring(0, 30) + "..." : otherBlog.Title)
+                                    }
+                                </a>
+                            </p>
+                            <p class="hikaye-yazar">
+                                <i class="far fa-calendar"></i>
+                                @(otherBlog.Date?.ToString("dd.MM.yyyy") ?? "Tarihsiz")
+                            </p>
+                        </div>
+                    </li>
+                    sira++;
+                }
+            }
         </ul>
 
-
-
-        <div class="sosyal-medya">
-            <h4><i class="fas fa-share-alt"></i> Bizi Takip Edin</h4>
-            <div class="sosyal-medya-baglantilar">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-            </div>
+        <div class="blog-button-container">
+            <a href="Home/Blog" class="blog-button">
+                <i class="fas fa-blog"></i>
+                @Model.Resources.FirstOrDefault(x => x.NavigationName == "BloglarıGösterBlog").Value
+            </a>
         </div>
     </aside>
 </section>
-
-
-
-
 
 
 
@@ -810,10 +856,10 @@
                     <div class="col-lg-5">
                         <div class="section-head text-align-left">
                             <div class="section-sub-title tmp-scroll-trigger tmp-fade-in animation-order-1">
-                                <span class="subtitle">@Model.Resources.FirstOrDefault(x => x.NavigationName == "IletisimeGecDetay").Value</span>
+                                <span class="subtitle">@Model.Resources.FirstOrDefault(x => x.NavigationName == "IletisimeGecDetayBlog").Value</span>
                             </div>
                             <h2 class="title split-collab tmp-scroll-trigger tmp-fade-in animation-order-2">
-                                @Model.Resources.FirstOrDefault(x => x.NavigationName == "İletisimTabloDetay").Value
+                                @Model.Resources.FirstOrDefault(x => x.NavigationName == "İletisimTabloDetayBlog").Value
                             </h2>
                         </div>
                     </div>
@@ -829,7 +875,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <input class="input-field" name="name" id="contact-name"
-                                                       placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "İsimDetay").Value"
+                                                       placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "İsimDetayBlog").Value"
                                                        type="text" required>
                                             </div>
                                         </div>
@@ -838,7 +884,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <input class="input-field" id="contact-phone" name="phoneNumber"
-                                                       placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "TelefonDetay").Value"
+                                                       placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "TelefonDetayBlog").Value"
                                                        type="tel" required>
                                             </div>
                                         </div>
@@ -847,7 +893,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <input class="input-field" id="contact-email" name="email"
-                                                       placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "EmailDetay").Value"
+                                                       placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "EmailDetayBlog").Value"
                                                        type="email" required>
                                             </div>
                                         </div>
@@ -856,7 +902,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <input class="input-field" type="text" id="subject" name="subject"
-                                                       placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "KonuDetay").Value">
+                                                       placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "KonuDetayBlog").Value">
                                             </div>
                                         </div>
 
@@ -864,7 +910,7 @@
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <textarea class="input-field"
-                                                          placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "MesajDetay").Value"
+                                                          placeholder="@Model.Resources.FirstOrDefault(x => x.NavigationName == "MesajDetayBlog").Value"
                                                           name="message" id="contact-message" required></textarea>
                                             </div>
                                         </div>
@@ -876,7 +922,7 @@
                                                         type="button" id="gonder" name="gonder">
                                                     <span class="icon-reverse-wrapper">
                                                         <span class="btn-text">
-                                                            @Model.Resources.FirstOrDefault(x => x.NavigationName == "GonderDetay").Value
+                                                            @Model.Resources.FirstOrDefault(x => x.NavigationName == "GonderDetayBlog").Value
                                                         </span>
                                                         <span class="btn-icon"><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
                                                         <span class="btn-icon"><i class="fa-sharp fa-regular fa-arrow-right"></i></span>
@@ -906,14 +952,14 @@
                 <div class="col-lg-5 col-md-6">
                     <div class="single-footer-wrapper border-right mr--20">
 
-                        <p class="description"><span>@Model.Resources.FirstOrDefault(x => x.NavigationName == "İletisimSloganDetay").Value</span> </p>
+                        <p class="description"><span>@Model.Resources.FirstOrDefault(x => x.NavigationName == "İletisimSloganDetayBlog").Value</span> </p>
 
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-md-6">
                     <div class="single-footer-wrapper contact-wrap">
-                        <h5 class="ft-title">@Model.Resources.FirstOrDefault(x => x.NavigationName == "FooterİletisimDetay").Value </h5>
+                        <h5 class="ft-title">@Model.Resources.FirstOrDefault(x => x.NavigationName == "FooterİletisimDetayBlog").Value </h5>
                         <ul class="ft-link tmp-link-animation">
                             <li><span class="ft-icon"><i class="fa-solid fa-envelope"></i></span><a href="#">furkanaydemir12@hotmail.com</a></li>
                             <li>
@@ -939,7 +985,7 @@
             <div class="col-lg-12">
                 <div class="main-wrapper">
                     <p class="copy-right-para">
-                        @Model.Resources.FirstOrDefault(x => x.NavigationName == "YapanDetay").Value
+                        @Model.Resources.FirstOrDefault(x => x.NavigationName == "YapanDetayBlog").Value
                         <script>
                             document.write(new Date().getFullYear())
                         </script>

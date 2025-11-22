@@ -21,6 +21,8 @@ namespace MyPeronalWebSite.Models.ViewModel
         public List<Tbl_Skills> Tbl_Skills { get; set; }
         public NavbarViewModel NavbarViewModel { get; internal set; }
 
+        public List<Tbl_Blog> Tbl_Blogs { get; set; }
+
 
     }
 }

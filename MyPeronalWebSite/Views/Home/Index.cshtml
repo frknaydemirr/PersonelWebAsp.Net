@@ -234,9 +234,9 @@
                             <div class="img-box v2">
                                 <a title="projectdetail"
                                    href="@Url.Action("ProjectDetail", "Home", new {
-                           title = Url.FriendlyURLTitle(item.ProjectTitle),
-                           id = item.ID
-                       })" />
+                                title = Url.FriendlyURLTitle(item.ProjectTitle),
+                                id = item.ID
+                           })" />
                                 <img class="hidden-on-mobile" src="@item.ProjectImg" alt="@item.ProjectTitle" />
 
                             </div>
@@ -246,15 +246,16 @@
                                 <h3 class="portfolio-card-title">
                                     <a class="link" title="projectdetail"
                                        href="@Url.Action("ProjectDetail", "Home", new {
-                               title = Url.FriendlyURLTitle(item.ProjectTitle),
-                               id = item.ID
-                           })">
+                                    title = Url.FriendlyURLTitle(item.ProjectTitle),
+                                    id = item.ID
+                                })">
                                         @item.ProjectTitle
                                     </a>
                                 </h3>
 
                                 <p class="portfoli-card-para">
-                                    @item.ProjectEntryDescription
+                                    @* 💥 DİKKAT: Burada HTML varlık kodlarını çözümlemek için Html.Raw() kullanıldı. *@
+                                    @Html.Raw(item.ProjectEntryDescription)
 
                                     @* ID 4 veya 5 için link *@
                                     @if (item.ID == 4 || item.ID == 5)
@@ -272,20 +273,18 @@
 
                             <a title="projectdetail"
                                href="@Url.Action("ProjectDetail", "Home", new {
-                       title = Url.FriendlyURLTitle(item.ProjectTitle),
-                       id = item.ID
-                   })" class="tmp-arrow-icon-btn">
+                           title = Url.FriendlyURLTitle(item.ProjectTitle),
+                           id = item.ID
+                       })" class="tmp-arrow-icon-btn">
                                 <div class="btn-inner">
-                                    <i class="tmp-icon fa-solid fa-arrow-up-right"></i>
-                                    <i class="tmp-icon-bottom fa-solid fa-arrow-up-right"></i>
+                                    <i class="tmp-icon fa-solid fa-up-right-from-square"></i>
+                                    <i class="tmp-icon-bottom fa-solid fa-up-right-from-square"></i>
                                 </div>
                             </a>
                         </div>
                     </div>
                 </div>
             }
-
-
         </div>
     </div>
 </section>
@@ -335,8 +334,8 @@
                        id = item.ID
                    })" class="tmp-arrow-icon-btn">
                                 <div class="btn-inner">
-                                    <i class="tmp-icon fa-solid fa-arrow-up-right"></i>
-                                    <i class="tmp-icon-bottom fa-solid fa-arrow-up-right"></i>
+                                    <i class="tmp-icon fa-solid fa-up-right-from-square"></i>
+                                    <i class="tmp-icon-bottom fa-solid fa-up-right-from-square"></i>
                                 </div>
                             </a>
                         </div>
@@ -350,7 +349,7 @@
 
 <div class="section-head mb--60">
     <div class="section-sub-title center-title tmp-scroll-trigger tmp-fade-in animation-order-1">
-        <span class="subtitle">Blog Yazılarım | Köşe Yazısı</span>
+        <span class="subtitle">@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "BlogBaslıkAna").Value</span>
     </div>
 
 
@@ -971,125 +970,189 @@
         }
 </style>
 
-    <section class="makale-bolumu-konteyner">
-        <div class="makale-listesi">
-            <article class="makale-karti">
-                <div class="makale-sol">
-                    <div class="makale-ust-bilgi">
-                        <p class="yazar-rolu"><i class="far fa-calendar"></i> 16.11.2025</p>
-                        <span class="makale-kategori">Teknoloji</span>
-                    </div>
-                    <h3 class="makale-baslik"><a href="~/Views/Home/BlogDetail.cshtml">Only Holograms Left Alive</a></h3>
-                    <p class="makale-ozet">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                        industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                        a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                    </p>
-                  
-                </div>
-                <div class="makale-sag">
-                    <img class="makale-gorsel" src="https://picsum.photos/id/1/400/300" alt="Makale Görseli">
-                </div>
-            </article>
+<section class="makale-bolumu-konteyner">
+    <div class="makale-listesi">
+
+
+        @foreach (var blog in Model.Tbl_Blogs)
+        {
 
             <article class="makale-karti">
                 <div class="makale-sol">
                     <div class="makale-ust-bilgi">
-                        <p class="yazar-rolu"><i class="far fa-calendar"></i> 16.11.2025</p>
-                        <span class="makale-kategori">Tasarım</span>
-                    </div>
-                    <h3 class="makale-baslik"><a href="~/Views/Home/BlogDetail.cshtml">Minimalism in Digital Age</a></h3>
-                    <p class="makale-ozet">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                        took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                        but also the leap into electronic typesetting, remaining essentially unchanged.
-                    </p>
-                    
-                </div>
-                <div class="makale-sag">
-                    <img class="makale-gorsel" src="https://picsum.photos/id/20/400/300" alt="Makale Görseli">
-                </div>
-            </article>
+                        <p class="yazar-rolu">
+                            <i class="far fa-calendar"></i>
+                            @(blog.Date?.ToString("dd.MM.yyyy") ?? "Tarihsiz")
+                        </p>
 
-            <article class="makale-karti">
-                <div class="makale-sol">
-                    <div class="makale-ust-bilgi">
-                        <p class="yazar-rolu"><i class="far fa-calendar"></i> 15.11.2025</p>
-                        <span class="makale-kategori">Yapay Zeka</span>
                     </div>
-                    <h3 class="makale-baslik"><a href="~/Views/Home/BlogDetail.cshtml">AI Revolution in Healthcare</a></h3>
+                    <h3 class="makale-baslik">
+                        <a href="@Url.Action("BlogDetail", "Home", new {
+                    title = blog.Title?.Replace(" ", "-").ToLower() ?? "blog",
+                    id = blog.ID
+                })">
+                            @blog.Title
+                        </a>
+                    </h3>
                     <p class="makale-ozet">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                        industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                        a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                        @if (!string.IsNullOrEmpty(blog.Description))
+                        {
+
+                            var plainText = System.Text.RegularExpressions.Regex.Replace(blog.Description, "<.*?>", string.Empty);
+                            @(plainText.Length > 200 ? plainText.Substring(0, 200) + "..." : plainText)
+                        }
+                        else
+                        {
+                            <text>Açıklama bulunmuyor.</text>
+                        }
                     </p>
                 </div>
                 <div class="makale-sag">
-                    <img class="makale-gorsel" src="https://picsum.photos/id/30/400/300" alt="Makale Görseli">
+                    @if (!string.IsNullOrEmpty(blog.ImageURL))
+                    {
+                        <img class="makale-gorsel" src="@blog.ImageURL" alt="@blog.Title">
+                    }
+                    else
+                    {
+                        <img class="makale-gorsel" src="https://picsum.photos/id/1/400/300" alt="@blog.Title">
+                    }
                 </div>
             </article>
+        }
+
+        @if (!Model.Tbl_Blogs.Any())
+        {
+            <div class="bos-liste">
+                <p>Henüz blog yazısı bulunmamaktadır.</p>
+            </div>
+        }
+        }
+
+
+    </div>
+    
+    <aside class="top-hikayeler">
+        <div class="top-hikayeler-baslik">
+            <h4>@Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "BloglarAna").Value</h4>
+            <a href="#">  @Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "DahaFazlaBlogAna").Value <i class="fas fa-arrow-right"></i></a>
         </div>
-
-        <aside class="top-hikayeler">
-            <div class="top-hikayeler-baslik">
-                <h4>TOP STORIES</h4>
-                <a href="/Home/Blog">Blogları Görüntüle <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <ul class="hikaye-listesi">
+        <ul class="hikaye-listesi">
+            @for (int i = 0; i < Math.Min(3, Model.Tbl_Blogs.Count); i++)
+            {
+                var blog = Model.Tbl_Blogs[i];
                 <li>
-                    <span class="sira-numarasi">1</span>
+                    <span class="sira-numarasi">@(i + 1)</span>
                     <div class="hikaye-icerik">
-                        <p class="hikaye-baslik"><a href="#">A Survival Guide for the Millennial E...</a></p>
-                        <p class="hikaye-yazar"><i class="far fa-user"></i> Leslie Bradshaw</p>
+                        <p class="hikaye-baslik">
+                            
+                            <a href="@Url.Action("BlogDetail", "Home", new {
+                        title = blog.Title?.Replace(" ", "-").ToLower() ?? "blog",
+                        id = blog.ID
+                    })">
+                                @blog.Title
+                            </a>
+                        </p>
+                        <p class="hikaye-yazar">
+                            <i class="far fa-user"></i>
+                            @(blog.Date?.ToString("dd.MM.yyyy") ?? "Tarihsiz")
+                        </p>
                     </div>
                 </li>
-                <li>
-                    <span class="sira-numarasi">2</span>
-                    <div class="hikaye-icerik">
-                        <p class="hikaye-baslik"><a href="#">Thoughts on Google+</a></p>
-                        <p class="hikaye-yazar"><i class="far fa-user"></i> Chris Messina™</p>
-                    </div>
-                </li>
-                <li>
-                    <span class="sira-numarasi">3</span>
-                    <div class="hikaye-icerik">
-                        <p class="hikaye-baslik"><a href="#">Let's Talk About Ethics in Games Jo...</a></p>
-                        <p class="hikaye-yazar"><i class="far fa-user"></i> Zoe Quinn</p>
-                    </div>
-                </li>
-                <li>
-                    <span class="sira-numarasi">4</span>
-                    <div class="hikaye-icerik">
-                        <p class="hikaye-baslik"><a href="#">The Future of Remote Work</a></p>
-                        <p class="hikaye-yazar"><i class="far fa-user"></i> Michael Chen</p>
-                    </div>
-                </li>
-                <li>
-                    <span class="sira-numarasi">5</span>
-                    <div class="hikaye-icerik">
-                        <p class="hikaye-baslik"><a href="#">Sustainable Tech Solutions</a></p>
-                        <p class="hikaye-yazar"><i class="far fa-user"></i> Sarah Williams</p>
-                    </div>
-                </li>
-            </ul>
-
-            
-
-            <div class="sosyal-medya">
-                <h4><i class="fas fa-share-alt"></i> Bizi Takip Edin</h4>
-                <div class="sosyal-medya-baglantilar">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-        </aside>
-    </section>
+            }
+        </ul>
 
 
+        <div class="blog-button-container">
+            <a href="Home/Blog" class="blog-button">
+                <i class="fas fa-blog"></i>
+                @Model.Tbl_Resource.FirstOrDefault(x => x.NavigationName == "BloglarıGösterAna").Value
+            </a>
+        </div>
+    </aside>
+</section>
+
+<style>
+    .blog-button-container {
+        display: inline-block;
+        margin: 20px 0;
+    }
+
+    .blog-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 24px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        border: none;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .blog-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .blog-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+
+            .blog-button:hover::before {
+                left: 100%;
+            }
+
+        .blog-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .blog-button i {
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-button:hover i {
+            transform: scale(1.1);
+        }
+
+        /* Alternatif renk seçenekleri */
+        /* Mavi tonları */
+        .blog-button.blue {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        /* Yeşil tonları */
+        .blog-button.green {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        /* Turuncu tonları */
+        .blog-button.orange {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        /* Koyu tema */
+        .blog-button.dark {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+        }
+</style>
 
 
     <section class="get-in-touch-area tmp-section-gapBottom" id="GetinTouch">

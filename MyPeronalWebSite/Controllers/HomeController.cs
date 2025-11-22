@@ -1,7 +1,6 @@
 ﻿using MyPeronalWebSite.Models.ViewModel;
 using MyPeronalWebSite.Models.VT;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -33,6 +32,11 @@ namespace MyPeronalWebSite.Controllers
             vm.Tbl_Projects = db.Tbl_Projects.Where(x => x.LanguageID == langId).ToList();
             vm.Tbl_Skills = db.Tbl_Skills.Where(x => x.LanguageID == langId).ToList();
             vm.Tbl_Navbar = db.Tbl_Navbar.Where(x => x.LanguageID == langId).ToList();
+            var Blog = db.Tbl_Blog
+            .Where(x => x.LanguageID == langId)
+            .OrderByDescending(x => x.Date) 
+            .ToList();
+            vm.Tbl_Blogs = Blog;
             MetaBilgiler(langId);
             return View(vm);
         }
@@ -45,41 +49,64 @@ namespace MyPeronalWebSite.Controllers
 
             int langId = db.Tbl_Language.FirstOrDefault(x => x.ShortTitle == dil)?.ID ?? 1;
             var navbarItems = db.Tbl_Navbar
-            .Where(x => x.Tbl_Language.ShortTitle.ToLower() == dil.ToLower())
-            .ToList();
-            var Blog = db.Tbl_Blog.Where(x => x.LanguageID == langId).ToList();
+                .Where(x => x.Tbl_Language.ShortTitle.ToLower() == dil.ToLower())
+                .ToList();
+
+            var Blog = db.Tbl_Blog
+                .Where(x => x.LanguageID == langId)
+                .OrderByDescending(x => x.Date) // Tarihe göre yeniden eskiye sırala
+                .ToList();
+
             BlogViewModel vm = new BlogViewModel
             {
                 Tbl_Blog = Blog,
                 Resources = db.Tbl_Resource.Where(x => x.LanguageID == langId && x.Page == "ProjectDetail").ToList(),
                 Tbl_Navbar = navbarItems
-
-
             };
+
             MetaBilgiler(langId);
             return View(vm);
         }
 
 
-        public ActionResult BlogDetail()
+
+
+        [Route("blog/{title}-{id:int}")]
+        public ActionResult BlogDetail(string title, int id)
         {
             var dil = Request.Cookies["lang"]?.Value ?? "tr";
             int dilId = DilId(dil);
             ViewBag.DilId = dilId;
 
             int langId = db.Tbl_Language.FirstOrDefault(x => x.ShortTitle == dil)?.ID ?? 1;
+
             var navbarItems = db.Tbl_Navbar
-            .Where(x => x.Tbl_Language.ShortTitle.ToLower() == dil.ToLower())
-            .ToList();
-            var Blog = db.Tbl_Blog.Where(x => x.LanguageID == langId).ToList();
+                .Where(x => x.Tbl_Language.ShortTitle.ToLower() == dil.ToLower())
+                .ToList();
+
+            // SADECE tıklanan blogu getir
+            var blog = db.Tbl_Blog.FirstOrDefault(x => x.ID == id && x.LanguageID == langId);
+
+            if (blog == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Diğer blogları sidebar için getir (isteğe bağlı)
+            var otherBlogs = db.Tbl_Blog
+                .Where(x => x.LanguageID == langId && x.ID != id)
+                .OrderByDescending(x => x.Date)
+                .Take(5)
+                .ToList();
+
             BlogViewModel vm = new BlogViewModel
             {
-                Tbl_Blog = Blog,
-                Resources = db.Tbl_Resource.Where(x => x.LanguageID == langId && x.Page == "ProjectDetail").ToList(),
+                Blog = blog, // Sadece tıklanan blog
+                Tbl_Blog = otherBlogs, // Sidebar için diğer bloglar
+                Resources = db.Tbl_Resource.Where(x => x.LanguageID == langId && x.Page == "BlogDetail").ToList(),
                 Tbl_Navbar = navbarItems
-
-
             };
+
             MetaBilgiler(langId);
             return View(vm);
         }
