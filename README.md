@@ -214,3 +214,7 @@ Mikroservislerde çok tercih edilir.
 
 OLAP OLTP Temel Farklar Ve Nelerdir 
 - detaylı bilgi örnek ve akış
+
+- RestApi
+- ORM işleyişi
+- Soc -> Seperate of Concern
