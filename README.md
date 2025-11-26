@@ -218,3 +218,5 @@ OLAP OLTP Temel Farklar Ve Nelerdir
 - RestApi
 - ORM işleyişi
 - Soc -> Seperate of Concern
+
+Clean Architecture ve Onion Architecture Mimarisi Nelerdir Nasıl Kullanılır Hangi Projelerde Kullanılır Faydaları ve Dezavantajları Nelerdir ?
