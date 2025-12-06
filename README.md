@@ -216,6 +216,8 @@ OLAP OLTP Temel Farklar Ve Nelerdir
 - detaylı bilgi örnek ve akış
 
 - RestApi
+
+- CQRS PATTERN NEDİR ? 
 - ORM işleyişi
 - Soc -> Seperate of Concern
 
