@@ -217,7 +217,10 @@ OLAP OLTP Temel Farklar Ve Nelerdir
 
 - RestApi
 
-- CQRS PATTERN NEDİR ? 
+- CQRS PATTERN NEDİR ?
+
+Node.js ile backend application gelişimi ve mantığı nedir nasıl kurulur 
+- arka planda 1 veri tabanı entegrasyonu nasıl aynı anda başka birden fazla projede çalışır  
 - ORM işleyişi
 - Soc -> Seperate of Concern
 
