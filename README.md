@@ -220,6 +220,7 @@ OLAP OLTP Temel Farklar Ve Nelerdir
 - CQRS PATTERN NEDİR ?
 
 Node.js ile backend application gelişimi ve mantığı nedir nasıl kurulur 
+Restfulk Api ve express Js
 - arka planda 1 veri tabanı entegrasyonu nasıl aynı anda başka birden fazla projede çalışır  
 - ORM işleyişi
 - Soc -> Seperate of Concern
